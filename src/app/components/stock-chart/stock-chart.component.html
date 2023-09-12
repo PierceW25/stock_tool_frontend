@@ -1,0 +1,26 @@
+<div class="stockChartTopContainer">
+    <div class="stockTextInfo">
+        <div class="stockTitleAndPrice">
+             <p>{{title}}<br>${{displayPrice}}<br>
+             </p>
+            <span [ngClass]="{
+                'positive_change': !displayPriceChange.includes('-'),
+                'negative_change': displayPriceChange.includes('-')}">
+                {{displayPriceChange.includes('-')? '' : '+'}}${{displayPriceChange}}
+                ({{displayPriceChange.includes('-')? '' : '+'}}{{displayPercentChange}}%)</span>
+        </div>
+    </div>
+    
+    <div class="stockChartContainer" [ngStyle]="chartStyles">
+        <canvas id="canvas">{{chart}}</canvas>
+        <div class="timeOptionsContainer" *ngIf="showButtons">
+            <button mat-fab color="primary" (click)="changeTime('1 day')">1D</button>
+            <button mat-fab color="primary" (click)="changeTime('1 week')">1W</button>
+            <button mat-fab color="primary" (click)="changeTime('1 month')">1M</button>
+            <button mat-fab color="primary" (click)="changeTime('3 months')">3M</button>
+            <button mat-fab color="primary" (click)="changeTime('1 year')">1Y</button>
+            <button mat-fab color="primary" (click)="changeTime('5 years')">5Y</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,59 @@
+/* Place stockChartContainer on the right side and add spacing */
+.stockChartTopContainer {
+  width: 100%;
+}
+
+.stockChartContainer {
+    width: 100%;
+    margin-right: 30px;
+    margin-left: 20px;
+  }
+
+.stockTextInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: 22px;
+  margin-bottom: 20px;
+  width: 180px;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.stockTextInfo p {
+  margin-bottom: 2px;
+}
+  
+/* Make canvas fill the width of its container */
+canvas#canvas {
+  width: 100%;
+}
+
+/* Add spacing below the canvas and align buttons in a row */
+.timeOptionsContainer {
+  border-top:  1px darkgrey solid;
+  margin-top: 10px;
+  display: flex;
+}
+
+/* Add some styling to the buttons */
+.timeOptionsContainer button {
+  margin-right: 5px;
+  width: 38px;
+  height: 38px;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.positive_change {
+  color: lightgreen;
+  font-size: 15px;
+}
+
+.negative_change {
+  color: lightcoral;
+  font-size: 15px;
+}

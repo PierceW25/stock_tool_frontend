@@ -1,0 +1,41 @@
+<app-main-nav-bar></app-main-nav-bar>
+<div class="main_container">
+    <h1>Market News</h1>
+    <div class="articles-container">
+        <mat-tab-group>
+            <mat-tab label="Macro News">
+                <div *ngFor="let article of articles.macros" class="article_display">
+                    <div class="article_text">
+                        <p>{{article.source}}</p>
+                        <a href="{{article.url}}" target="_blank"><h3>{{article.title}}</h3></a>
+                    </div>
+                    <div class="article_image">
+                        <img src="{{article.banner_image}}" alt="article image">
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Fiscal News">
+                <div *ngFor="let article of articles.fiscals" class="article_display">
+                    <div class="article_text">
+                        <p>{{article.source}}</p>
+                        <a href="{{article.url}}" target="_blank"><h3>{{article.title}}</h3></a>
+                    </div>
+                    <div class="article_image">
+                        <img src="{{article.banner_image}}" alt="article image">
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Monetary News">
+                <div *ngFor="let article of articles.monetaries" class="article_display">
+                    <div class="article_text">
+                        <p>{{article.source}}</p>
+                        <a href="{{article.url}}" target="_blank"><h3>{{article.title}}</h3></a>
+                    </div>
+                    <div class="article_image">
+                        <img src="{{article.banner_image}}" alt="article image">
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

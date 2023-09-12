@@ -1,0 +1,61 @@
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+/* Center the stockInfoAndChartContainer and add padding */
+.stockInfoAndChartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+  
+  /* Place stockInfoContainer on the left side and add spacing */
+  .stockInfoContainer {
+    width: 42%;
+    height: 500px;
+    padding-right: 20px;
+  }
+  
+  /* Display overview details in a row */
+  .overviewDetailsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Display research details in rows of five */
+  .stockResearchDetailsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Place stockChartContainer on the right side and add spacing */
+  .stockChartContainer {
+    width: 50%;
+    margin-right: 30px;
+    margin-left: 20px;
+  }
+  
+  /* Make canvas fill the width of its container */
+  canvas#canvas {
+    width: 100%;
+  }
+  
+  /* Add spacing below the canvas and align buttons in a row */
+  .timeOptionsContainer {
+    margin-top: 10px;
+    display: flex;
+  }
+  
+  /* Add some styling to the buttons */
+  .timeOptionsContainer button {
+    margin-right: 5px;
+  }
+  

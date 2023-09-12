@@ -1,0 +1,14 @@
+<div class="personalNewsContainer">
+    <div class="custom-articles-container">
+        <h1>Your News</h1>
+        <a *ngFor="let article of articles" class="article_display" href="{{article.url}}" target="_blank">
+            <div class="article_text">
+                <p>{{article.source}}</p>
+                <h3>{{article.title}}</h3>
+            </div>
+            <div class="article_image">
+                <img src="{{article.banner_image}}" alt="article image">
+            </div>
+        </a>
+    </div>
+</div>

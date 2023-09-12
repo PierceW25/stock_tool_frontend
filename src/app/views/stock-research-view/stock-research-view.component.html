@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Watchlist Display</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <style>
+            .displayTable {
+                font-family: 'Roboto', sans-serif;
+                margin: 0 auto;
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <app-main-nav-bar></app-main-nav-bar>
+        <div class="stockInfoAndChartContainer">
+            <div class="stockInfoContainer">
+                <div class="stockHeader">
+                    <h1>{{stock.name}}</h1>
+                    <h2>{{stock.ticker}}</h2>
+                </div>
+                <div class="stockOverviewDetails">
+                    <div class="overviewDetailsContainer">
+                        <div class="stockOverviewDetailsItem">
+                            <h3>Price</h3>
+                            <h4>{{stock.price}}</h4>
+                        </div>
+                        <div class="stockOverviewDetailsItem">
+                            <h3>Days Change</h3>
+                            <h4>{{stock.days_change}}</h4>
+                        </div>
+                        <div class="stockOverviewDetailsItem">
+                            <h3>% Change</h3>
+                            <h4>{{stock.percent_change}}</h4>
+                        </div>
+                        <div class="stockOverviewDetailsItem">
+                            <h3>Volume</h3>
+                            <h4>{{stock.volume}}</h4>
+                        </div>
+                        <div class="stockOverviewDetailsItem">
+                            <h3>Dividend Yield</h3>
+                            <h4>{{stock.dividend_yield}}</h4>
+                        </div>
+                        <div class="stockOverviewDetailsItem">
+                            <h3>Market Cap</h3>
+                            <h4>{{stock.market_cap}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="stockResearchDetails">
+                    <div class="stockResearchDetailsHeader">
+                        <h2>Research Stats</h2>
+                    </div>
+                    <div class="stockResearchDetailsContainer">
+                        <div class="stockResearchDetailsItem">
+                            <h3>52 Week High</h3>
+                            <h4>{{stock.fifty_two_week_high}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>52 Week Low</h3>
+                            <h4>{{stock.fifty_two_week_low}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>PE Ratio</h3>
+                            <h4>{{stock.pe_ratio}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>EPS</h3>
+                            <h4>{{stock.earnings_per_share}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>Forward PE Ratio</h3>
+                            <h4>{{stock.forward_pe}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>Return on Equity</h3>
+                            <h4>{{stock.return_on_equity}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>EV to EBITDA</h3>
+                            <h4>{{stock.enterprise_value_to_ebitda}}</h4>
+                        </div>
+                        <div class="stockResearchDetailsItem">
+                            <h3>Operating Margin</h3>
+                            <h4>{{stock.operating_margin}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-stock-chart [ticker]="stock.ticker" [title]="stock.name"></app-stock-chart>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!-- This component is used to display the indexes on the home page -->
+<html>
+    <head>
+        <style>
+            .indexContentContainer {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            .chartContainer {
+                color: white;
+            }
+
+            .indexListContainer {
+                width: 510px;
+                margin-top: 140px;
+                margin-right: 50px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 450px;
+            }
+
+            .indexListContainer h1 {
+                color: white;
+                font-size: 30px;
+                font-weight: 500;
+            }
+
+            .dailyDataButtonsContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 92%;
+                height: 450px;
+            }
+
+            .titleContainer {
+                text-align: left;
+            }
+
+            .priceActionContainer {
+                line-height: 10px;
+                padding: 0px;
+                margin-top: 10px;
+            }
+
+            .indexDailyDisplay {
+                background-color: #121212;
+                color: white;
+                border: 1px solid darkgrey;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 230px;
+                margin-top: 10px;
+                height: 70px;
+            }
+
+            .indexDailyDisplay:hover {
+                background-color: #232B32;
+                cursor: pointer;
+            }
+
+            .indexDailyDisplay::after {
+                background-color: #232B32;
+            }
+
+            .positive_change {
+                color: lightgreen;
+            }
+
+            .negative_change {
+                color: lightcoral;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="indexContentContainer">
+            <div class="chartContainer">
+                <app-stock-chart [ticker]="displayTicker" [chartWidth]='"1100px"' [indexChart]="true" [title]="displayIndex"></app-stock-chart>
+            </div>
+        
+            <div class="indexListContainer">
+                <div class="marketMakersTitleContainer">
+                    <h1>Market Makers</h1>
+                </div>
+                <div class="dailyDataButtonsContainer">
+                    <button class="indexDailyDisplay" (click)="onChangeIndexChart(indexes.indexOf(index))" *ngFor="let index of indexes">
+                        <div class="titleContainer">
+                            <p style="font-size: 16px; font-weight: 500;">{{index.title}}</p>
+                            <p style="font-size: 12px; margin-top: -10px;">{{index.ticker}}</p>
+                        </div>
+    
+        
+                        <div class="priceActionContainer">
+                            <!--
+                            <p>{{index.price}}</p>
+                            <p>{{index.days_change}}</p>
+                            -->
+                            <p>${{index.price}}</p>
+                            <p [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
+                                          'negative_change': index.percent_change.includes('-')}">
+                            {{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}}</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+    
+

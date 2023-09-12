@@ -1,0 +1,21 @@
+<mat-toolbar>
+    <div class="headerTitleContainer">
+        <span>REsearch</span>
+    </div>
+
+    <div class="headerLinksContainer">
+        <input type="text"
+        placeholder="Search Stock"
+        (keyup)="editInput($event)"
+        [matAutocomplete]="auto">
+        <a mat-button routerLink="news" (click)="goToBroadMarketView()">Market</a>
+        <a mat-button routerLink="analysis">Analysis</a>
+        <a mat-button routerLink="discovery">Discovery</a>
+    </div>
+</mat-toolbar>
+
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="searchStock($event)">
+    <mat-option *ngFor="let option of options" [value]="option">
+        {{option}}
+    </mat-option>
+</mat-autocomplete>
