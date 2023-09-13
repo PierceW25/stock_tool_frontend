@@ -6,8 +6,10 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                width: 95%;
+                align-items: center;
+                width: 100%;
                 margin: 0 auto;
+                margin-top: 20px;
             }
 
             .chartContainer {
@@ -16,8 +18,6 @@
 
             .indexListContainer {
                 width: 510px;
-                margin-top: 140px;
-                margin-right: 50px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -26,8 +26,9 @@
 
             .indexListContainer h1 {
                 color: white;
-                font-size: 30px;
-                font-weight: 500;
+                font-size: 24px;
+                font-weight: 400;
+                margin-bottom: 0;
             }
 
             .dailyDataButtonsContainer {
@@ -84,7 +85,7 @@
     <body>
         <div class="indexContentContainer">
             <div class="chartContainer">
-                <app-stock-chart [ticker]="displayTicker" [chartWidth]='"1100px"' [indexChart]="true" [title]="displayIndex"></app-stock-chart>
+                <app-stock-chart [ticker]="displayTicker" [chartWidth]='"850px"' [indexChart]="true" [title]="displayIndex"></app-stock-chart>
             </div>
         
             <div class="indexListContainer">

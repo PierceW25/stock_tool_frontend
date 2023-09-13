@@ -9,11 +9,13 @@
 }
 
 .custom-articles-container {
-  width: 80%;
+  width: 100%;
 }
 
 .custom-articles-container h1 {
   margin-left: 8px;
+  font-size: 22px;
+  font-weight: 500;
 }
 
 .article_display {
@@ -31,6 +33,7 @@
 .article_text p {
   margin-top: 0;
   margin-bottom: 0;
+  font-size: 16px;
 }
 
 .article_display:hover {
@@ -48,6 +51,8 @@
 
 .article_text h3 {
   margin-top: 5px;
+  font-size: 18px;
+  font-weight: 400;
   margin-bottom: 0;
 }
 
