@@ -2,14 +2,36 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: #121212;
   color: white;
   text-align: left;
+  height: 800px;
+  margin-bottom: 50px;
+}
+
+.personalNewsContainer h1 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 4px;
 }
 
 .custom-articles-container {
   width: 100%;
+  overflow-y: auto;
+}
+
+.custom-articles-container::-webkit-scrollbar {
+  width: 15px;
+
+}
+.custom-articles-container::-webkit-scrollbar-track {
+  background: #121212;
+  border-radius: 10px;
+}
+
+.custom-articles-container::-webkit-scrollbar-thumb {
+  background: #232B32;
+  border-radius: 10px;
 }
 
 .custom-articles-container h1 {

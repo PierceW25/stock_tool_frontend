@@ -2,4 +2,36 @@ mat-toolbar {
     display: flex;
     justify-content: space-between;
     padding: 30px 80px;
+    background-color: #121212;
+    color: white;
+    border-bottom: 1px solid darkgray;
+    height: 60px;
+}
+
+input {
+    background-color: #232B32;
+    color: white;
+    border: none;
+    width: 250px;
+    height: 30px;
+    border-radius: 7px;
+    font-size: 15px;
+    margin-right: 30px;
+}
+
+.headerTitleContainer {
+    margin-left: 40px;
+}
+
+.headerLinksContainer {
+    margin-right: 40px;
+    font-size: 18px;
+}
+
+.headerLinksContainer a {
+    font-size: 16px;
+}
+
+.headerLinksContainer a:hover {
+    color: lightgray;
 }
