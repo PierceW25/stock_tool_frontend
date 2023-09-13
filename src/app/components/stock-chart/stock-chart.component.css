@@ -17,13 +17,13 @@
   margin-left: 22px;
   margin-bottom: 20px;
   width: 180px;
-  font-size: 25px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.0;
 }
 
 .stockTextInfo p {
-  margin-bottom: 2px;
+  margin-bottom: 0px;
 }
   
 /* Make canvas fill the width of its container */

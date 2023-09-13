@@ -49,8 +49,10 @@
                     <td>{{stock.ticker}}</td>
                     <td>{{stock.name}}</td>
                     <td>
-                        <button mat-icon-button [matMenuTriggerFor]="menu">:</button>
-                        <mat-menu #menu="matMenu">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="after" overlapTrigger="true" class="stockLinks">
                             <button mat-menu-item (click)="onResearchStock(stock)">Research</button>
                             <button mat-menu-item (click)="onDeleteStock(stock)">Delete</button>
                         </mat-menu>
@@ -69,7 +71,7 @@
                     <td>{{stock.pe_ratio}}</td>
                     <td>${{stock.fifty_two_week_high}}</td>
                     <td>${{stock.fifty_two_week_low}}</td>
-                    <td>{{stock.purchase_amt}}</td>
+                    <td>${{stock.purchase_amt}}</td>
                     <td class="lastColumn">
                         <input type="text" placeholder="10%" [value]="stock.percent_of_purchase" (keyup)="onEditPercentOfPurchase($event, stock)">
                     </td>
