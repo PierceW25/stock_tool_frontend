@@ -57,7 +57,7 @@
                 <td [ngClass]="{
                     'positive_change': !stock.days_change.includes('-'),
                     'negative_change': stock.days_change.includes('-')}">
-                    {{stock.days_change.includes('-') ? '' : '+'}}{{stock.days_change}}</td>
+                    {{stock.days_change.includes('-') ? '' : '+'}}${{stock.days_change}}</td>
                 <td [ngClass]="{
                     'positive_change': !stock.days_change.includes('-'),
                     'negative_change': stock.days_change.includes('-')}">
@@ -68,7 +68,7 @@
                 <td>{{stock.fifty_two_week_high}}</td>
                 <td>{{stock.fifty_two_week_low}}</td>
                 <td>{{stock.purchase_amt}}</td>
-                <td>
+                <td class="lastColumn">
                     <input type="text" placeholder="10%" [value]="stock.percent_of_purchase" (keyup)="onEditPercentOfPurchase($event, stock)">
                 </td>
         </table>

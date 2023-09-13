@@ -1,18 +1,28 @@
 table {
     color: white;
     text-align: left;
+    border-collapse: collapse;
 }
 
 th {
     font-size: 14px;
     font-weight: 400;
     color: white;
-    padding-right: 20px;
+    padding-right: 14px;
     text-align: left;
+    border-bottom: 1px solid darkgrey;
 }
 
-tr {
-    border-bottom: 1px solid white;
+.tableRows td {
+    border-bottom: 1px solid darkgrey;
+}
+
+td {
+    padding-right: 20px;
+}
+
+.lastColumn {
+    padding-right: 0;
 }
 
 input {
@@ -34,30 +44,19 @@ input {
     background-color: #121212;
 }
 
-.watchlistHeader {
+.watchlistHeader h3 {
     font-size: 19px;
-    font-weight: 400;
+    font-weight: 500;
     color: white;
-    margin-bottom: 5px;
-    position: relative;
-    left: 0;
-    top: 0;
 }
 
 .watchlistOptionsContainer {
-    width: 69%;
+    width: 67.5%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
-}
-
-.watchlistLeftOptionsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
 }
 
 .leftOptionsContainer {
@@ -99,9 +98,8 @@ input {
 .watchlistRightOptionsContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: -15px;
     color: white;
+    margin-top: 42px;
 }
 
 .stockPurchaseAmtContainer {
