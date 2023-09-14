@@ -21,6 +21,7 @@ import { IndexDisplaysComponent } from './views/index-displays/index-displays.co
 import { StockChartComponent } from './components/stock-chart/stock-chart.component';
 import { LoginUserComponent } from './views/login-user/login-user.component';
 import { WatchlistCustomComponent } from './views/watchlist-custom/watchlist-custom.component';
+import { PrimaryFooterComponent } from './primary-footer/primary-footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WatchlistCustomComponent } from './views/watchlist-custom/watchlist-cus
     IndexDisplaysComponent,
     StockChartComponent,
     LoginUserComponent,
-    WatchlistCustomComponent
+    WatchlistCustomComponent,
+    PrimaryFooterComponent
   ],
   imports: [
     BrowserModule,
