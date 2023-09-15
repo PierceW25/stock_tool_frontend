@@ -162,3 +162,55 @@ input {
     margin-right: 10px;
 }
 
+/*
+<div class="stockOptionsDropdown">
+    <button onclick="showStockOptions()" class="dropBtn">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <div class="stockOptionsDropdownContent">
+        <a href="#" (click)="onResearchStock(stock)">Research</a>
+        <a href="#" (click)="onDeleteStock(stock)">Delete</a>
+    </div>
+</div>
+*/
+
+.stockOptionsDropdown {
+    display: block;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.dropBtn {
+    background-color: #121212;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.dropBtn:hover {
+    background-color: #232B32;
+}
+
+.stockOptionsDropdownContent {
+    display: none;
+    flex-direction: column;
+    position: relative;
+    background-color: #121212;
+    color: white;
+    background-color: #232323;
+    justify-content: center;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.stockOptionsDropdownContent a {
+    color: white;
+    padding: 2px;
+    text-decoration: none;
+}
+

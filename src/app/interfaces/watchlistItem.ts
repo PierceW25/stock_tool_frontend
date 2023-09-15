@@ -1,6 +1,7 @@
 export interface watchlistItem {
     name: string;
     ticker: string;
+    id: number;
     price: string;
     days_change: string;
     percent_change: string;

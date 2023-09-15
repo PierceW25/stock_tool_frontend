@@ -45,6 +45,7 @@ export class WatchlistCustomComponent implements OnInit {
   currentWatchlist: string = ''
   defaultValues = {
     name: '-',
+    id: 0,
     ticker: '-',
     price: '-',
     days_change: '-',
@@ -123,6 +124,7 @@ export class WatchlistCustomComponent implements OnInit {
 
   generateWatchlist(tickers: string[]): watchlistItem[] {
     let watchlist: watchlistItem[] = []
+    let count: number = 0
     tickers.forEach((stock: any) => {
       let newStock = {
         ...this.defaultValues
@@ -163,6 +165,8 @@ export class WatchlistCustomComponent implements OnInit {
               newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
             }
         })
+        newStock.id = count
+        count += 1
 
         watchlist.push(newStock)
     })
@@ -261,6 +265,8 @@ export class WatchlistCustomComponent implements OnInit {
           newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
         }
       })
+
+      newStock.id = this.renderedWatchlist.length
     return newStock
   }
 
@@ -307,5 +313,18 @@ export class WatchlistCustomComponent implements OnInit {
     this.renderedWatchlist.forEach((stock: any) => {
       stock.purchase_amt = Number(this.amountToInvest) * Number(stock.percent_of_purchase) / 100
     })
+  }
+
+  showStockOptions(id: number) {
+    let click = document.getElementsByClassName('stockOptionsDropdownContent')
+
+    if (click) {
+      let stockToOpen = click[id] as HTMLElement
+      if (stockToOpen.style.display === 'flex') {
+        stockToOpen.style.display = 'none'
+      } else {
+        stockToOpen.style.display = 'flex'
+      }
+    }
   }
 }
