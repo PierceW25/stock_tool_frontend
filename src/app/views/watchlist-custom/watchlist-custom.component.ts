@@ -66,21 +66,8 @@ export class WatchlistCustomComponent implements OnInit {
 }
 
   amountToInvest: number = 0
-  columnsToDisplay = [
-    'symbol', 
-    'name', 
-    'actions', 
-    'price', 
-    'days_change', 
-    'percent_change', 
-    'volume', 
-    'market_cap', 
-    'pe_ratio', 
-    'fifty_two_week_high', 
-    'fifty_two_week_low', 
-    'purchase_amt', 
-    'percent_of_purchase'
-  ]
+
+  idOfStockMenuOpen = 0
 
   ngOnInit(): void {
     this.chooseRenderedWatchlist()
@@ -324,7 +311,15 @@ export class WatchlistCustomComponent implements OnInit {
         stockToOpen.style.display = 'none'
       } else {
         stockToOpen.style.display = 'flex'
+        this.idOfStockMenuOpen = id
       }
+    }
+
+    let buttonClick = document.getElementsByClassName('dropBtn')
+
+    if (buttonClick) {
+      let buttonToOpen = buttonClick[id] as HTMLElement
+      buttonToOpen.classList.toggle('hide')
     }
   }
 }

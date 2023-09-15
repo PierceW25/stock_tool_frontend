@@ -205,12 +205,18 @@ input {
     background-color: #232323;
     justify-content: center;
     text-align: left;
+    min-width: 75px;
     border-radius: 5px;
 }
 
 .stockOptionsDropdownContent a {
     color: white;
     padding: 2px;
+    padding-right: 15px;
     text-decoration: none;
+}
+
+.hide {
+    display: none;
 }
 
