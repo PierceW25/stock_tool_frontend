@@ -19,6 +19,7 @@ export class AddStockModalComponent {
   options: any = []
 
   editTicker(event: any) {
+    console.log(event.target.value)
     
     if (event.target.value) {
       
@@ -35,7 +36,8 @@ export class AddStockModalComponent {
   }
 
   addStock() {
-    this.dialogRef.close(this.ticker.toUpperCase())
+    console.log(this.ticker)
+    /* this.dialogRef.close(this.ticker.toUpperCase()) */
   }
 
   autoComplete(ticker: string) {
@@ -44,7 +46,9 @@ export class AddStockModalComponent {
       let fullOptionsObj: any = response
       if (fullOptionsObj['bestMatches'] != undefined) {
         fullOptionsObj['bestMatches'].forEach((stock: any) => {
-          privateOptions.push(`${stock['1. symbol']} - ${stock['2. name']}`)
+          if (!stock['1. symbol'].includes('.')) {
+            privateOptions.push(`${stock['1. symbol']} - ${stock['2. name']}`)
+           }
         }) 
       } else {
         privateOptions.push('No results found')

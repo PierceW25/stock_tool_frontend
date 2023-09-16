@@ -55,8 +55,8 @@
                             </button>
 
                             <div class="stockOptionsDropdownContent">
-                                <a href="#" (click)="onResearchStock(stock)">Research</a>
-                                <a href="#" (click)="onDeleteStock(stock)">Delete</a>
+                                <a (click)="onResearchStock(stock)">Research</a>
+                                <a (click)="onDeleteStock(stock)">Delete</a>
                             </div>
                         </div>
                         <!--
@@ -91,3 +91,17 @@
             </tbody>
         </table>
 </div>
+
+<dialog id="addStockDialog">
+    <h3>Search the stock</h3>
+    <div class="searchStockContainer">
+        <input type="text" placeholder="Search Stock" [value]="searchStock" (keyup)="onEditStockInput($event)" list="stockOptions">
+        <datalist id="stockOptions">
+            <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
+        </datalist>
+    </div>
+    <div class="cancelOrSearchStockBtns">
+        <button (click)="closeAddStockDialog()">Cancel</button>
+        <button (click)="addStockToWatchlist()">Add</button>
+    </div>
+</dialog>
