@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { StockApiService } from '../../services/stock-api.service';
 import { UpdateWatchlistsService } from '../../services/update-watchlist.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -310,16 +310,25 @@ export class WatchlistCustomComponent implements OnInit {
       if (stockToOpen.style.display === 'flex') {
         stockToOpen.style.display = 'none'
       } else {
+      for (let i = 0; i < click.length; i++) {
+        let thisStock = click[i] as HTMLElement
+        thisStock.style.display = 'none'
+      }        
         stockToOpen.style.display = 'flex'
         this.idOfStockMenuOpen = id
       }
     }
+  }
 
-    let buttonClick = document.getElementsByClassName('dropBtn')
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    let click = document.getElementsByClassName('stockOptionsDropdownContent')
 
-    if (buttonClick) {
-      let buttonToOpen = buttonClick[id] as HTMLElement
-      buttonToOpen.classList.toggle('hide')
+    if (click) {
+      let stockToClose = click[this.idOfStockMenuOpen] as HTMLElement
+      if (!event.target.className.includes('menuBtn')) {
+        stockToClose.style.display = 'none'
+      }
     }
   }
 }

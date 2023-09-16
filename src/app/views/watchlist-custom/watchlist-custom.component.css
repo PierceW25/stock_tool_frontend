@@ -199,7 +199,7 @@ input {
 .stockOptionsDropdownContent {
     display: none;
     flex-direction: column;
-    position: relative;
+    position: absolute;
     background-color: #121212;
     color: white;
     background-color: #232323;
@@ -207,6 +207,7 @@ input {
     text-align: left;
     min-width: 75px;
     border-radius: 5px;
+    z-index: 1;
 }
 
 .stockOptionsDropdownContent a {
