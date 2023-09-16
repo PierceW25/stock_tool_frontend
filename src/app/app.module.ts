@@ -22,6 +22,7 @@ import { StockChartComponent } from './components/stock-chart/stock-chart.compon
 import { LoginUserComponent } from './views/login-user/login-user.component';
 import { WatchlistCustomComponent } from './views/watchlist-custom/watchlist-custom.component';
 import { PrimaryFooterComponent } from './views/primary-footer/primary-footer.component';
+import { CustomAddStockModalComponent } from './modals/custom-add-stock-modal/custom-add-stock-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PrimaryFooterComponent } from './views/primary-footer/primary-footer.co
     StockChartComponent,
     LoginUserComponent,
     WatchlistCustomComponent,
-    PrimaryFooterComponent
+    PrimaryFooterComponent,
+    CustomAddStockModalComponent
   ],
   imports: [
     BrowserModule,
