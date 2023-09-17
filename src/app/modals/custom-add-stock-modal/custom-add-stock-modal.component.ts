@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import {Observable} from 'rxjs';
 import {ModalService} from '../../services/modal.service';
 import { StockApiService } from '../../services/stock-api.service';
@@ -17,7 +17,7 @@ export class CustomAddStockModalComponent implements OnInit {
     autofillOptions: string[] = []
     searchStock: string = ''
     errorText: boolean = false
-    onStockPicked: EventEmitter<any> = new EventEmitter()
+    @Output() onStockPicked: EventEmitter<any> = new EventEmitter()
 
     ngOnInit(): void {
       this.display$ = this.modalService.watch()
@@ -66,6 +66,8 @@ export class CustomAddStockModalComponent implements OnInit {
           this.onStockPicked.emit(stockInfo['Global Quote']['01. symbol'])
           this.modalService.close()
         }
+
+        this.searchStock = ''
       })
     }
 }

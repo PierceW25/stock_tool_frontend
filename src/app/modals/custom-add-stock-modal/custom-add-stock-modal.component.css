@@ -61,13 +61,14 @@ section {
   .stockSearchContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 200px;
     margin-bottom: 10px;
     color: white;
   }
 
   .stockSearchContainer input {
     background-color: #232323;
-    width: 190px;
     margin-top: 20px;
     margin-bottom: 10px;
     height: 20px;
@@ -77,6 +78,7 @@ section {
     padding: 5px;
     font-size: 16px;
   }
+  
 
   .stockSearchContainer p {
     margin-top: 0;
@@ -99,4 +101,14 @@ section {
     border-radius: 5px;
     color: white;
     font-size: 15px;
+  }
+
+  .addOrCancelBtnsContainer button:hover {
+    background-color: #232B32;
+    cursor: pointer;
+  }
+
+  #stockOptions {
+    background-color: #232323;
+    text-align: left;
   }

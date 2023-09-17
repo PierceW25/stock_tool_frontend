@@ -30,7 +30,7 @@
             <thead>
                 <tr class="tableHeaders">
                     <th>Ticker</th>
-                    <th>Name</th>
+                    <th class="stockNameColumn">Name</th>
                     <th></th>
                     <th>Price</th>
                     <th>Change</th>
@@ -46,8 +46,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let stock of renderedWatchlist" class="tableRows">
-                    <td>{{stock.ticker}}</td>
-                    <td>{{stock.name}}</td>
+                    <td>{{stock.ticker}}<br></td>
+                    <td class="stockNameColumn">{{stock.name}}</td>
                     <td>
                         <div class="stockOptionsDropdown">
                             <button (click)="showStockOptions(stock.id)" class="dropBtn">
