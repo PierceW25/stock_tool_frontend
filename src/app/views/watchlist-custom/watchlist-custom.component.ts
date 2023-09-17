@@ -4,6 +4,8 @@ import { UpdateWatchlistsService } from '../../services/update-watchlist.service
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { AddStockModalComponent } from '../../modals/add-stock-modal/add-stock-modal.component';
+import { CustomAddStockModalComponent } from 'src/app/modals/custom-add-stock-modal/custom-add-stock-modal.component';
+import { ModalService } from 'src/app/services/modal.service';
 import { Router } from '@angular/router';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistItem } from 'src/app/interfaces/watchlistItem';
@@ -22,7 +24,8 @@ export class WatchlistCustomComponent implements OnInit {
     private watchlist: UpdateWatchlistsService, 
     private articles: FetchArticlesService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private modal: ModalService
     ) {}
 
   @ViewChild(MatTable) table: MatTable<any> | undefined
@@ -202,9 +205,7 @@ export class WatchlistCustomComponent implements OnInit {
 
   onAddStock(): void {
     const myDialog = document.querySelector('addStockDialog')
-    if (myDialog) {
-      myDialog.showModal()
-    }
+    
 
     /*
     this.addStockDialogRef = this.dialog.open(AddStockModalComponent, {
@@ -340,6 +341,10 @@ export class WatchlistCustomComponent implements OnInit {
         stockToClose.style.display = 'none'
       }
     }
+  }
+
+  testOpenModal(): void {
+    this.modal.open()
   }
 
   onEditStockInput(event: any): void {
