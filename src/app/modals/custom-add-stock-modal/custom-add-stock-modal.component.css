@@ -19,7 +19,7 @@ section {
     transition: opacity 250ms ease-in;
   
     > div {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -31,6 +31,7 @@ section {
       padding: 24px;
   
       border-radius: 8px;
+      border: 1px solid darkgray;
   
       box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1);
     }
@@ -58,22 +59,23 @@ section {
   }
 
   .stockSearchContainer {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 10px;
-        color: white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    color: white;
   }
 
   .stockSearchContainer input {
     background-color: #232323;
+    width: 190px;
     margin-top: 20px;
     margin-bottom: 10px;
-    width: 200px;
     height: 20px;
     border: none;
     color: white;
     border-radius: 5px;
     padding: 5px;
+    font-size: 16px;
   }
 
   .stockSearchContainer p {
@@ -91,10 +93,10 @@ section {
   .addOrCancelBtnsContainer button {
     width: 95px;
     height: 30px;
+    margin: 5px;
     background-color: #121212;
     border: 1px solid darkgray;
     border-radius: 5px;
-    margin-right: 5px;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
   }

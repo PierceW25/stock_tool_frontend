@@ -367,7 +367,13 @@ export class WatchlistCustomComponent implements OnInit {
     this.autofillOptions = privateOptions
   }
 
-  addStockToWatchlist(): void {}
+  addStockToWatchlist(ticker: any): void {
+    console.log('"added"')
+    this.renderedWatchlist.push(this.getDataForNewStock(ticker))
+    this.dbWatchlist.push(ticker)
+    this.table?.renderRows()
+    this.updateFullWatchlistObject()
+  }
 
   closeAddStockDialog() {}
 

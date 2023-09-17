@@ -1,19 +1,21 @@
 <ng-container *ngIf="display$ | async as display">
     <section [class.open]="display === true" (click)="close()">
-        <div (click)="$event.stopPropagation()" class="contentContainer">
-            <div class="titleContainer">
-                <h3>Search stock by ticker</h3>
-            </div>
-            <div class="stockSearchContainer">
-                <input type="text" id="stockSearchField" placeholder="Search Stock" [(ngModel)]="searchStock" (keyup)="onEditStockInput($event)" list="stockOptions">
-                <p class="errorText" *ngIf="errorText">Stock not found</p>
-                <datalist id="stockOptions">
-                    <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
-                </datalist>
-            </div>
-            <div class="addOrCancelBtnsContainer">
-                <button (click)="close()">Cancel</button>
-                <button (click)="addStock()">Add</button>
+        <div (click)="$event.stopPropagation()">
+            <div class="contentContainer">
+                <div class="titleContainer">
+                    <h3>Search stock by ticker</h3>
+                </div>
+                <div class="stockSearchContainer">
+                    <input type="text" id="stockSearchField" placeholder="Search Stock" [(ngModel)]="searchStock" (keyup)="onEditStockInput($event)" list="stockOptions">
+                    <p class="errorText" *ngIf="errorText">Stock not found</p>
+                    <datalist id="stockOptions">
+                        <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
+                    </datalist>
+                </div>
+                <div class="addOrCancelBtnsContainer">
+                    <button (click)="close()">Cancel</button>
+                    <button (click)="addStock()">Add</button>
+                </div>
             </div>
         </div>
     </section>
