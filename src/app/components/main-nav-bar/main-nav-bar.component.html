@@ -14,8 +14,8 @@
     </div>
 </mat-toolbar>
 
-<mat-autocomplete #auto="matAutocomplete" (optionSelected)="searchStock($event)">
-    <mat-option *ngFor="let option of options" [value]="option">
+<mat-autocomplete class="autocomplete" #auto="matAutocomplete" (optionSelected)="searchStock($event)">
+    <mat-option class="autofillOption" *ngFor="let option of autofillOptions" [value]="option">
         {{option}}
     </mat-option>
 </mat-autocomplete>
