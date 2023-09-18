@@ -4,31 +4,40 @@ import { Router } from '@angular/router';
 import { FetchArticlesService } from '../../services/fetch-articles.service';
 
 @Component({
-  selector: 'app-main-nav-bar',
-  templateUrl: './main-nav-bar.component.html',
-  styleUrls: ['./main-nav-bar.component.css']
+  selector: 'app-custom-nav-bar',
+  templateUrl: './custom-nav-bar.component.html',
+  styleUrls: ['./custom-nav-bar.component.css']
 })
-export class MainNavBarComponent {
-
+export class CustomNavBarComponent {
   constructor(private stockApi: StockApiService, private route: Router, private fetchArticles: FetchArticlesService) { }
 
+  searchValue: string = ''
   autofillOptions: any = []
+  errorText: boolean = false
 
   editInput(event: any) {
     this.autoComplete(event.target.value)
     if (event.key === 'Enter') {
-      this.searchStock(event)
+      this.searchStock()
+      console.log('enter')
     }
   }
 
-  searchStock(event: any) {
-    let passableStock = JSON.stringify(event.option.value.split(' ')[0])
-    this.route.navigate(['research'], { queryParams: { stock: passableStock }})
+  searchStock() {
+    let passableStock = this.searchValue.split(' ')[0]
+    console.log(passableStock)
+    this.stockApi.getStockOverview(passableStock).subscribe(response => {
+      let stockInfo: any = response
+      if (stockInfo['Description'] === 'None') {
+        this.errorText = true
+      } else {
+        this.route.navigate(['research'], { queryParams: { stock: JSON.stringify(stockInfo) }})
+        console.log('navigated')
+      }
+    })
   }
 
   autoComplete(ticker: string) {
-    let searchValue = ticker
-
     let privateOptions: any = []
     this.stockApi.searchStock(ticker).subscribe(response => {
       let fullOptionsObj: any = response
@@ -43,7 +52,7 @@ export class MainNavBarComponent {
       }
     })
 
-      this.autofillOptions = privateOptions
+    this.autofillOptions = privateOptions
   }
 
   goToBroadMarketView() {

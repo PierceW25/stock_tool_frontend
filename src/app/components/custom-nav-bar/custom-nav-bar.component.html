@@ -1,0 +1,22 @@
+<div class="headerBarContainer">
+    <div class="headerTitleContainer">
+        <span>REsearch</span>
+    </div>
+
+    <div class="headerLinksContainer">
+        <div class="stockSearchContainer">
+            <input type="text"
+            placeholder="Search Stock"
+            (keyup)="editInput($event)"
+            [(ngModel)]="searchValue"
+            list="stockOptions">
+            <p class="errorText" *ngIf="errorText">Stock not found</p>
+            <datalist id="stockOptions">
+                <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
+            </datalist>
+        </div>
+        <a routerLink="news" (click)="goToBroadMarketView()">Market</a>
+        <a routerLink="analysis">Analysis</a>
+        <a routerLink="discovery">Discovery</a>
+    </div>
+</div>

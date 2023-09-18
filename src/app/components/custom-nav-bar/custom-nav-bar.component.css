@@ -1,11 +1,18 @@
-mat-toolbar {
+.headerBarContainer {
     display: flex;
     justify-content: space-between;
-    padding: 30px 80px;
+    align-items: center;
     background-color: #121212;
     color: white;
     border-bottom: 1px solid darkgray;
-    height: 60px;
+    height: 70px;
+}
+
+.stockSearchContainer p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: coral;
 }
 
 input {
@@ -20,15 +27,21 @@ input {
 }
 
 .headerTitleContainer {
-    margin-left: 40px;
+    margin-left: 120px;
+    font-size: 21px;
 }
 
 .headerLinksContainer {
-    margin-right: 40px;
+    display: flex;
+    margin-right: 120px;
     font-size: 18px;
 }
 
 .headerLinksContainer a {
+    color: white;
+    text-decoration: none;
+    margin-top: 4px;
+    margin-right: 8px;
     font-size: 16px;
 }
 
