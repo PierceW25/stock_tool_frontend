@@ -6,7 +6,11 @@
                     <h3>Search stock by ticker</h3>
                 </div>
                 <div class="stockSearchContainer">
-                    <input type="text" placeholder="Search Stock" [(ngModel)]="searchStock" (keyup)="onEditStockInput($event)" list="stockOptions">
+                    <input type="text"
+                    placeholder="Search Stock"
+                    (keyup)="editInput($event)"
+                    [(ngModel)]="searchStock"
+                    list="stockOptions">
                     <p class="errorText" *ngIf="errorText">Stock not found</p>
                     <datalist id="stockOptions">
                         <option *ngFor="let stock of autofillOptions" [value]="stock"></option>

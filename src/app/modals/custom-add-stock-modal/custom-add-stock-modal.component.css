@@ -78,7 +78,6 @@ section {
     padding: 5px;
     font-size: 16px;
   }
-  
 
   .stockSearchContainer p {
     margin-top: 0;
@@ -106,9 +105,4 @@ section {
   .addOrCancelBtnsContainer button:hover {
     background-color: #232B32;
     cursor: pointer;
-  }
-
-  #stockOptions {
-    background-color: #232323;
-    text-align: left;
   }
