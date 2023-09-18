@@ -80,8 +80,6 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   chooseRenderedWatchlist(): void {
-    console.log(this.usersWatchlists.selected_watchlist)
-    console.log(this.currentWatchlist)
 
     if (this.userEmail) {
       this.watchlist.getAllWatchlists(this.userEmail).subscribe(
@@ -201,28 +199,6 @@ export class WatchlistCustomComponent implements OnInit {
     this.table?.renderRows()
     this.dbWatchlist.splice(this.dbWatchlist.indexOf(stock.symbol), 1)
     this.updateFullWatchlistObject()
-  }
-
-  onAddStock(): void {
-    const myDialog = document.querySelector('addStockDialog')
-    
-
-    /*
-    this.addStockDialogRef = this.dialog.open(AddStockModalComponent, {
-      width: '350px',
-      height: '350px',
-      disableClose: true
-    })
-
-    this.addStockDialogRef.afterClosed().subscribe((response: any) => {
-      if (response) {
-        this.renderedWatchlist.push(this.getDataForNewStock(response))
-        this.dbWatchlist.push(response)
-        this.table?.renderRows()
-        this.updateFullWatchlistObject()
-      }
-    }) 
-    */
   }
 
   getDataForNewStock(ticker: string): watchlistItem {
@@ -368,61 +344,9 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   addStockToWatchlist(ticker: any): void {
-    console.log('"added"')
     this.renderedWatchlist.push(this.getDataForNewStock(ticker))
     this.dbWatchlist.push(ticker)
     this.table?.renderRows()
     this.updateFullWatchlistObject()
   }
-
-  closeAddStockDialog() {}
-
-  /*
-  constructor(
-    private dialogRef: MatDialogRef<AddStockModalComponent>,
-    private stockApi: StockApiService,
-    ) { }
-
-  ticker: string = ''
-  options: any = []
-
-  editTicker(event: any) {
-    console.log(event.target.value)
-    
-    if (event.target.value) {
-      
-      this.options = []
-      this.options = this.autoComplete(event.target.value)
-
-      // this code is probably incomplete in logic
-      if ('No results found' in this.options) {
-        return
-      } else {
-        this.ticker = event.target.value.split(' ')[0]
-      }
-    }
-  }
-
-  addStock() {
-    console.log(this.ticker)
-    this.dialogRef.close(this.ticker.toUpperCase()) 
-  }
-
-  autoComplete(ticker: string) {
-    let privateOptions: any = []
-    this.stockApi.searchStock(ticker).subscribe(response => {
-      let fullOptionsObj: any = response
-      if (fullOptionsObj['bestMatches'] != undefined) {
-        fullOptionsObj['bestMatches'].forEach((stock: any) => {
-          if (!stock['1. symbol'].includes('.')) {
-            privateOptions.push(`${stock['1. symbol']} - ${stock['2. name']}`)
-           }
-        }) 
-      } else {
-        privateOptions.push('No results found')
-      }
-    })
-    return privateOptions
-  }
-  */
 }

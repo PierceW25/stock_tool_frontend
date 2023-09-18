@@ -20,7 +20,6 @@ export class IndexDisplaysComponent {
     this.indexes_service.getIndexesData().subscribe(
       (response: any) => {
         let functionalIndexesData: any
-        console.log(response)
         functionalIndexesData = response['daily_info']
 
         // loop through functionalIndexesData and create an array of indexDailyData objects

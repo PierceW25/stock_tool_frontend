@@ -49,7 +49,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     if (this.indexChart) {
       this.indexes_service.getAllIndexData().subscribe(response => {
         this.allIndexData = response
-        console.log(this.allIndexData)
         this.oneDayChartData = this.allIndexData[0]['daily_indexes_data']
         this.oneDayChartData.forEach((element: any) => {
           this.displayedData.dates.push(element.date)
