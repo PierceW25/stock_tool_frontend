@@ -9,6 +9,11 @@ html {
     box-sizing: inherit;
 }
 
+body {
+  background-color: #121212;
+  color: white;
+}
+
 /* Center the stockInfoAndChartContainer and add padding */
 .stockInfoAndChartContainer {
     display: flex;
@@ -21,19 +26,52 @@ html {
   .stockInfoContainer {
     width: 42%;
     height: 500px;
-    padding-right: 20px;
+    border-radius: 8px;
+    background-color: #1e1e22;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stockSummaryContainer {
+    margin-bottom: 30px;
+    width: 90%;
+  }
+
+  .stockDetailsHeader {
+    margin-bottom: 10px;
+    width: 90%;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #6c6969;
+  }
+
+  .stockDetailsHeader h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .stockOverviewDetails {
+    width: 90%;
   }
   
   /* Display overview details in a row */
   .overviewDetailsContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  /* Display research details in rows of five */
-  .stockResearchDetailsContainer {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 30px;
+  }
+
+  .overviewDetailsContainer h2, h3 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .stockDetailsItem {
+    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
   
   /* Place stockChartContainer on the right side and add spacing */

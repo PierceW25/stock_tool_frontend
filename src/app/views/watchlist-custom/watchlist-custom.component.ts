@@ -3,8 +3,6 @@ import { StockApiService } from '../../services/stock-api.service';
 import { UpdateWatchlistsService } from '../../services/update-watchlist.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { AddStockModalComponent } from '../../modals/add-stock-modal/add-stock-modal.component';
-import { CustomAddStockModalComponent } from 'src/app/modals/custom-add-stock-modal/custom-add-stock-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { Router } from '@angular/router';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -54,6 +52,7 @@ export class WatchlistCustomComponent implements OnInit {
     days_change: '-',
     percent_change: '-',
     volume: '-',
+    description: '-',
     market_cap: '-',
     pe_ratio: '-',
     fifty_two_week_high: '-',
@@ -129,6 +128,7 @@ export class WatchlistCustomComponent implements OnInit {
           } else {
             newStock.ticker = stock
             newStock.name = response['Name']
+            newStock.description = response['Description']
             newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
             newStock.pe_ratio = response['PERatio']
             newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()
@@ -213,6 +213,7 @@ export class WatchlistCustomComponent implements OnInit {
           console.log(response)
         } else {
           newStock.name = response['Name']
+          newStock.description = response['Description']
           newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
           newStock.pe_ratio = response['PERatio']
           newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()

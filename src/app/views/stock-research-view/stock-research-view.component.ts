@@ -20,6 +20,7 @@ export class StockResearchViewComponent implements OnInit {
   stock = {
     ticker: '-',
     name: '-',
+    description: '-',
     price: '-',
     days_change: '-',
     percent_change: '-',
@@ -64,6 +65,7 @@ export class StockResearchViewComponent implements OnInit {
           console.log(response)
         } else {
           newStock.name = response['Name']
+          newStock.description = response['Description']
           newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
           newStock.pe_ratio = response['PERatio']
           newStock.fifty_two_week_high = response['52WeekHigh']
