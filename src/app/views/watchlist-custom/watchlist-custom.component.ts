@@ -271,9 +271,15 @@ export class WatchlistCustomComponent implements OnInit {
 
   }
 
-  onResearchStock(stock: any): void {
-    let passableStock = JSON.stringify(stock)
-    this.router.navigate(['research'], { queryParams: { stock: passableStock }})
+  onResearchStock(ticker: any): void {
+    let passableStock: any
+    for (const stock of this.renderedWatchlist) {
+      if (stock.ticker === ticker) {
+        passableStock = JSON.stringify(stock)
+      }
+    }
+
+    this.router.navigate(['research', ticker], { queryParams: { stock: passableStock }})
   }
 
   onEditAmountToInvest(event: any): void {

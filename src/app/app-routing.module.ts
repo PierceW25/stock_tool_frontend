@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
   { path: 'register', component: RegisterUserComponent },
   { path: 'login', component: LoginUserComponent },
-  { path: 'research', component: StockResearchViewComponent },
+  { path: 'research/:ticker', component: StockResearchViewComponent },
   { path: 'news', component: MarketViewComponent },
   { path: 'analysis', component: AnalysisViewComponent },
   { path: 'discovery', component: DiscoveryViewComponent },

@@ -45,7 +45,6 @@ export class CustomNavBarComponent {
     this.autoComplete(event.target.value)
     if (event.key === 'Enter') {
       this.searchStock()
-      console.log('enter')
     }
   }
 
@@ -126,7 +125,7 @@ export class CustomNavBarComponent {
               newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
             }
     
-            this.route.navigate(['research'], { queryParams: { stock: JSON.stringify(newStock) }})
+            this.route.navigate(['research', newStock.ticker], { queryParams: { stock: JSON.stringify(newStock) }})
           })
       })
   }

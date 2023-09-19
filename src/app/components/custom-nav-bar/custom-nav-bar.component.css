@@ -26,9 +26,15 @@ input {
     margin-right: 30px;
 }
 
-.headerTitleContainer {
+.headerTitleContainer a {
     margin-left: 120px;
     font-size: 21px;
+    color: white;
+    text-decoration: none;
+}
+
+.headerTitleContainer a:hover {
+    color: lightgray;
 }
 
 .headerLinksContainer {

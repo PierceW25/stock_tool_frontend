@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
-import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-stock-research-view',
@@ -17,6 +16,7 @@ export class StockResearchViewComponent implements OnInit {
 
   chart: any = []
 
+  @Input() ticker: string = ''
   stock = {
     ticker: '-',
     name: '-',
@@ -49,8 +49,13 @@ export class StockResearchViewComponent implements OnInit {
         this.stock = JSON.parse(params['stock'])
       }
     })
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
     console.log(this.stock)
+    //make stock chart re render
+    //need to change ngOnChanges in stock-chart.component.ts currently only executes for indexes
+
   }
 
   getDataForNewStock(ticker: string) {
