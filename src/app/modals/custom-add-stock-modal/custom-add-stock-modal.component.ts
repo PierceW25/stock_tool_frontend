@@ -29,17 +29,11 @@ export class CustomAddStockModalComponent implements OnInit {
 
     close() {
       this.modalService.close()
-      this.searchStock = ''
     }
 
-    editInput(event: any) {
-      this.onEditStockInput(event.target.value)
-      if (event.key === 'Enter') {
-        this.addStock()
-      }
-    }
+    onEditStockInput(event: any) {
+      let searchValue = event.target.value
 
-    onEditStockInput(searchValue: string) {
       let privateOptions: any = []
       this.stockApi.searchStock(searchValue).subscribe(response => {
         let fullOptionsObj: any = response
@@ -52,9 +46,9 @@ export class CustomAddStockModalComponent implements OnInit {
         } else {
           privateOptions.push('No results found')
         }
-        this.autofillOptions = privateOptions
-        console.log(this.autofillOptions)
       })
+
+      this.autofillOptions = privateOptions
     }
 
     addStock() {
