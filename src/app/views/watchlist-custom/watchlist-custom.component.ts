@@ -318,7 +318,7 @@ export class WatchlistCustomComponent implements OnInit {
   clickout(event: any) {
     let click = document.getElementsByClassName('stockOptionsDropdownContent')
 
-    if (click) {
+    if (click && this.renderedWatchlist.length > 0) {
       let stockToClose = click[this.idOfStockMenuOpen] as HTMLElement
       if (!event.target.className.includes('menuBtn')) {
         stockToClose.style.display = 'none'

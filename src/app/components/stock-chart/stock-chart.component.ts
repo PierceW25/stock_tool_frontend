@@ -162,7 +162,7 @@ export class StockChartComponent implements OnInit, OnChanges {
             },
             scales: {
               y: {
-              display: false
+              display: true
               },
               x: {
               display: false
