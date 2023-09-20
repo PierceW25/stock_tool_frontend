@@ -130,8 +130,6 @@ export class StockChartComponent implements OnInit, OnChanges {
         })
         newChartData.dates.reverse()
         newChartData.prices.reverse()
-        console.log('onInit')
-        console.log(newChartData)
         this.displayPrice = newChartData.prices[newChartData.prices.length - 1]
 
         let originalPriceChange = (parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])).toFixed(2)
