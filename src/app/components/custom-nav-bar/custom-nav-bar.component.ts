@@ -50,7 +50,6 @@ export class CustomNavBarComponent {
 
   searchStock() {
     let passableStock = this.searchValue.split(' ')[0]
-    console.log(passableStock)
     this.stockApi.getStockOverview(passableStock).subscribe(response => {
       let stockInfo: any = response
       if (stockInfo['Description'] === 'None') {

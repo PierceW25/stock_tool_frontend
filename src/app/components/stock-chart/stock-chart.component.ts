@@ -57,8 +57,6 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.displayedData.dates.reverse()
         this.displayedData.prices.reverse()
 
-        this.decideChartColor()
-
         this.displayPrice = this.displayedData.prices[this.displayedData.prices.length - 1]
 
         this.changePriceAction()
@@ -109,21 +107,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     } else {
       let functionalStockData: any
 
-      this.stockApi.getStockChartData(this.ticker).subscribe(response => {
-        let formattedData: any[] = []
-        functionalStockData = response
-        functionalStockData =  Object.entries(functionalStockData["Time Series (Daily)"]).map(([key, value]) => ({key, value}));
-        functionalStockData = functionalStockData.forEach((element: any) => {
-          formattedData.push({"date": element.key, "price": element.value["5. adjusted close"]}) 
-        })
-        functionalStockData = formattedData
-
-        this.fiveYearChartData = this.createArrayForTimePeriod(functionalStockData, '5 years')
-        this.oneYearChartData = this.createArrayForTimePeriod(functionalStockData, '1 year')
-        this.threeMonthChartData = this.createArrayForTimePeriod(functionalStockData, '3 months')
-        this.oneMonthChartData = this.createArrayForTimePeriod(functionalStockData, '1 month')
-        this.oneWeekChartData = this.createArrayForTimePeriod(functionalStockData, '1 week')
-      })
       this.stockApi.getStockDailyChartData(this.ticker).subscribe(response => {
         let formattedData: any[] = []
         let tempStockChartData: any
@@ -141,11 +124,8 @@ export class StockChartComponent implements OnInit, OnChanges {
           this.displayedData.dates.push(element.date)
           this.displayedData.prices.push(element.price)
         })
-
+        console.log('onInit')
         console.log(this.displayedData)
-
-        this.decideChartColor()
-
         this.displayPrice = this.displayedData.prices[this.displayedData.prices.length - 1]
 
         this.changePriceAction()
@@ -184,6 +164,21 @@ export class StockChartComponent implements OnInit, OnChanges {
         })
         
       })
+      this.stockApi.getStockChartData(this.ticker).subscribe(response => {
+        let formattedData: any[] = []
+        functionalStockData = response
+        functionalStockData =  Object.entries(functionalStockData["Time Series (Daily)"]).map(([key, value]) => ({key, value}));
+        functionalStockData = functionalStockData.forEach((element: any) => {
+          formattedData.push({"date": element.key, "price": element.value["5. adjusted close"]}) 
+        })
+        functionalStockData = formattedData
+
+        this.fiveYearChartData = this.createArrayForTimePeriod(functionalStockData, '5 years')
+        this.oneYearChartData = this.createArrayForTimePeriod(functionalStockData, '1 year')
+        this.threeMonthChartData = this.createArrayForTimePeriod(functionalStockData, '3 months')
+        this.oneMonthChartData = this.createArrayForTimePeriod(functionalStockData, '1 month')
+        this.oneWeekChartData = this.createArrayForTimePeriod(functionalStockData, '1 week')
+      })
     }
   }
 
@@ -206,7 +201,6 @@ export class StockChartComponent implements OnInit, OnChanges {
       this.oneWeekChartData = newIndexData['week_indexes_data']
       
     }
-
     if (changes['ticker'].currentValue != changes['ticker'].previousValue && !this.indexChart) {
       let functionalStockData: any
 
@@ -227,6 +221,8 @@ export class StockChartComponent implements OnInit, OnChanges {
           this.displayedData.dates.push(element.date)
           this.displayedData.prices.push(element.price)
         })
+        console.log('changed data')
+        console.log(this.displayedData)
         this.displayPrice = this.displayedData.prices[this.displayedData.prices.length - 1]
         this.updateChartData(this.oneDayChartData)
       })
@@ -246,7 +242,7 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.oneMonthChartData = this.createArrayForTimePeriod(functionalStockData, '1 month')
         this.oneWeekChartData = this.createArrayForTimePeriod(functionalStockData, '1 week')
       })
-  }
+  } 
   }
 
   createArrayForTimePeriod(stockData: any, timePeriod: string) {
@@ -331,7 +327,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     })
     this.chart.data.labels = this.displayedData.dates.reverse()
     this.chart.data.datasets[0].data = this.displayedData.prices.reverse()
-    this.decideChartColor()
     this.changePriceAction()
     this.chart.data.datasets[0].borderColor = this.chartColor
     this.chart.update()    
@@ -370,19 +365,13 @@ export class StockChartComponent implements OnInit, OnChanges {
 
   }
 
-  decideChartColor() {
-    if (this.displayedData.prices[0] > this.displayedData.prices[this.displayedData.prices.length - 1]) {
-      this.chartColor = '#ff0000'
-    } else {
-      this.chartColor = '#00ff00'
-    }
-  }
-
   changePriceAction() {
     let originalPriceChange = (parseFloat(this.displayedData.prices[this.displayedData.prices.length - 1]) - parseFloat(this.displayedData.prices[0])).toFixed(2)
     this.displayPriceChange = originalPriceChange
     let originalPercentChange = ((parseFloat(this.displayedData.prices[this.displayedData.prices.length - 1]) - parseFloat(this.displayedData.prices[0])) / parseFloat(this.displayedData.prices[0]) * 100).toFixed(2)
     this.displayPercentChange = originalPercentChange
+
+    this.displayPriceChange.includes('-')? this.chartColor = '#ff0000' : this.chartColor = '#00ff00'
   }
 
 }

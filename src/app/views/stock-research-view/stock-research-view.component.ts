@@ -41,7 +41,6 @@ export class StockResearchViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(JSON.parse(params['stock']))
       if (JSON.parse(params['stock']).ticker === undefined) {
         // add logic to create stock object based on symbol below, also check if this logic works
         this.stock = this.getDataForNewStock(JSON.parse(params['stock']))
