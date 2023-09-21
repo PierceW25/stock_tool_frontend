@@ -20,7 +20,10 @@ export class EarningsChartComponent implements OnInit {
       let allQuarterEndDates: String[][] = [];
       for (let i = 0; i < querterlyEarnings.length; i++) {
         let date = new Date(querterlyEarnings[i].fiscalDateEnding);
-        if (date.getMonth() + 1 === fiscalYearEndMonth && querterlyEarnings[i+1] && querterlyEarnings[i+2] && querterlyEarnings[i+3]) {
+        if (date.getMonth() + 1 === fiscalYearEndMonth && 
+            querterlyEarnings[i+1] && 
+            querterlyEarnings[i+2] && 
+            querterlyEarnings[i+3]) {
           //conditions for  ending in q3 or q2 or q1
           let fiscalYear = querterlyEarnings[i].fiscalDateEnding.slice(2, 4)
 
@@ -37,8 +40,13 @@ export class EarningsChartComponent implements OnInit {
           allQuarterEndDates.push([querterlyEarnings[i+2].fiscalDateEnding, 'Q2 FY' + fiscalYear]);
           allQuarterEndDates.push([querterlyEarnings[i+3].fiscalDateEnding, 'Q1 FY' + fiscalYear]);
         }
-    }
-    console.log(allQuarterEndDates);
+
+        if (i == 7) {
+          break;
+        }
+      }
+      allQuarterEndDates.length = 8;
+      console.log(allQuarterEndDates)
     });
   }
 }
