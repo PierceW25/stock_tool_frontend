@@ -20,19 +20,25 @@ export class EarningsChartComponent implements OnInit {
       let allQuarterEndDates: String[][] = [];
       for (let i = 0; i < querterlyEarnings.length; i++) {
         let date = new Date(querterlyEarnings[i].fiscalDateEnding);
-        if (date.getMonth() + 1 === fiscalYearEndMonth) {
-          console.log(date)
-          console.log('first three after \n')
-          console.log(new Date(querterlyEarnings[i+1].fiscalDateEnding))
-          console.log(new Date(querterlyEarnings[i+2].fiscalDateEnding))
-          console.log(new Date(querterlyEarnings[i+3].fiscalDateEnding))
-          console.log('first three before \n')
-          console.log(new Date(querterlyEarnings[i-1].fiscalDateEnding))
-          console.log(new Date(querterlyEarnings[i-2].fiscalDateEnding))
-          console.log(new Date(querterlyEarnings[i-3].fiscalDateEnding))
-          break;
+        if (date.getMonth() + 1 === fiscalYearEndMonth && querterlyEarnings[i+1] && querterlyEarnings[i+2] && querterlyEarnings[i+3]) {
+          //conditions for  ending in q3 or q2 or q1
+          let fiscalYear = querterlyEarnings[i].fiscalDateEnding.slice(2, 4)
+
+          //Doing hackey stuff to get the quarter end dates to displaye with the correct fiscal year
+          //the reverse counter is used to ge the correct quarter end dates for the first 3 quarters of the year
+          let reverseCounter = i;
+          for (let x = 0; x < i && i < 3; x++) {
+            allQuarterEndDates.push([querterlyEarnings[x].fiscalDateEnding, 'Q' + reverseCounter + ' FY' + Number(Number(fiscalYear) + 1)]);
+            reverseCounter--;
+          }
+
+          allQuarterEndDates.push([querterlyEarnings[i].fiscalDateEnding, 'Q4 FY' + fiscalYear]);
+          allQuarterEndDates.push([querterlyEarnings[i+1].fiscalDateEnding, 'Q3 FY' + fiscalYear]);
+          allQuarterEndDates.push([querterlyEarnings[i+2].fiscalDateEnding, 'Q2 FY' + fiscalYear]);
+          allQuarterEndDates.push([querterlyEarnings[i+3].fiscalDateEnding, 'Q1 FY' + fiscalYear]);
         }
     }
+    console.log(allQuarterEndDates);
     });
   }
 }
