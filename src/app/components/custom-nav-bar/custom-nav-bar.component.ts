@@ -26,6 +26,7 @@ export class CustomNavBarComponent {
     percent_change: '-',
     volume: '-',
     description: '-',
+    fiscalYearEnd: '-',
     market_cap: '-',
     pe_ratio: '-',
     fifty_two_week_high: '-',
@@ -99,6 +100,7 @@ export class CustomNavBarComponent {
         } else {
           newStock.name = response['Name']
           newStock.description = response['Description']
+          newStock.fiscalYearEnd = response['FiscalYearEnd']
           newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
           newStock.pe_ratio = response['PERatio']
           newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()

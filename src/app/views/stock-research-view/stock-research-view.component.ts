@@ -21,6 +21,7 @@ export class StockResearchViewComponent implements OnInit {
     ticker: '-',
     name: '-',
     description: '-',
+    fiscalYearEnd: '-',
     price: '-',
     days_change: '-',
     percent_change: '-',
@@ -50,13 +51,6 @@ export class StockResearchViewComponent implements OnInit {
     })
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(this.stock)
-    //make stock chart re render
-    //need to change ngOnChanges in stock-chart.component.ts currently only executes for indexes
-
-  }
-
   getDataForNewStock(ticker: string) {
     let newStock = {
       ...this.stock
@@ -70,6 +64,7 @@ export class StockResearchViewComponent implements OnInit {
         } else {
           newStock.name = response['Name']
           newStock.description = response['Description']
+          newStock.fiscalYearEnd = response['FiscalYearEnd']
           newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
           newStock.pe_ratio = response['PERatio']
           newStock.fifty_two_week_high = response['52WeekHigh']

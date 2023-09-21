@@ -11,25 +11,23 @@ export class EarningsChartComponent implements OnInit {
   constructor(private stockApiService: StockApiService) { }
 
   @Input() stockSymbol: string = '';
+  @Input() fiscalYearEndMonth: string = '';
 
   ngOnInit(): void {
     this.stockApiService.getStockEarnings(this.stockSymbol).subscribe((data: any) => {
-      let date = new Date();
-      let earningsYearToPullQuarterRulesFrom = date.getFullYear() - 1;
-      let datesOfEarnings: Date[] = [];
+      let fiscalYearEndMonth = new Date(this.fiscalYearEndMonth + ' 1, 2023').getMonth() + 1;
+      let thirdQuarterEndMonth = fiscalYearEndMonth - 3;
+      let secondQuarterEndMonth = fiscalYearEndMonth - 6;
+      let firstQuarterEndMonth = fiscalYearEndMonth - 9;
       let querterlyEarnings: EarningsDataPoint[] = data['quarterlyEarnings'];
-      let allQuarterEndDates: Date[] = [];
+      let allQuarterEndDates: String[][] = [];
+      console.log('all end months ' + fiscalYearEndMonth + ' ' + thirdQuarterEndMonth + ' ' + secondQuarterEndMonth + ' ' + firstQuarterEndMonth)
+      console.log('testing ' + new Date(this.fiscalYearEndMonth + ' 1, 2023').getMonth() + 4)
       for (let i = 0; i < querterlyEarnings.length; i++) {
-        let earningsYear = new Date(querterlyEarnings[i].fiscalDateEnding).getFullYear();
-        if (earningsYear === earningsYearToPullQuarterRulesFrom) {
-          datesOfEarnings.push(new Date(querterlyEarnings[i].fiscalDateEnding));
-        }
+        let date = new Date(querterlyEarnings[i].fiscalDateEnding);
+        console.log(date)
       }
-      //sort datesOfEarnings
-      datesOfEarnings.sort((a, b) => {
-        return a.getTime() - b.getTime();
-      });
-      console.log(datesOfEarnings);
+      console.log(allQuarterEndDates)
     });
   }
 }
