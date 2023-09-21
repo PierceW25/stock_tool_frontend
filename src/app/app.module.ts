@@ -25,6 +25,7 @@ import { WatchlistCustomComponent } from './views/watchlist-custom/watchlist-cus
 import { PrimaryFooterComponent } from './views/primary-footer/primary-footer.component';
 import { CustomAddStockModalComponent } from './modals/custom-add-stock-modal/custom-add-stock-modal.component';
 import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-bar.component';
+import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-ba
     WatchlistCustomComponent,
     PrimaryFooterComponent,
     CustomAddStockModalComponent,
-    CustomNavBarComponent
+    CustomNavBarComponent,
+    EarningsChartComponent
   ],
   imports: [
     BrowserModule,
