@@ -54,4 +54,7 @@ export class StockApiService {
     return this.http.get('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + searchTerm + '&apikey=' + this.apiKey)
   }
   
+  getStockEarnings(stockSymbol: string) {
+    return this.http.get('https://www.alphavantage.co/query?function=EARNINGS&symbol=' + stockSymbol + '&apikey=' + this.apiKey)
+  }
 }
