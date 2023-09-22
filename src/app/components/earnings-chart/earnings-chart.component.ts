@@ -1,28 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { EarningsDataPoint } from 'src/app/interfaces/earningsDataPoint';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-earnings-chart',
   templateUrl: './earnings-chart.component.html',
   styleUrls: ['./earnings-chart.component.css']
 })
-export class EarningsChartComponent implements OnInit {
+export class EarningsChartComponent {
   constructor(private stockApiService: StockApiService) { }
 
   @Input() stockSymbol: string = '';
   @Input() fiscalYearEndMonth: string = '';
 
-  formattedEarnings: EarningsDataPoint[] = [];
+  formattedEarnings?: EarningsDataPoint[];
 
-  ngOnInit(): void {
-    this.stockApiService.getStockEarnings(this.stockSymbol).subscribe((data: any) => {
-      let fiscalYearEndMonth = new Date(this.fiscalYearEndMonth + ' 1, 2023').getMonth() + 1;
-      let quarterlyEarnings: EarningsDataPoint[] = data['quarterlyEarnings'];
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['stockSymbol'].currentValue != changes['stockSymbol'].previousValue) {
+      this.stockSymbol = changes['stockSymbol']?.currentValue;
 
-      this.formattedEarnings = this.createEarningsList(quarterlyEarnings, fiscalYearEndMonth);
-      console.log(this.formattedEarnings)
-    });
+      this.stockApiService.getStockOverview(this.stockSymbol).subscribe((data: any) => {
+        this.fiscalYearEndMonth = data['FiscalYearEnd']
+
+        this.stockApiService.getStockEarnings(this.stockSymbol).subscribe((data: any) => {
+          let fiscalYearEndMonth = new Date(this.fiscalYearEndMonth + ' 1, 2023').getMonth() + 1;
+          let quarterlyEarnings: EarningsDataPoint[] = data['quarterlyEarnings'];
+  
+          this.formattedEarnings = this.createEarningsList(quarterlyEarnings, fiscalYearEndMonth);
+        });
+      });
+    }
   }
 
   createEarningsList(quarterlyEarnings: EarningsDataPoint[], FYEndMonth: number): EarningsDataPoint[] {

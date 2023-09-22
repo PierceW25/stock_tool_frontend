@@ -111,23 +111,24 @@ export class CustomNavBarComponent {
           newStock.dividend_yield = Number(response['DividendYield']).toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
           newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
           newStock.operating_margin = response['OperatingMarginTTM']
+
+          this.stockApi.getStockDailyInfo(ticker).subscribe(
+            (response: any) => {
+              if (response['Global Quote'] === undefined) {
+                console.log('error making daily info call for new stock, display page ' + newStock.ticker)
+                console.log(response)
+              } else {
+                newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
+                newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
+                newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
+      
+                let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
+                newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
+              }
+      
+              this.route.navigate(['research', ticker], { queryParams: { stock: JSON.stringify(newStock) }})
+            })
         }
-        this.stockApi.getStockDailyInfo(ticker).subscribe(
-          (response: any) => {
-            if (response['Global Quote'] === undefined) {
-              console.log('error making daily info call for new stock, display page ' + newStock.ticker)
-              console.log(response)
-            } else {
-              newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
-              newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
-              newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
-    
-              let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
-              newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
-            }
-    
-            this.route.navigate(['research', newStock.ticker], { queryParams: { stock: JSON.stringify(newStock) }})
-          })
       })
   }
 
