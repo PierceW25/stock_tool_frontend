@@ -115,19 +115,29 @@ export class EarningsChartComponent {
   }
 
   createChart(data: EarningsDataPoint[]) {
-    let chartData: {x: string, y: Number}[] = [];
+    let estimatedEPS: {x: string, y: Number}[] = [];
+    let reportedEPS: {x: string, y: Number}[] = [];
 
     for (let i = data.length - 1; i > -1; i--) {
-      chartData.push({x: data[i].fiscalQuarter, y: Number(data[i].reportedEPS)});
-      chartData.push({x: data[i].fiscalQuarter, y: Number(data[i].estimatedEPS)});
+      reportedEPS.push({x: data[i].fiscalQuarter, y: Number(data[i].reportedEPS)});
+      estimatedEPS.push({x: data[i].fiscalQuarter, y: Number(data[i].estimatedEPS)});
     }
 
     let formattedChartData = {
       datasets: [{
-        label: 'Reported EPS',
-        data: chartData,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+        label: '',
+        data: estimatedEPS,
+        pointRadius: 7,
+        backgroundColor: 'rgba(255, 127, 80, 0.5)'
+      },
+      {
+        label: '',
+        data: reportedEPS,
+        pointRadius: 7,
+        backgroundColor: 'rgba(255, 127, 80, 0.9)'
       }]
+
+
     }
 
     this.chart = new Chart('earnings', {
@@ -145,10 +155,13 @@ export class EarningsChartComponent {
               minRotation: 0
             }
           },
-        }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
       }
     })
-
-    console.log(chartData);
   }
 }

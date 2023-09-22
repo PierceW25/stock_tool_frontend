@@ -26,6 +26,7 @@ body {
   .stockInfoContainer {
     width: 42%;
     padding-top: 20px;
+    padding-bottom: 50px;
     border-radius: 8px;
     background-color: #1e1e22;
     display: flex;
@@ -60,7 +61,6 @@ body {
   .overviewDetailsContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-bottom: 30px;
   }
 
   .overviewDetailsContainer h2, h3 {
