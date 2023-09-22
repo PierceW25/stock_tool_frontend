@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { EarningsDataPoint } from 'src/app/interfaces/earningsDataPoint';
-import { map } from 'rxjs';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-earnings-chart',
@@ -12,22 +12,24 @@ export class EarningsChartComponent {
   constructor(private stockApiService: StockApiService) { }
 
   @Input() stockSymbol: string = '';
-  @Input() fiscalYearEndMonth: string = '';
+  @Input() backgroundColor: string = '';
 
   formattedEarnings?: EarningsDataPoint[];
+  chart: any = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['stockSymbol'].currentValue != changes['stockSymbol'].previousValue) {
       this.stockSymbol = changes['stockSymbol']?.currentValue;
 
       this.stockApiService.getStockOverview(this.stockSymbol).subscribe((data: any) => {
-        this.fiscalYearEndMonth = data['FiscalYearEnd']
+        let endMonth = data['FiscalYearEnd']
 
         this.stockApiService.getStockEarnings(this.stockSymbol).subscribe((data: any) => {
-          let fiscalYearEndMonth = new Date(this.fiscalYearEndMonth + ' 1, 2023').getMonth() + 1;
+          let fiscalYearEndMonth = new Date(endMonth + ' 1, 2023').getMonth() + 1;
           let quarterlyEarnings: EarningsDataPoint[] = data['quarterlyEarnings'];
   
           this.formattedEarnings = this.createEarningsList(quarterlyEarnings, fiscalYearEndMonth);
+          this.createChart(this.formattedEarnings)
         });
       });
     }
@@ -110,5 +112,43 @@ export class EarningsChartComponent {
       }
     }
     return privateFormattedEarnings;
+  }
+
+  createChart(data: EarningsDataPoint[]) {
+    let chartData: {x: string, y: Number}[] = [];
+
+    for (let i = data.length - 1; i > -1; i--) {
+      chartData.push({x: data[i].fiscalQuarter, y: Number(data[i].reportedEPS)});
+      chartData.push({x: data[i].fiscalQuarter, y: Number(data[i].estimatedEPS)});
+    }
+
+    let formattedChartData = {
+      datasets: [{
+        label: 'Reported EPS',
+        data: chartData,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+      }]
+    }
+
+    this.chart = new Chart('earnings', {
+      type: 'scatter',
+      data: formattedChartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            }
+          },
+        }
+      }
+    })
+
+    console.log(chartData);
   }
 }
