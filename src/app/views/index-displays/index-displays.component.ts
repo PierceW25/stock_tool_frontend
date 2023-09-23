@@ -13,6 +13,7 @@ export class IndexDisplaysComponent {
   selectedIndex = 0
   displayTicker: string = 'SPY'
   displayIndex: string = 'S&P 500'
+  initialChartColor: string = 'rgb(0, 0, 0)'
 
   constructor(private indexes_service: IndexesDataService) { }
 

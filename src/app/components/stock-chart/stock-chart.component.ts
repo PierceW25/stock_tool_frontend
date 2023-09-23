@@ -20,7 +20,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   @Input() chartWidth: string = '700px'
   @Input() showButtons: boolean = true
   @Input() indexChart: boolean = false
-  @Input() initialChartColor: string = 'rgba(0, 0, 0, 0.5)'
+  @Input() initialChartColor: string = '-'
 
   chartStyles: Record<string, string> = {}
 
@@ -44,7 +44,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     this.chartStyles = {
       'width': this.chartWidth,
     }
-    sessionStorage.setItem('accentColor', '');
 
     if (this.indexChart) {
       let newChartData: {dates: string[], prices: string[]} = {dates: [], prices: []}
@@ -64,7 +63,9 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.displayPriceChange = originalPriceChange
         let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
         this.displayPercentChange = originalPercentChange
-        this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
+        if (this.initialChartColor === '-') {
+          this.initialChartColor = this.displayPercentChange.includes('-')? '255, 0, 0' : '0, 255, 0'
+        }
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -75,7 +76,7 @@ export class StockChartComponent implements OnInit, OnChanges {
                 //hide the label of this dataset
                 label: '',
                 data: newChartData.prices,
-                borderColor: "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")",
+                borderColor: "rgba(" + this.initialChartColor + ")",
                 borderWidth: 1.8,
                 pointRadius: 0,
                 hoverBorderColor: '#000000',
@@ -138,7 +139,6 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.displayPriceChange = originalPriceChange
         let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
         this.displayPercentChange = originalPercentChange
-        this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -149,7 +149,7 @@ export class StockChartComponent implements OnInit, OnChanges {
                 //hide the label of this dataset
                 label: '',
                 data: newChartData.prices,
-                borderColor: "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")",
+                borderColor: "rgba(" + this.initialChartColor + ")",
                 borderWidth: 3,
                 pointRadius: 0,
                 pointHoverRadius: 3

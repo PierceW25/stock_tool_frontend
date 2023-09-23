@@ -47,10 +47,11 @@ export class StockResearchViewComponent implements OnInit {
       if (JSON.parse(params['stock']).ticker === undefined) {
         // add logic to create stock object based on symbol below, also check if this logic works
         this.stock = this.getDataForNewStock(JSON.parse(params['stock']))
+        this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
       } else {
         this.stock = JSON.parse(params['stock'])
+        this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
       }
-      this.accentColor = this.stock.days_change[0] === '-' ? '255, 0, 0' : '0, 255, 0'
     })
   }
 
