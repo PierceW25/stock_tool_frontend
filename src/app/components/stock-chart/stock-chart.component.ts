@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
 import { StockApiService } from '../../services/stock-api.service';
 import Chart from 'chart.js/auto';
 import { IndexesDataService } from 'src/app/services/indexes-data.service';
@@ -20,6 +20,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   @Input() chartWidth: string = '700px'
   @Input() showButtons: boolean = true
   @Input() indexChart: boolean = false
+  @Input() initialChartColor: string = 'rgba(0, 0, 0, 0.5)'
 
   chartStyles: Record<string, string> = {}
 
@@ -43,6 +44,7 @@ export class StockChartComponent implements OnInit, OnChanges {
     this.chartStyles = {
       'width': this.chartWidth,
     }
+    sessionStorage.setItem('accentColor', '');
 
     if (this.indexChart) {
       let newChartData: {dates: string[], prices: string[]} = {dates: [], prices: []}
@@ -62,7 +64,7 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.displayPriceChange = originalPriceChange
         let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
         this.displayPercentChange = originalPercentChange
-        this.displayPriceChange.includes('-')? this.chartColor = '#ff0000' : this.chartColor = '#00ff00'
+        this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -73,7 +75,7 @@ export class StockChartComponent implements OnInit, OnChanges {
                 //hide the label of this dataset
                 label: '',
                 data: newChartData.prices,
-                borderColor: this.chartColor,
+                borderColor: "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")",
                 borderWidth: 1.8,
                 pointRadius: 0,
                 hoverBorderColor: '#000000',
@@ -136,7 +138,7 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.displayPriceChange = originalPriceChange
         let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
         this.displayPercentChange = originalPercentChange
-        this.displayPriceChange.includes('-')? this.chartColor = '#ff0000' : this.chartColor = '#00ff00'
+        this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -147,7 +149,7 @@ export class StockChartComponent implements OnInit, OnChanges {
                 //hide the label of this dataset
                 label: '',
                 data: newChartData.prices,
-                borderColor: this.chartColor,
+                borderColor: "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")",
                 borderWidth: 3,
                 pointRadius: 0,
                 pointHoverRadius: 3
@@ -327,8 +329,9 @@ export class StockChartComponent implements OnInit, OnChanges {
     this.displayPriceChange = originalPriceChange
     let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
     this.displayPercentChange = originalPercentChange
-    this.displayPriceChange.includes('-')? this.chartColor = '#ff0000' : this.chartColor = '#00ff00'
-    this.chart.data.datasets[0].borderColor = this.chartColor
+    this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
+    this.chart.data.datasets[0].borderColor = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")"
+    let color = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ", 0.5)"
     this.displayPrice = newChartData.prices[newChartData.prices.length - 1]
     this.chart.update()
   }

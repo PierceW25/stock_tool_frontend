@@ -128,13 +128,13 @@ export class EarningsChartComponent {
         label: '',
         data: estimatedEPS,
         pointRadius: 7,
-        backgroundColor: 'rgba(255, 127, 80, 0.5)'
+        backgroundColor: 'rgba(' + sessionStorage.getItem('accentColor') + '0.3)'
       },
       {
         label: '',
         data: reportedEPS,
         pointRadius: 7,
-        backgroundColor: 'rgba(255, 127, 80, 0.9)'
+        backgroundColor: 'rgba(' + sessionStorage.getItem('accentColor') + '0.8)'
       }]
 
 

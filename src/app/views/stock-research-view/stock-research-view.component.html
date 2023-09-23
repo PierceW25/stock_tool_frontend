@@ -8,7 +8,10 @@
     <body>
         <app-custom-nav-bar></app-custom-nav-bar>
         <div class="stockInfoAndChartContainer">
-            <app-stock-chart [ticker]="stock.ticker" [chartWidth]='"800px"' [title]="stock.name"></app-stock-chart>
+            <app-stock-chart [ticker]="stock.ticker" 
+            [chartWidth]='"800px"' 
+            [title]="stock.name"
+            [initialChartColor]="accentColor"></app-stock-chart>
             
             <div class="stockInfoContainer">
                 <div class="stockSummaryContainer">

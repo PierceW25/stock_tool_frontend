@@ -5,6 +5,19 @@
     align-items: center;
 }
 
+.earningsHeader {
+    margin-bottom: 10px;
+    width: 90%;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #6c6969;
+  }
+
+  .earningsHeader h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
 .earningsChartContainer {
     width: 90%;
     height: 200px;

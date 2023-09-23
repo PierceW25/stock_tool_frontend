@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChange, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -40,6 +40,8 @@ export class StockResearchViewComponent implements OnInit {
     purchase_amt: 0
   }
 
+  accentColor: string = ''
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {
@@ -48,6 +50,7 @@ export class StockResearchViewComponent implements OnInit {
       } else {
         this.stock = JSON.parse(params['stock'])
       }
+      this.accentColor = this.stock.days_change[0] === '-' ? '255, 0, 0' : '0, 255, 0'
     })
   }
 
