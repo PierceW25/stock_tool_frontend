@@ -1,13 +1,13 @@
 <div class="stockChartTopContainer">
     <div class="stockTextInfo">
         <div class="stockTitleAndPrice">
-             <p>{{title}}<br>${{displayPrice}}<br>
+             <p>{{title}}<br>{{displayPrice}}<br>
              </p>
             <span [ngClass]="{
                 'positive_change': !displayPriceChange.includes('-'),
                 'negative_change': displayPriceChange.includes('-')}">
-                {{displayPriceChange.includes('-')? '' : '+'}}${{displayPriceChange}}
-                ({{displayPriceChange.includes('-')? '' : '+'}}{{displayPercentChange}}%)</span>
+                {{displayPriceChange.includes('-')? '' : '+'}}{{displayPriceChange}}
+                ({{displayPriceChange.includes('-')? '' : '+'}}{{displayPercentChange}})</span>
         </div>
     </div>
     

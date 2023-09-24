@@ -11,7 +11,10 @@
             <app-stock-chart [ticker]="stock.ticker" 
             [chartWidth]='"800px"' 
             [title]="stock.name"
-            [initialChartColor]="accentColor"></app-stock-chart>
+            [initialChartColor]="accentColor"
+            [displayPrice]="stock.price"
+            [daysPriceChange]="stock.days_change"
+            [daysPercentChange]="stock.percent_change"></app-stock-chart>
             
             <div class="stockInfoContainer">
                 <div class="stockSummaryContainer">
@@ -30,14 +33,6 @@
                         <div class="stockDetailsItem">
                             <h3>Price</h3>
                             <h4>{{stock.price}}</h4>
-                        </div>
-                        <div class="stockDetailsItem">
-                            <h3>Days Change</h3>
-                            <h4>{{stock.days_change}}</h4>
-                        </div>
-                        <div class="stockDetailsItem">
-                            <h3>% Change</h3>
-                            <h4>{{stock.percent_change}}</h4>
                         </div>
                         <div class="stockDetailsItem">
                             <h3>Volume</h3>

@@ -47,7 +47,7 @@ export class StockResearchViewComponent implements OnInit {
       if (JSON.parse(params['stock']).ticker === undefined) {
         // add logic to create stock object based on symbol below, also check if this logic works
         this.stock = this.getDataForNewStock(JSON.parse(params['stock']))
-        this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+        
       } else {
         this.stock = JSON.parse(params['stock'])
         this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
@@ -80,21 +80,23 @@ export class StockResearchViewComponent implements OnInit {
           newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
           newStock.operating_margin = response['OperatingMarginTTM']
         }
+        this.stockApi.getStockDailyInfo(newStock.ticker).subscribe(
+          (response: any) => {
+            if (response['Global Quote'] === undefined) {
+              console.log('error making daily info call for new stock, display page ' + newStock.ticker)
+              console.log(response)
+            } else {
+              newStock.price = String(Math.round(Number(response['Global Quote']['05. price']) * 100) / 100)
+              newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
+              newStock.days_change = String(Math.round(Number(response['Global Quote']['09. change']) * 100) / 100)
+    
+              let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
+              newStock.percent_change = Math.round(percent_manip * 100) / 100 + '%'
+            }
+            this.accentColor = newStock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+          })
       })
-    this.stockApi.getStockDailyInfo(newStock.ticker).subscribe(
-      (response: any) => {
-        if (response['Global Quote'] === undefined) {
-          console.log('error making daily info call for new stock, display page ' + newStock.ticker)
-          console.log(response)
-        } else {
-          newStock.price = String(Math.round(Number(response['Global Quote']['05. price']) * 100) / 100)
-          newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
-          newStock.days_change = String(Math.round(Number(response['Global Quote']['09. change']) * 100) / 100)
-
-          let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
-          newStock.percent_change = Math.round(percent_manip * 100) / 100 + '%'
-        }
-      })
+    
     return newStock
   }
 }
