@@ -51,6 +51,11 @@ export class StockResearchViewComponent implements OnInit {
       } else {
         this.stock = JSON.parse(params['stock'])
         this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+        if (this.stock.days_change.includes('-')) {
+          this.stock.days_change = this.stock.days_change.replace('-', '-$')
+        } else {
+          this.stock.days_change = '$' + this.stock.days_change
+        }
       }
     })
   }
@@ -89,6 +94,11 @@ export class StockResearchViewComponent implements OnInit {
               newStock.price = String(Math.round(Number(response['Global Quote']['05. price']) * 100) / 100)
               newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
               newStock.days_change = String(Math.round(Number(response['Global Quote']['09. change']) * 100) / 100)
+              if (newStock.days_change.includes('-')) {
+                newStock.days_change = newStock.days_change.replace('-', '-$')
+              } else {
+                newStock.days_change = '$' + newStock.days_change
+              }
     
               let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
               newStock.percent_change = Math.round(percent_manip * 100) / 100 + '%'

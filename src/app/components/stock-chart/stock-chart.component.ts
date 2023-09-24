@@ -117,14 +117,23 @@ export class StockChartComponent implements OnInit, OnChanges {
       this.stockApi.getStockDailyChartData(this.ticker).subscribe(response => {
         let formattedData: any[] = []
         let tempStockChartData: any
+        let gottenPrevClose = false
+        let prevCloseObj: {date: string, price: string} = {date: '', price: ''}
 
         tempStockChartData = response
         tempStockChartData = Object.entries(tempStockChartData["Time Series (5min)"]).map(([key, value]) => ({key, value}));
         tempStockChartData.forEach((element: any) => {
+          if (!gottenPrevClose && element.key.split(' ')[0] != tempStockChartData[0].key.split(' ')[0]) {
+            prevCloseObj = {"date": "09:25 AM", "price": element.value["4. close"]}
+            gottenPrevClose = true
+          }
+
           if (element.key.split(' ')[0] === tempStockChartData[0].key.split(' ')[0]) {
             formattedData.push({"date": this.formatTime(element.key.split(' ')[1]), "price": element.value["4. close"]})
           }
         })
+        formattedData.push(prevCloseObj)
+        console.log(formattedData)
         
         this.oneDayChartData = formattedData
         this.oneDayChartData.forEach((element: any) => {
@@ -212,6 +221,7 @@ export class StockChartComponent implements OnInit, OnChanges {
         tempStockChartData = Object.entries(tempStockChartData["Time Series (5min)"]).map(([key, value]) => ({key, value}));
         tempStockChartData.forEach((element: any) => {
           if (!gottenPrevClose && element.key.split(' ')[0] != tempStockChartData[0].key.split(' ')[0]) {
+            let prevCloseObj = {"date": element.key.split(' ')[0], "price": element.value["4. close"]}
             prevClose = element.value["4. close"]
             gottenPrevClose = true
           }
@@ -221,6 +231,7 @@ export class StockChartComponent implements OnInit, OnChanges {
           }
         })
         this.oneDayChartData = formattedData
+        this.oneDayChartData.push({"date": "09:25 AM", "price": prevClose})
         this.updateChartData(this.oneDayChartData)
       })
 
@@ -336,8 +347,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     this.displayPercentChange = originalPercentChange + '%'
     this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
     this.chart.data.datasets[0].borderColor = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")"
-    let color = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ", 0.5)"
-    this.displayPrice = '$' + newChartData.prices[newChartData.prices.length - 1].toFixed(2)
     this.chart.update()
   }
 
