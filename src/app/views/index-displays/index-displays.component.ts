@@ -14,6 +14,9 @@ export class IndexDisplaysComponent {
   displayTicker: string = 'SPY'
   displayIndex: string = 'S&P 500'
   initialChartColor: string = 'rgb(0, 0, 0)'
+  displayedIndexesPrice: string = '0.00'
+  displayedIndexesPercentChange: string = '0.00%'
+  displayedIndexesPriceChange: string = '$0.00'
 
   constructor(private indexes_service: IndexesDataService) { }
 
@@ -39,11 +42,23 @@ export class IndexDisplaysComponent {
             datetime_added: element.value['datetime_added']
           })
         })
+        this.displayedIndexesPrice = this.indexes[0].price.toString()
+        this.displayedIndexesPercentChange = this.indexes[0].percent_change
+        let calculatedPriceChange = this.indexes[0].price * (parseFloat(this.indexes[0].percent_change.slice(0, -1)) / 100)
+        this.displayedIndexesPriceChange = calculatedPriceChange.toFixed(2).toString()
       })
+
    }
 
   onChangeIndexChart(index: any): void {
     this.displayTicker = this.indexes[index].ticker
     this.displayIndex = this.indexes[index].title
+    this.displayedIndexesPrice = this.indexes[index].price.toString()
+    this.displayedIndexesPercentChange = this.indexes[index].percent_change
+    let calculatedPriceChange = this.indexes[index].price * (parseFloat(this.indexes[index].percent_change.slice(0, -1)) / 100)
+    this.displayedIndexesPriceChange = calculatedPriceChange.toFixed(2).toString()
+    console.log('index page output')
+    console.log(this.displayedIndexesPercentChange)
+    console.log(this.displayedIndexesPriceChange)
   }
 }

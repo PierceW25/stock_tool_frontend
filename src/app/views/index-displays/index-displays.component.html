@@ -87,7 +87,13 @@
     <body>
         <div class="indexContentContainer">
             <div class="chartContainer">
-                <app-stock-chart [ticker]="displayTicker" [chartWidth]='"850px"' [indexChart]="true" [title]="displayIndex"></app-stock-chart>
+                <app-stock-chart [ticker]="displayTicker" 
+                [chartWidth]='"850px"' 
+                [indexChart]="true" 
+                [title]="displayIndex"
+                [daysPercentChange]="displayedIndexesPercentChange"
+                [daysPriceChange]="displayedIndexesPriceChange"
+                [displayPrice]="displayedIndexesPrice"></app-stock-chart>
             </div>
         
             <div class="indexListContainer">

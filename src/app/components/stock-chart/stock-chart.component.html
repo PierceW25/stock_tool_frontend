@@ -4,10 +4,10 @@
              <p>{{title}}<br>{{displayPrice}}<br>
              </p>
             <span [ngClass]="{
-                'positive_change': !displayPriceChange.includes('-'),
-                'negative_change': displayPriceChange.includes('-')}">
-                {{displayPriceChange.includes('-')? '' : '+'}}{{displayPriceChange}}
-                ({{displayPriceChange.includes('-')? '' : '+'}}{{displayPercentChange}})</span>
+                'positive_change': !daysPriceChange.includes('-'),
+                'negative_change': daysPriceChange.includes('-')}">
+                {{daysPriceChange.includes('-')? '' : '+'}}{{daysPriceChange}}
+                ({{daysPriceChange.includes('-')? '' : '+'}}{{daysPercentChange}})</span>
         </div>
     </div>
     
