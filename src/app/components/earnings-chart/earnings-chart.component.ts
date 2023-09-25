@@ -29,7 +29,11 @@ export class EarningsChartComponent {
           let quarterlyEarnings: EarningsDataPoint[] = data['quarterlyEarnings'];
   
           this.formattedEarnings = this.createEarningsList(quarterlyEarnings, fiscalYearEndMonth);
-          this.createChart(this.formattedEarnings)
+          if (this.chart.data?.datasets[0].data.length > 0) {
+            this.updateWholeChart(this.formattedEarnings)
+          } else {
+            this.createChart(this.formattedEarnings)
+          }
         });
       });
     } else if (changes['backgroundColor']?.currentValue != changes['backgroundColor']?.previousValue) {
@@ -168,10 +172,25 @@ export class EarningsChartComponent {
     })
   }
 
+  updateWholeChart(data: EarningsDataPoint[]) {
+    let estimatedEPS: {x: string, y: Number}[] = [];
+    let reportedEPS: {x: string, y: Number}[] = [];
+
+    for (let i = data.length - 1; i > -1; i--) {
+      reportedEPS.push({x: data[i].fiscalQuarter, y: Number(data[i].reportedEPS)});
+      estimatedEPS.push({x: data[i].fiscalQuarter, y: Number(data[i].estimatedEPS)});
+    }
+
+    this.chart.data.datasets[0].data = estimatedEPS;
+    this.chart.data.datasets[0].backgroundColor = 'rgba(' + this.backgroundColor + ',0.3)';
+    this.chart.data.datasets[1].data = reportedEPS;
+    this.chart.data.datasets[1].backgroundColor = 'rgba(' + this.backgroundColor + ',0.8)';
+    this.chart.update();
+  }
+
   updateChartColor(color: string) {
     this.chart.data.datasets[0].backgroundColor = 'rgba(' + color + ',0.3)';
     this.chart.data.datasets[1].backgroundColor = 'rgba(' + color + ',0.8)';
     this.chart.update();
-    console.log('updated chart color')
   }
 }
