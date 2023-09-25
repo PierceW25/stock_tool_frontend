@@ -37,12 +37,12 @@ export class IndexDisplaysComponent {
           this.indexes.push({
             ticker: element.value['ticker'],
             title: element.value['title'],
-            price: element.value['price'],
+            price: element.value['price'].toFixed(2),
             percent_change: formatted_percent_change,
             datetime_added: element.value['datetime_added']
           })
         })
-        this.displayedIndexesPrice = this.indexes[0].price.toString()
+        this.displayedIndexesPrice = '$' + this.indexes[0].price.toString()
         this.displayedIndexesPercentChange = this.indexes[0].percent_change
         let calculatedPriceChange = this.indexes[0].price * (parseFloat(this.indexes[0].percent_change.slice(0, -1)) / 100)
         this.displayedIndexesPriceChange = calculatedPriceChange.toFixed(2).toString()
@@ -53,7 +53,7 @@ export class IndexDisplaysComponent {
   onChangeIndexChart(index: any): void {
     this.displayTicker = this.indexes[index].ticker
     this.displayIndex = this.indexes[index].title
-    this.displayedIndexesPrice = this.indexes[index].price.toString()
+    this.displayedIndexesPrice = '$' + this.indexes[index].price.toString()
     this.displayedIndexesPercentChange = this.indexes[index].percent_change
     let calculatedPriceChange = this.indexes[index].price * (parseFloat(this.indexes[index].percent_change.slice(0, -1)) / 100)
     this.displayedIndexesPriceChange = calculatedPriceChange.toFixed(2).toString()
