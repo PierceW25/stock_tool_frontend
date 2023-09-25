@@ -18,7 +18,7 @@ export class EarningsChartComponent {
   chart: any = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['stockSymbol'].currentValue != changes['stockSymbol'].previousValue) {
+    if (changes['stockSymbol']?.currentValue != changes['stockSymbol']?.previousValue) {
       this.stockSymbol = changes['stockSymbol']?.currentValue;
 
       this.stockApiService.getStockOverview(this.stockSymbol).subscribe((data: any) => {
@@ -32,6 +32,9 @@ export class EarningsChartComponent {
           this.createChart(this.formattedEarnings)
         });
       });
+    } else if (changes['backgroundColor']?.currentValue != changes['backgroundColor']?.previousValue) {
+      this.backgroundColor = changes['backgroundColor']?.currentValue;
+      this.updateChartColor(this.backgroundColor);
     }
   }
 
@@ -163,5 +166,12 @@ export class EarningsChartComponent {
         },
       }
     })
+  }
+
+  updateChartColor(color: string) {
+    this.chart.data.datasets[0].backgroundColor = 'rgba(' + color + ',0.3)';
+    this.chart.data.datasets[1].backgroundColor = 'rgba(' + color + ',0.8)';
+    this.chart.update();
+    console.log('updated chart color')
   }
 }

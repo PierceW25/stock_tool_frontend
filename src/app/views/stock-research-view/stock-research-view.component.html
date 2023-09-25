@@ -14,7 +14,8 @@
             [initialChartColor]="accentColor"
             [displayPrice]="stock.price"
             [daysPriceChange]="stock.days_change"
-            [daysPercentChange]="stock.percent_change"></app-stock-chart>
+            [daysPercentChange]="stock.percent_change"
+            (changeChartColor)="updateEarningsChartColor($event)"></app-stock-chart>
             
             <div class="stockInfoContainer">
                 <div class="stockSummaryContainer">

@@ -109,4 +109,8 @@ export class StockResearchViewComponent implements OnInit {
     
     return newStock
   }
+
+  updateEarningsChartColor(color: string) {
+    this.accentColor = color
+  }
 }

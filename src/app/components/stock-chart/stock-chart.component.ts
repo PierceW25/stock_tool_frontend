@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { StockApiService } from '../../services/stock-api.service';
 import Chart from 'chart.js/auto';
 import { IndexesDataService } from 'src/app/services/indexes-data.service';
@@ -24,6 +24,8 @@ export class StockChartComponent implements OnInit, OnChanges {
   @Input() displayPrice = '-'
   @Input() daysPriceChange = '-'
   @Input() daysPercentChange = '-'
+
+  @Output() changeChartColor = new EventEmitter<string>()
 
   displayPriceChange = '-'
   displayPercentChange = '-'
@@ -133,7 +135,6 @@ export class StockChartComponent implements OnInit, OnChanges {
           }
         })
         formattedData.push(prevCloseObj)
-        console.log(formattedData)
         
         this.oneDayChartData = formattedData
         this.oneDayChartData.forEach((element: any) => {
@@ -196,7 +197,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker'].currentValue != changes['ticker'].previousValue && this.allIndexData) {
+    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && this.allIndexData) {
       let newIndexData = this.allIndexData.find((element: any) => element.ticker === this.ticker)
       this.oneDayChartData = newIndexData['daily_indexes_data']
       this.updateChartData(this.oneDayChartData)
@@ -208,21 +209,20 @@ export class StockChartComponent implements OnInit, OnChanges {
       this.oneWeekChartData = newIndexData['week_indexes_data']
       
     }
-    if (changes['ticker'].currentValue != changes['ticker'].previousValue && !this.indexChart) {
+    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && !this.indexChart) {
       let functionalStockData: any
 
       this.stockApi.getStockDailyChartData(this.ticker).subscribe(response => {
         let formattedData: any[] = []
         let tempStockChartData: any
-        let prevClose = 0 
         let gottenPrevClose = false
+        let prevCloseObj = {"date": '', "price": ''}
 
         tempStockChartData = response
         tempStockChartData = Object.entries(tempStockChartData["Time Series (5min)"]).map(([key, value]) => ({key, value}));
         tempStockChartData.forEach((element: any) => {
           if (!gottenPrevClose && element.key.split(' ')[0] != tempStockChartData[0].key.split(' ')[0]) {
-            let prevCloseObj = {"date": element.key.split(' ')[0], "price": element.value["4. close"]}
-            prevClose = element.value["4. close"]
+            prevCloseObj = {"date": "09:30 AM", "price": element.value["4. close"]}
             gottenPrevClose = true
           }
 
@@ -230,8 +230,8 @@ export class StockChartComponent implements OnInit, OnChanges {
             formattedData.push({"date": this.formatTime(element.key.split(' ')[1]), "price": element.value["4. close"]})
           }
         })
+        formattedData.push(prevCloseObj)
         this.oneDayChartData = formattedData
-        this.oneDayChartData.push({"date": "09:25 AM", "price": prevClose})
         this.updateChartData(this.oneDayChartData)
       })
 
@@ -345,8 +345,9 @@ export class StockChartComponent implements OnInit, OnChanges {
     }
     let originalPercentChange = ((parseFloat(newChartData.prices[newChartData.prices.length - 1]) - parseFloat(newChartData.prices[0])) / parseFloat(newChartData.prices[0]) * 100).toFixed(2)
     this.displayPercentChange = originalPercentChange + '%'
-    this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
-    this.chart.data.datasets[0].borderColor = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")"
+    this.displayPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
+    this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
+    this.changeChartColor.emit(this.initialChartColor)
     this.chart.update()
   }
 
@@ -389,9 +390,9 @@ export class StockChartComponent implements OnInit, OnChanges {
 
         this.displayPriceChange = this.daysPriceChange
         this.displayPercentChange = this.daysPercentChange
-        this.displayPriceChange.includes('-')? sessionStorage.setItem('accentColor', '255, 0, 0') : sessionStorage.setItem('accentColor', '0, 255, 0')
-        this.chart.data.datasets[0].borderColor = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ")"
-        let color = "rgba(" + sessionStorage.getItem('accentColor') || '#000000' + ", 0.5)"
+        this.displayPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
+        this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
+        this.changeChartColor.emit(this.initialChartColor)
         this.chart.update()
         break
     }
