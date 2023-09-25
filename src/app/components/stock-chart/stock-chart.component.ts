@@ -41,8 +41,14 @@ export class StockChartComponent implements OnInit, OnChanges {
   oneWeekChartData: any
   oneDayChartData: any
 
+  constantDaysChange: string = '0.00'
+  constantPercentChange: string = '0.00%'
+
 
   ngOnInit(): void {
+    this.constantDaysChange = this.daysPriceChange
+    this.constantPercentChange = this.daysPercentChange
+
     this.chartStyles = {
       'width': this.chartWidth,
     }
@@ -324,6 +330,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   updateChartData(newData: {date: string, price: string}[]): void {
     let newChartData: any = {dates: [], prices: []}
     
+    //Changing the data in the chart
     newData.forEach((element:any) => {
       newChartData.dates.push(element.date)
       newChartData.prices.push(element.price)
@@ -331,14 +338,30 @@ export class StockChartComponent implements OnInit, OnChanges {
     this.chart.data.labels = newChartData.dates.reverse()
     this.chart.data.datasets[0].data = newChartData.prices.reverse()
 
-    if (this.daysPriceChange.includes('-')) {
+
+    //Changing the price change and percent chagne
+    let earliestPrice = Number(newData[newData.length - 1].price)
+    let recentPrice = Number(newData[0].price)
+
+    this.daysPercentChange = ( ( (recentPrice - earliestPrice) / earliestPrice) * 100 )
+    .toFixed(2)
+    .toString() + '%'
+    this.daysPriceChange = (recentPrice - earliestPrice).toFixed(2).toString()
+
+
+    //Changing the format of the price change
+    if (this.daysPriceChange.includes('-') && !this.daysPriceChange.includes('-$')) {
       this.daysPriceChange = this.daysPriceChange.replace('-', '-$')
     } else {
-      this.daysPriceChange= '$' + this.daysPriceChange
+      this.daysPriceChange = this.daysPriceChange.includes('$')? this.daysPriceChange : '$' + this.daysPriceChange
     }
+
+    //Changing the color of the chart
     this.daysPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
     this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
     this.changeChartColor.emit(this.initialChartColor)
+
+    //updating chart
     this.chart.update()
   }
 
@@ -378,6 +401,9 @@ export class StockChartComponent implements OnInit, OnChanges {
 
         this.chart.data.labels = newChartData.dates.reverse()
         this.chart.data.datasets[0].data = newChartData.prices.reverse()
+
+        this.daysPercentChange = this.constantPercentChange
+        this.daysPriceChange = this.constantDaysChange
 
         this.daysPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
         this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
