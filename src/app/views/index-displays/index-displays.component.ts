@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { IndexesDataService } from '../../services/indexes-data.service';
 import { indexDailyData } from '../../interfaces/indexDailyData';
 
@@ -7,7 +7,7 @@ import { indexDailyData } from '../../interfaces/indexDailyData';
   templateUrl: './index-displays.component.html',
   styleUrls: ['./index-displays.component.css']
 })
-export class IndexDisplaysComponent {
+export class IndexDisplaysComponent implements OnInit {
   indexes: indexDailyData[] = []
 
   selectedIndex = 0
