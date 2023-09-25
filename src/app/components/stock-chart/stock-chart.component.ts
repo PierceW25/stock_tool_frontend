@@ -22,8 +22,8 @@ export class StockChartComponent implements OnInit, OnChanges {
   @Input() indexChart: boolean = false
   @Input() initialChartColor: string = '-'
   @Input() displayPrice = '-'
-  @Input() daysPriceChange = '-'
-  @Input() daysPercentChange = '-'
+  @Input() constantPriceChange = '-'
+  @Input() constantPercentChange = '-'
 
   @Output() changeChartColor = new EventEmitter<string>()
 
@@ -41,13 +41,13 @@ export class StockChartComponent implements OnInit, OnChanges {
   oneWeekChartData: any
   oneDayChartData: any
 
-  constantDaysChange: string = '0.00'
-  constantPercentChange: string = '0.00%'
+  daysPriceChange: string = '0.00'
+  daysPercentChange: string = '0.00%'
 
 
   ngOnInit(): void {
-    this.constantDaysChange = this.daysPriceChange
-    this.constantPercentChange = this.daysPercentChange
+    this.daysPriceChange = this.constantPriceChange
+    this.daysPercentChange = this.constantPercentChange
 
     this.chartStyles = {
       'width': this.chartWidth,
@@ -200,7 +200,7 @@ export class StockChartComponent implements OnInit, OnChanges {
     if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && this.allIndexData) {
       let newIndexData = this.allIndexData.find((element: any) => element.ticker === this.ticker)
       this.oneDayChartData = newIndexData['daily_indexes_data']
-      this.updateChartData(this.oneDayChartData)
+      this.updateChartForIndexes(this.oneDayChartData)
 
       this.fiveYearChartData = newIndexData['five_year_indexes_data']
       this.oneYearChartData = newIndexData['one_year_indexes_data']
@@ -327,6 +327,37 @@ export class StockChartComponent implements OnInit, OnChanges {
     console.log('big problem with createArrayForTimePeriod function in stock-chart component')
   }
 
+  updateChartForIndexes(newData: {date: string, price: string}[]): void {
+    this.daysPercentChange = this.constantPercentChange
+    this.daysPriceChange = this.constantPriceChange
+
+    let newChartData: any = {dates: [], prices: []}
+    
+    //Changing the data in the chart
+    newData.forEach((element:any) => {
+      newChartData.dates.push(element.date)
+      newChartData.prices.push(element.price)
+    })
+    this.chart.data.labels = newChartData.dates.reverse()
+    this.chart.data.datasets[0].data = newChartData.prices.reverse()
+  
+    if (this.daysPriceChange.includes('-') && !this.daysPriceChange.includes('-$')) {
+      this.daysPriceChange = this.daysPriceChange.replace('-', '-$')
+    } else {
+      this.daysPriceChange = this.daysPriceChange.includes('$')? this.daysPriceChange : '$' + this.daysPriceChange
+    }
+
+    //Changing the color of the chart
+    this.daysPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
+    this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
+    this.changeChartColor.emit(this.initialChartColor)
+
+    //updating chart
+    this.chart.update()
+  }
+
+
+  //update for when the charts time frame is changed, not stock
   updateChartData(newData: {date: string, price: string}[]): void {
     let newChartData: any = {dates: [], prices: []}
     
@@ -337,7 +368,6 @@ export class StockChartComponent implements OnInit, OnChanges {
     })
     this.chart.data.labels = newChartData.dates.reverse()
     this.chart.data.datasets[0].data = newChartData.prices.reverse()
-
 
     //Changing the price change and percent chagne
     let earliestPrice = Number(newData[newData.length - 1].price)
@@ -403,7 +433,7 @@ export class StockChartComponent implements OnInit, OnChanges {
         this.chart.data.datasets[0].data = newChartData.prices.reverse()
 
         this.daysPercentChange = this.constantPercentChange
-        this.daysPriceChange = this.constantDaysChange
+        this.daysPriceChange = this.constantPriceChange
 
         this.daysPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
         this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
