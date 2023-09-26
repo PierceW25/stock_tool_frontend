@@ -55,6 +55,7 @@ export class StockChartComponent implements OnInit, OnChanges {
 
     if (this.indexChart) {
       let newChartData: {dates: string[], prices: string[]} = {dates: [], prices: []}
+      this.daysPriceChange = '$' + this.daysPriceChange
       this.indexes_service.getAllIndexData().subscribe(response => {
         this.allIndexData = response
         this.oneDayChartData = this.allIndexData[0]['daily_indexes_data']
@@ -199,6 +200,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && this.allIndexData) {
       let newIndexData = this.allIndexData.find((element: any) => element.ticker === this.ticker)
+      this.daysPriceChange = '$' + this.daysPriceChange
       this.oneDayChartData = newIndexData['daily_indexes_data']
       this.updateChartForIndexes(this.oneDayChartData)
 
@@ -434,6 +436,10 @@ export class StockChartComponent implements OnInit, OnChanges {
 
         this.daysPercentChange = this.constantPercentChange
         this.daysPriceChange = this.constantPriceChange
+
+        if (this.indexChart) {
+          this.daysPriceChange = '$' + this.daysPriceChange
+        }
 
         this.daysPriceChange.includes('-')? this.initialChartColor = '255, 0, 0' : this.initialChartColor = '0, 255, 0'
         this.chart.data.datasets[0].borderColor = "rgba(" + this.initialChartColor || '#000000' + ")"
