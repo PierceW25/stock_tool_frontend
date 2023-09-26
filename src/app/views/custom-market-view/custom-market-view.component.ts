@@ -43,7 +43,7 @@ export class CustomMarketViewComponent implements OnInit {
     let selectedTab = document.getElementById(tabSelected)
 
     if (selectedTab != null) {
-      selectedTab.style.display = 'block'
+      selectedTab.style.display = 'flex'
       event.currentTarget.className += ' active'
     }
   }

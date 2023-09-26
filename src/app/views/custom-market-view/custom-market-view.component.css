@@ -1,30 +1,83 @@
-body {
-    background-color: #121212;
+
+.marketNewsContainer {
     color: white;
+    background-color: #121212;
+    width: 100%;
+    padding-top: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.allContentContainer {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+}
+
+.marketNewsHeader {
+    height: 30px;
+    margin-bottom: 5px;
+    border: 1px solid white;
+}
+
+.marketNewsHeader h1 {
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .marketTabs {
-    overflow: hidden;
-    background-color: #121212;
-}
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid white;
+} 
 
 .marketTabs button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
+    width: 100px;
+    height: 30px;
+    border-bottom: 1px solid white;
+    background-color: #121212;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 10px;
     cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-}
-
-.marketTabs button:hover {
-    background-color: #232323;
 }
 
 .tabContainer {
+    width: 100%;
+    margin: 0 auto;
     display: none;
-    padding: 6px 12px;
-    border: 1px solid darkgrey;
-    border-top: none;
+    flex-direction: column;
+    border: 1px solid white;
+}
+
+.article_display {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid darkgray;
+}
+
+.article_display a {
+    text-decoration: none;
+    color: white;
+}
+
+.article_display a:hover {
+    color: darkgray;
+}
+
+.article_display img {
+    width: 260px;
+    height: 175px;
+    margin-right: 10px;
 }
