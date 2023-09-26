@@ -26,6 +26,7 @@ import { PrimaryFooterComponent } from './views/primary-footer/primary-footer.co
 import { CustomAddStockModalComponent } from './modals/custom-add-stock-modal/custom-add-stock-modal.component';
 import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-bar.component';
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
+import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EarningsChartComponent } from './components/earnings-chart/earnings-cha
     PrimaryFooterComponent,
     CustomAddStockModalComponent,
     CustomNavBarComponent,
-    EarningsChartComponent
+    EarningsChartComponent,
+    CustomMarketViewComponent
   ],
   imports: [
     BrowserModule,
