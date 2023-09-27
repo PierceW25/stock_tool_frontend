@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from 'src/app/interfaces/article';
 import { ActivatedRoute } from '@angular/router';
 import { articleContainer } from 'src/app/interfaces/articleContainer';
 

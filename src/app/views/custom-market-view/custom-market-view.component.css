@@ -1,5 +1,5 @@
 
-.marketNewsContainer {
+.pageContainer {
     color: white;
     background-color: #121212;
     width: 100%;
@@ -14,7 +14,56 @@
     width: 90%;
     margin: 0 auto;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.marketNewsContainer {
+    width: 65%;
+    margin-right: 10px;
+    display: flex;
     flex-direction: column;
+}
+
+.marketIndicatorsContainer {
+    width: 30%;
+    height: 400px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    background-color: #232323;
+    color: white;
+}
+
+.marketIndicatorsHeader {
+    margin-bottom: 10px;
+    width: 90%;
+}
+
+.marketIndicatorsHeader h1 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.marketIndicators {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.indicator {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: darkgray;
 }
 
 .marketNewsHeader {

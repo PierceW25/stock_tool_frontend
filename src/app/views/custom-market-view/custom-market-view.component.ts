@@ -16,6 +16,14 @@ export class CustomMarketViewComponent implements OnInit {
     monetaries: []
   }
 
+  marketIndicators: string[][] = [
+    ["Inflation", "2.0"],
+    ["GDP", "2.2"],
+    ["Unemployment", "3.7"],
+    ["Interest Rate", "2.5"],
+    ["Fed Funds Rate", "2.5"]
+  ]
+
   ngOnInit(): void {
     let newsArticles: string | null = this.route.snapshot.queryParamMap.get('articles')
 
