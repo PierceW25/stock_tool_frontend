@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FetchArticlesService } from '../../services/fetch-articles.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistItem } from 'src/app/interfaces/watchlistItem';
+import { MarketIndicatorsService } from 'src/app/services/market-indicators.service';
 
 @Component({
   selector: 'app-custom-nav-bar',
@@ -11,7 +12,10 @@ import { watchlistItem } from 'src/app/interfaces/watchlistItem';
   styleUrls: ['./custom-nav-bar.component.css']
 })
 export class CustomNavBarComponent {
-  constructor(private stockApi: StockApiService, private route: Router, private fetchArticles: FetchArticlesService) { }
+  constructor(private stockApi: StockApiService, 
+    private route: Router, 
+    private fetchArticles: FetchArticlesService,
+    private fetchIndicators: MarketIndicatorsService) { }
 
   searchValue: string = ''
   autofillOptions: any = []
@@ -81,9 +85,15 @@ export class CustomNavBarComponent {
 
   goToBroadMarketView() {
     let passableArticles: any;
+    let passableIndicators: any;
     this.fetchArticles.getAllArticles().subscribe(response => {
       passableArticles = JSON.stringify(response);
-      this.route.navigate(['news'], { queryParams: { articles: passableArticles }})
+
+      this.fetchIndicators.getAllMarketIndicators().subscribe(response => {
+        passableIndicators = JSON.stringify(response);
+
+        this.route.navigate(['news'], { queryParams: { articles: passableArticles, indicators: passableIndicators }})
+      })
     })
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { articleContainer } from 'src/app/interfaces/articleContainer';
+import { MarketIndicator } from 'src/app/interfaces/marketIndicator';
 
 @Component({
   selector: 'app-custom-market-view',
@@ -16,15 +17,11 @@ export class CustomMarketViewComponent implements OnInit {
     monetaries: []
   }
 
-  marketIndicators: string[][] = [
-    ["Inflation", "2.0"],
-    ["GDP", "2.2"],
-    ["Unemployment", "3.7"],
-    ["Interest Rate", "2.5"]
-  ]
+  marketIndicators: MarketIndicator[] = []
 
   ngOnInit(): void {
     let newsArticles: string | null = this.route.snapshot.queryParamMap.get('articles')
+    let marketIndicators: string | null = this.route.snapshot.queryParamMap.get('indicators')
 
     if (newsArticles != null) {
       this.articles.macros = JSON.parse(newsArticles).macros
@@ -33,6 +30,19 @@ export class CustomMarketViewComponent implements OnInit {
     } else {
       console.log('fail')
     }
+
+    if (marketIndicators != null) {
+      this.marketIndicators.push(JSON.parse(marketIndicators).annualCPI)
+      this.marketIndicators.push(JSON.parse(marketIndicators).annualGDP)
+      this.marketIndicators.push(JSON.parse(marketIndicators).fedFundsRate)
+      this.marketIndicators.push(JSON.parse(marketIndicators).monthlyCPI)
+      this.marketIndicators.push(JSON.parse(marketIndicators).quarterlyGDP)
+      this.marketIndicators.push(JSON.parse(marketIndicators).unemploymentRate)
+    } else {
+      console.log('fail')
+    }
+
+    console.log(this.marketIndicators)
   }
 
   openTab(event: any, tabSelected: string): void {
