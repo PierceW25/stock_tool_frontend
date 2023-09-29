@@ -53,14 +53,12 @@
                 <h1>Market Indicators</h1>
             </div>
             <div class="marketIndicators">
-                <div *ngFor="let indicator of marketIndicators">
-                    <div class="indicatorContainer">
-                        <div class="indicatorHeader">
-                            <h3>{{indicator.indicator}}</h3>
-                        </div>
-                        <div class="indicatorValue">
-                            <p>{{indicator.value}}</p>
-                        </div>
+                <div *ngFor="let indicator of marketIndicators" class="indicator">
+                    <div class="indicatorHeader">
+                        <h3>{{indicator.indicator}}</h3>
+                    </div>
+                    <div class="indicatorValue">
+                        <p [ngStyle]="{'color': indicator.color}">{{indicator.value}}</p>
                     </div>
                 </div>
             </div>
