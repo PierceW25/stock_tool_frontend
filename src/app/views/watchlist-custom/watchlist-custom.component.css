@@ -171,19 +171,6 @@ input {
     width: 220px;
 }
 
-/*
-<div class="stockOptionsDropdown">
-    <button onclick="showStockOptions()" class="dropBtn">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-
-    <div class="stockOptionsDropdownContent">
-        <a href="#" (click)="onResearchStock(stock)">Research</a>
-        <a href="#" (click)="onDeleteStock(stock)">Delete</a>
-    </div>
-</div>
-*/
-
 .stockOptionsDropdown {
     display: block;
     margin-top: 5px;

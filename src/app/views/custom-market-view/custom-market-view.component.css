@@ -38,13 +38,31 @@
 }
 
 .marketIndicatorsHeader {
-    margin-bottom: 10px;
     width: 90%;
 }
 
 .marketIndicatorsHeader h1 {
     font-size: 22px;
     font-weight: 400;
+}
+
+.indicatorsLegend {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
+
+.indicatorLegend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.indicatorLegendColor {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
 }
 
 .marketIndicators {

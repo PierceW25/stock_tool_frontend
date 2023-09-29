@@ -52,13 +52,27 @@
             <div class="marketIndicatorsHeader">
                 <h1>Market Indicators</h1>
             </div>
+            <div class="indicatorsLegend">
+                <div class="indicatorLegend">
+                    <div class="indicatorLegendColor" style="background-color: lightgreen"></div>
+                    <p>Bullish</p>
+                </div>
+                <div class="indicatorLegend">
+                    <div class="indicatorLegendColor" style="background-color: #FFC000"></div>
+                    <p>Dicey</p>
+                </div>
+                <div class="indicatorLegend">
+                    <div class="indicatorLegendColor" style="background-color: lightcoral"></div>
+                    <p>Bearish</p>
+                </div>
+            </div>
             <div class="marketIndicators">
                 <div *ngFor="let indicator of marketIndicators" class="indicator">
                     <div class="indicatorHeader">
                         <h3>{{indicator.indicator}}</h3>
                     </div>
                     <div class="indicatorValue">
-                        <p [ngStyle]="{'color': indicator.color}">{{indicator.value}}</p>
+                        <p [ngStyle]="{'color': indicator.color}">{{indicator.value.toFixed(2)}}%</p>
                     </div>
                 </div>
             </div>
