@@ -1,17 +1,16 @@
 .pageContainer {
-    color: white;
-    background-color: #121212;
     width: 100%;
-    padding-top: 10px;
-    text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+    color: white;
 }
 
 .allContentContainer {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
+    margin-top: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -27,8 +26,11 @@
 .marketIndicatorsContainer {
     width: 24%;
     height: 450px;
-    margin-top: 100px;
+    margin-top: 130px;
+    padding: 20px 0;
+    margin-left: 60%;
     display: flex;
+    position: fixed;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -39,11 +41,22 @@
 
 .marketIndicatorsHeader {
     width: 90%;
+    line-height: 0.5;
+    margin-bottom: 0;
 }
 
 .marketIndicatorsHeader h1 {
     font-size: 22px;
     font-weight: 400;
+}
+
+.indicatorsDisclaimer {
+    width: 90%;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 0;
+    font-weight: 400;
+    color: lightgray;
 }
 
 .indicatorsLegend {
@@ -144,12 +157,23 @@
     color: white;
 }
 
+.article_displayer p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.article_display h3 {
+    font-size: 18px;
+    font-weight: 400;
+}
+
 .article_display a:hover {
     color: darkgray;
 }
 
 .article_display img {
-    width: 275px;
-    height: 145px;
+    width: 210px;
+    height: 120px;
     margin-right: 10px;
 }

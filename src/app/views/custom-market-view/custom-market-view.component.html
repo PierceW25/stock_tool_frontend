@@ -4,7 +4,7 @@
     <div class="allContentContainer">
         <div class="marketNewsContainer">
             <div class="marketNewsHeader">
-                <h1>Market News</h1>
+                <h1>News</h1>
             </div>
             <div class="marketTabs">
                 <button class="tabLinks" (click)="openTab($event, 'macroTab')">Macro</button>
@@ -50,7 +50,8 @@
 
         <div class="marketIndicatorsContainer">
             <div class="marketIndicatorsHeader">
-                <h1>Market Indicators</h1>
+                <h1>Indicators</h1>
+                <p [ngStyle]="{'color': 'lightgray', 'font-size': '12px'}">These statistics should be used as starting points for research</p>
             </div>
             <div class="indicatorsLegend">
                 <div class="indicatorLegend">
