@@ -27,11 +27,12 @@ export class RegisterUserComponent {
   confirmValidParentMatcher = new ConfirmValidParentMatcher()
 
   constructor(
-    private builder: FormBuilder, 
-    private service: UserAuthService,
-    private router: Router,
-    private emailTakenValidator: EmailTakenValidator) { }
+  private builder: FormBuilder, 
+  private service: UserAuthService,
+  private router: Router,
+  private emailTakenValidator: EmailTakenValidator) { }
     
+  /*
   registerControl = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email], this.emailTakenValidator.validate.bind(this.emailTakenValidator)),
     password: new FormControl('', [Validators.required, 
@@ -42,44 +43,43 @@ export class RegisterUserComponent {
       PasswordValidation.patternValidation(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })]),
     
       confirmPassword: new FormControl('', [Validators.required])
-  }, { validators: confirmPasswordValidator });
+  }, { validators: confirmPasswordValidator }); */
 
-    /*
-    registerForm = this.builder.group({
-      emailGroup: this.builder.group({
-        email: ['', [Validators.required, Validators.email], this.emailTakenValidator.validate.bind(this.emailTakenValidator)]
-      }),
-      passwordGroup: this.builder.group ({
-        password: ['', [Validators.required, Validators.minLength(8)],
-        [PasswordValidation.patternValidation(/\d/, { hasNumber: true }),
-        PasswordValidation.patternValidation(/[A-Z]/, { hasCapitalCase: true }),
-        PasswordValidation.patternValidation(/[a-z]/, { hasSmallCase: true }),
-        PasswordValidation.patternValidation(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })], 
-        ]
-      })
-    }) 
-    */
+    
+  registerForm = this.builder.group({
+    emailGroup: this.builder.group({
+      email: ['', [Validators.required, Validators.email], this.emailTakenValidator.validate.bind(this.emailTakenValidator)]
+    }),
+    passwordGroup: this.builder.group ({
+      password: ['', [Validators.required, Validators.minLength(8)],
+      [PasswordValidation.patternValidation(/\d/, { hasNumber: true }),
+      PasswordValidation.patternValidation(/[A-Z]/, { hasCapitalCase: true }),
+      PasswordValidation.patternValidation(/[a-z]/, { hasSmallCase: true }),
+      PasswordValidation.patternValidation(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })], 
+      ]
+    })
+  })
 
-    /*
-    registerUser() {
-      if (this.registerForm.valid) {
-      const userEmail: string = this.registerForm.get('emailGroup.email')?.value || '-'
-      const userPassword: string = this.registerForm.get('passwordGroup.password')?.value || '-'
 
-      if (userEmail === '-' || userPassword === '-') {
-        alert('user registration form validation failed')
-        return
-      } else {
-          this.newUser = {"email": userEmail, "password": userPassword, "username": '-', "userLevel": '-'}
-          this.service.registerUser(this.newUser).subscribe((response: any) => {
-            sessionStorage.setItem('email', userEmail)
-            
-            this.service.createInitialWatchlist(this.newUser).subscribe(
-              (response: any) => {
-                this.router.navigate(['/home'])
-              })
-          })
-        }
+  registerUser() {
+    if (this.registerForm.valid) {
+    const userEmail: string = this.registerForm.get('emailGroup.email')?.value || '-'
+    const userPassword: string = this.registerForm.get('passwordGroup.password')?.value || '-'
+
+    if (userEmail === '-' || userPassword === '-') {
+      alert('user registration form validation failed')
+      return
+    } else {
+        this.newUser = {"email": userEmail, "password": userPassword, "username": '-', "userLevel": '-'}
+        this.service.registerUser(this.newUser).subscribe((response: any) => {
+          sessionStorage.setItem('email', userEmail)
+          
+          this.service.createInitialWatchlist(this.newUser).subscribe(
+            (response: any) => {
+              this.router.navigate(['/home'])
+            })
+        })
+      }
     }
-  } */
+  }
 }

@@ -1,24 +1,43 @@
 <div class="pageContainer">
     <div class="registrationFormContainer">
-        <form [formGroup]="registerControl">
-            <div class="formInputContainer">
+        <div class="logoAndTitleContainer">
+            <div class="logoContainer">
+                <img src="assets/stockToolLogo.png" alt="logo">
+            </div>
+            <div class="titleContainer">
+                <h1>REsearch</h1>
+            </div>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+            <div class="formInputContainer" formGroupName="emailGroup">
                 <div class="labelContainer">
                     <label for="email">E-mail</label>
                 </div>
-                <input type="email" id="email" name="email" formControlName="email" required>
-                //create error container
-
-
-                <div *ngIf="registerControl && (email.dirty || email.touched)" class="errorContainer">
-                    <p *ngIf="email.errors?.['required']">Email is required</p>
-                    <p *ngIf="email.errors?.['email']">Email is invalid</p>
+                <div class="inputAndErrorContainer">
+                    <input type="email" id="email" name="email" formControlName="email" required>
+                    <div *ngIf="registerForm && 
+                    (registerForm.get('emailGroup.email')?.dirty || 
+                    registerForm.get('emailGroup.email')?.touched)" 
+                    class="errorContainer">
+                        <p *ngIf="registerForm.get('emailGroup.email')?.errors?.['required']">* e-mail is required</p>
+                        <p *ngIf="registerForm.get('emailGroup.email')?.errors?.['email']">* e-mail is invalid</p>
+                    </div>
                 </div>
             </div>
-            <div class="formInputContainer">
+            <div class="formInputContainer" formGroupName="passwordGroup">
                 <div class="labelContainer">
                     <label for="password">Password</label>
                 </div>
-                <input type="password" id="password" name="password" formControlName="password" required>
+                <div class="inputAndErrorContainer">
+                    <input type="password" id="password" name="password" formControlName="password" required>
+                    <div class="passwordErrorContainer">
+                        <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('minlength')">* password must be at least 8 characters</p>
+                        <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasNumber')">* missing numeric character(s)</p>
+                        <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasCapitalCase')">* missing upper case character(s)</p>
+                        <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasSmallCase')">* missing lower case character(s)</p>
+                        <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasSpecialCharacters')">* missing Special Character(s)</p>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

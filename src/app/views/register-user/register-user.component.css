@@ -22,6 +22,26 @@
     background-color: #232323;
 }
 
+.logoAndTitleContainer {
+    display: flex;
+    align-items: baseline;
+    border: 1px solid white;
+}
+
+.logoContainer img {
+    width: 150px;
+    height: 150px;
+    margin-left: -20px;
+    margin-right: -15px;
+    margin-bottom: -30px;
+}
+
+.titleContainer h1 {
+    font-size: 38px;
+    font-weight: 400;
+    color: rgb(70, 216, 70);
+}
+
 form {
     width: 100%;
     display: flex;
@@ -47,4 +67,16 @@ input {
 
 .labelContainer {
     width: 100px;
+}
+
+.inputAndErrorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputAndErrorContainer p {
+    font-size: 14px;
+    color: lightcoral;
 }
