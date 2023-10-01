@@ -10,11 +10,8 @@
         </div>
         <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
             <div class="formInputContainer" formGroupName="emailGroup">
-                <div class="labelContainer">
-                    <label for="email">E-mail</label>
-                </div>
                 <div class="inputAndErrorContainer">
-                    <input type="email" id="email" name="email" formControlName="email" required>
+                    <input type="email" id="email" name="email" formControlName="email" placeholder="Email" required>
                     <div *ngIf="registerForm && 
                     (registerForm.get('emailGroup.email')?.dirty || 
                     registerForm.get('emailGroup.email')?.touched)" 
@@ -25,11 +22,8 @@
                 </div>
             </div>
             <div class="formInputContainer" formGroupName="passwordGroup">
-                <div class="labelContainer">
-                    <label for="password">Password</label>
-                </div>
                 <div class="inputAndErrorContainer">
-                    <input type="password" id="password" name="password" formControlName="password" required>
+                    <input type="password" id="password" name="password" formControlName="password" placeholder="Password" required>
                     <div class="passwordErrorContainer">
                         <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('minlength')">* password must be at least 8 characters</p>
                         <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasNumber')">* missing numeric character(s)</p>
@@ -39,10 +33,13 @@
                     </div>
                 </div>
             </div>
+            <div class="registerUserButtonContainer">
+                <button [disabled]="!registerForm.valid" type="submit">Sign up</button>
+            </div>
         </form>
     </div>
     <div class="halfPageStylishContainer">
-
+        <img src="assets/StockToolLoginImage.jpg" alt="logo">
     </div>
 </div>
 
