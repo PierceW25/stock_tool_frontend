@@ -9,6 +9,17 @@
             </div>
         </div>
         <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+            <div class="formInputContainer" formGroupName="nameGroup">
+                <div class="inputAndErrorContainer">
+                    <input type="text" id="name" name="name" formControlName="name" placeholder="Name: Warren Buffet" required>
+                    <div *ngIf="registerForm && 
+                    (registerForm.get('nameGroup.name')?.dirty || 
+                    registerForm.get('nameGroup.name')?.touched)" 
+                    class="errorContainer">
+                        <p *ngIf="registerForm.get('nameGroup.name')?.errors?.['required']">* name is required</p>
+                    </div>
+                </div>
+            </div>
             <div class="formInputContainer" formGroupName="emailGroup">
                 <div class="inputAndErrorContainer">
                     <input type="email" id="email" name="email" formControlName="email" placeholder="Email" required>
@@ -30,6 +41,18 @@
                         <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasCapitalCase')">* missing upper case character(s)</p>
                         <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasSmallCase')">* missing lower case character(s)</p>
                         <p *ngIf="registerForm.get('passwordGroup.password')?.hasError('hasSpecialCharacters')">* missing Special Character(s)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="formInputContainer" formGroupName="passwordGroup">
+                <div class="inputAndErrorContainer">
+                    <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
+                    <div *ngIf="registerForm && 
+                    (registerForm.get('passwordGroup.confirmPassword')?.dirty || 
+                    registerForm.get('passwordGroup.confirmPassword')?.touched)" 
+                    class="errorContainer">
+                        <p *ngIf="registerForm.get('passwordGroup.confirmPassword')?.errors?.['required']">* confirm password is required</p>
+                        <p *ngIf="registerForm.get('passwordGroup')?.errors?.['passwordMismatch']">* passwords do not match</p>
                     </div>
                 </div>
             </div>

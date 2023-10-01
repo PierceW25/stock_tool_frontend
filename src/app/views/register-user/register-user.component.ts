@@ -47,6 +47,9 @@ export class RegisterUserComponent {
 
     
   registerForm = this.builder.group({
+    nameGroup: this.builder.group({
+      name: ['', [Validators.required]]
+    }),
     emailGroup: this.builder.group({
       email: ['', [Validators.required, Validators.email], this.emailTakenValidator.validate.bind(this.emailTakenValidator)]
     }),
@@ -56,8 +59,9 @@ export class RegisterUserComponent {
       PasswordValidation.patternValidation(/[A-Z]/, { hasCapitalCase: true }),
       PasswordValidation.patternValidation(/[a-z]/, { hasSmallCase: true }),
       PasswordValidation.patternValidation(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })], 
-      ]
-    })
+      ],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: confirmPasswordValidator })
   })
 
 

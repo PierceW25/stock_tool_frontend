@@ -96,9 +96,14 @@ input[data-autocompleted] {
     height: 30px;
     margin-top: 12px;
     font-size: 16px;
-    background-color: rgb(41, 135, 41);
+    background-color: rgb(67, 190, 67);
     border-radius: 15px;
     color: white;
+}
+
+.registerUserButtonContainer button:hover {
+    background-color: rgb(70, 216, 70);
+    cursor: pointer;
 }
 
 .halfPageStylishContainer .researchPic {
