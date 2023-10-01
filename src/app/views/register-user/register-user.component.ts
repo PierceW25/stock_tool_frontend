@@ -20,8 +20,7 @@ export class RegisterUserComponent {
   newUser: newUser = {
     "username": '-',
     "email": '-',
-    "password": '-',
-    "userLevel": '-'
+    "password": '-'
   }
 
   confirmValidParentMatcher = new ConfirmValidParentMatcher()
@@ -31,19 +30,6 @@ export class RegisterUserComponent {
   private service: UserAuthService,
   private router: Router,
   private emailTakenValidator: EmailTakenValidator) { }
-    
-  /*
-  registerControl = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email], this.emailTakenValidator.validate.bind(this.emailTakenValidator)),
-    password: new FormControl('', [Validators.required, 
-      Validators.minLength(8),
-      PasswordValidation.patternValidation(/\d/, { hasNumber: true }),
-      PasswordValidation.patternValidation(/[A-Z]/, { hasCapitalCase: true }),
-      PasswordValidation.patternValidation(/[a-z]/, { hasSmallCase: true }),
-      PasswordValidation.patternValidation(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })]),
-    
-      confirmPassword: new FormControl('', [Validators.required])
-  }, { validators: confirmPasswordValidator }); */
 
     
   registerForm = this.builder.group({
@@ -69,12 +55,13 @@ export class RegisterUserComponent {
     if (this.registerForm.valid) {
     const userEmail: string = this.registerForm.get('emailGroup.email')?.value || '-'
     const userPassword: string = this.registerForm.get('passwordGroup.password')?.value || '-'
+    const username: string = this.registerForm.get('nameGroup.name')?.value || '-'
 
     if (userEmail === '-' || userPassword === '-') {
       alert('user registration form validation failed')
       return
     } else {
-        this.newUser = {"email": userEmail, "password": userPassword, "username": '-', "userLevel": '-'}
+        this.newUser = {"email": userEmail, "password": userPassword, "username": username}
         this.service.registerUser(this.newUser).subscribe((response: any) => {
           sessionStorage.setItem('email', userEmail)
           
