@@ -16,6 +16,10 @@
     justify-content: center;
 }
 
+.registrationFormBox {
+    margin-bottom: 150px;
+}
+
 .halfPageStylishContainer {
     width: 50%;
     height: 100%;
@@ -92,10 +96,11 @@ input[data-autocompleted] {
 }
 
 .registerUserButtonContainer button {
-    width: 200px;
-    height: 30px;
+    width: 220px;
+    height: 35px;
     margin-top: 12px;
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 500;
     background-color: rgb(67, 190, 67);
     border-radius: 15px;
     color: white;
@@ -108,11 +113,10 @@ input[data-autocompleted] {
 
 .halfPageStylishContainer .researchPic {
     width: 100%;
-    height: 55%;
+    height: 60%;
 }
 
 .halfPageStylishContainer .watchlistPic {
-    margin-top: 55px;
     width: 100%;
     height: 50%;
 }

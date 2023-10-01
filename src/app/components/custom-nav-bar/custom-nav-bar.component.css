@@ -26,15 +26,27 @@ input {
     margin-right: 30px;
 }
 
-.headerTitleContainer a {
+.headerTitleContainer {
+    display: flex;
+    align-items: center;
     margin-left: 120px;
-    font-size: 21px;
-    color: white;
+}
+
+.headerTitleContainer img {
+    width: 50px;
+    height: 50px;
+    margin-right: -3px;
+    margin-bottom: 8px;
+}
+
+.headerTitleContainer a {
+    font-size: 23px;
+    color: rgb(70, 216, 70);
     text-decoration: none;
 }
 
 .headerTitleContainer a:hover {
-    color: lightgray;
+    color: rgb(24, 243, 101);
 }
 
 .headerLinksContainer {
@@ -52,5 +64,5 @@ input {
 }
 
 .headerLinksContainer a:hover {
-    color: lightgray;
+    color: rgb(70, 216, 70)
 }
