@@ -1,3 +1,4 @@
+<!--
 <div>
     <mat-card>
         <mat-card-header>Login</mat-card-header>
@@ -25,4 +26,25 @@
             </form>
         </mat-card-content>
     </mat-card>
+</div>
+-->
+
+<div class="pageContainer">
+    <app-custom-nav-bar></app-custom-nav-bar>
+    <div class="loginFormContainer">
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+            <div class="formInputContainer">
+                <input type="email" formControlName="email" placeholder="E-mail" required>
+                <p *ngIf="emailDoesNotExist">* e-mail does not exist</p>
+            </div>
+            <div class="formInputContainer">
+                <input type="password" formControlName="password" placeholder="Password" required>
+                <p *ngIf="passwordIncorrect">* incorrect password</p>
+            </div>
+            <div class="loginUserButtonContainer">
+                <button [disabled]="!loginForm.valid" type="submit">Login</button>
+                <a routerLink="/register">Register</a>
+            </div>
+        </form>
+    </div>
 </div>
