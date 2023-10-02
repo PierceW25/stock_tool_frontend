@@ -27,24 +27,64 @@
         </mat-card-content>
     </mat-card>
 </div>
--->
+
 
 <div class="pageContainer">
     <app-custom-nav-bar></app-custom-nav-bar>
-    <div class="loginFormContainer">
-        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-            <div class="formInputContainer">
-                <input type="email" formControlName="email" placeholder="E-mail" required>
-                <p *ngIf="emailDoesNotExist">* e-mail does not exist</p>
-            </div>
-            <div class="formInputContainer">
-                <input type="password" formControlName="password" placeholder="Password" required>
-                <p *ngIf="passwordIncorrect">* incorrect password</p>
-            </div>
-            <div class="loginUserButtonContainer">
-                <button [disabled]="!loginForm.valid" type="submit">Login</button>
-                <a routerLink="/register">Register</a>
-            </div>
-        </form>
+    <div class="pageContentContainer">
+        <div class="loginFormContainer">
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                <div class="formInputContainer">
+                    <input type="email" formControlName="email" placeholder="E-mail" required>
+                    <p *ngIf="emailDoesNotExist">* e-mail does not exist</p>
+                </div>
+                <div class="formInputContainer">
+                    <input type="password" formControlName="password" placeholder="Password" required>
+                    <p *ngIf="passwordIncorrect">* incorrect password</p>
+                </div>
+                <div class="loginUserButtonContainer">
+                    <button [disabled]="!loginForm.valid" type="submit">Login</button>
+                    <a routerLink="/register">Create an account</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+-->
+
+
+<div class="fullPageContainer">
+    <app-custom-nav-bar></app-custom-nav-bar>
+    <div class="pageContainer">
+        <div class="registrationFormContainer">
+            <div class="registrationFormBox">
+                <div class="logoAndTitleContainer">
+                    <div class="logoContainer">
+                        <img src="assets/stockToolLogo.png" alt="logo">
+                    </div>
+                    <div class="titleContainer">
+                        <h1>REsearch</h1>
+                    </div>
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                    <div class="formInputContainer">
+                        <input type="email" formControlName="email" placeholder="E-mail" required>
+                        <p *ngIf="emailDoesNotExist">* e-mail does not exist</p>
+                    </div>
+                    <div class="formInputContainer">
+                        <input type="password" formControlName="password" placeholder="Password" required>
+                        <p *ngIf="passwordIncorrect">* incorrect password</p>
+                    </div>
+                    <div class="loginUserButtonContainer">
+                        <button [disabled]="!loginForm.valid" type="submit">Login</button>
+                        <a routerLink="/register">Create an account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="halfPageStylishContainer">
+            <img class="researchPic" src="assets/TrimmedResearchPicture.jpg" alt="logo">
+            <img class="watchlistPic" src="assets/WatchlistPicture.jpg" alt="logo">
+        </div>
+    </div>
+    </div>
