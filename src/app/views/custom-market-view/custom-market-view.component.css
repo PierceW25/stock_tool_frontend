@@ -1,3 +1,10 @@
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-color: #121212;
+    height: 100vh;
+}
+
 .pageContainer {
     width: 100%;
     display: flex;
@@ -27,7 +34,7 @@
     width: 24%;
     height: 450px;
     margin-top: 130px;
-    padding: 20px 0;
+    padding: 50px 20px;
     margin-left: 60%;
     display: flex;
     position: fixed;
@@ -136,6 +143,10 @@
     cursor: pointer;
 }
 
+.marketTabs button:hover {
+    border-bottom: 1px solid white;
+}
+
 .tabContainer {
     width: 100%;
     margin: 0 auto;
@@ -156,6 +167,11 @@
     text-decoration: none;
     color: white;
 }
+
+.article_display:hover {
+    background-color: #232B32;
+    cursor: pointer;
+  }
 
 .article_displayer p {
     margin-top: 0;
