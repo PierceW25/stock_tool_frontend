@@ -213,6 +213,11 @@ input {
     text-decoration: none;
 }
 
+.stockOptionsDropdownContent a:hover {
+    background-color: #232B32;
+    cursor: pointer;
+}
+
 .hide {
     display: none;
 }

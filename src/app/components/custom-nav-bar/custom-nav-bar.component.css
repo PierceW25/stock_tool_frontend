@@ -66,3 +66,38 @@ input {
 .headerLinksContainer a:hover {
     color: rgb(70, 216, 70)
 }
+
+.loginBtn {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 15px;
+    width: 80px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.loginBtn:hover {
+    background-color: #706c6c;
+    cursor: pointer;
+}
+
+.registerBtn {
+    background-color: rgb(67, 190, 67);
+    border: none;
+    border-radius: 15px;
+    width: 80px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+}
+
+.registerBtn:hover {
+    background-color: rgb(70, 216, 70);
+    cursor: pointer;
+}

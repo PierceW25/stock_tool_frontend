@@ -97,6 +97,14 @@ export class CustomNavBarComponent {
     })
   }
 
+  login() {
+    this.route.navigate(['login'])
+  }
+
+  register() { 
+    this.route.navigate(['register'])
+  }
+
   getDataForNewStock(ticker: string): void {
     let newStock = {
       ...this.defaultValues
