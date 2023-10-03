@@ -2,6 +2,8 @@ import { Component, OnInit, OnChanges, Input, SimpleChange, SimpleChanges, Outpu
 import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
+import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
+import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
 
 @Component({
   selector: 'app-stock-research-view',
@@ -11,10 +13,13 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 export class StockResearchViewComponent implements OnInit {
   constructor( 
     private route: ActivatedRoute,
-    private stockApi: StockApiService 
+    private stockApi: StockApiService,
+    private watchlist: UpdateWatchlistsService
     ) {}
 
   chart: any = []
+
+  userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
 
   @Input() ticker: string = ''
   stock = {
@@ -40,6 +45,17 @@ export class StockResearchViewComponent implements OnInit {
     purchase_amt: 0
   }
 
+  usersWatchlists: watchlistsContainer = {
+    "watchlist_one": [],
+    "watchlist_two": [],
+    "watchlist_three": [],
+    "watchlist_one_title": "",
+    "watchlist_two_title": "",
+    "watchlist_three_title": "",
+    "selected_watchlist": ""
+  }
+  watchlistToAddTo: string = 'primary'
+
   accentColor: string = ''
 
   ngOnInit() {
@@ -58,6 +74,13 @@ export class StockResearchViewComponent implements OnInit {
         }
       }
     })
+
+    if (this.userEmail) {
+      this.watchlist.getAllWatchlists(this.userEmail).subscribe(
+        (response: any) => {
+          this.usersWatchlists = response
+        })
+      }
   }
 
   getDataForNewStock(ticker: string) {
@@ -112,5 +135,28 @@ export class StockResearchViewComponent implements OnInit {
 
   updateEarningsChartColor(color: string) {
     this.accentColor = color
+  }
+
+  onChangeSelectedWatchlist(event: any) {
+    this.watchlistToAddTo = event.target.value
+  }
+
+  onAddToWatchlist() {
+    switch (this.watchlistToAddTo) {
+      case 'primary':
+        this.usersWatchlists.watchlist_one.push(this.stock.ticker.toUpperCase())
+        break;
+      case 'secondary':
+        this.usersWatchlists.watchlist_two.push(this.stock.ticker.toUpperCase())
+        break;
+      case 'tertiary':
+        this.usersWatchlists.watchlist_three.push(this.stock.ticker.toUpperCase())
+        break;
+      default:
+        console.log('error adding stock to watchlist')
+        break;
+    }
+
+    console.log(this.usersWatchlists)
   }
 }

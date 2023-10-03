@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { StockApiService } from '../../services/stock-api.service';
 import { UpdateWatchlistsService } from '../../services/update-watchlist.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { ModalService } from 'src/app/services/modal.service';
 import { Router } from '@angular/router';
@@ -21,7 +20,6 @@ export class WatchlistCustomComponent implements OnInit {
     private stockApi: StockApiService, 
     private watchlist: UpdateWatchlistsService, 
     private articles: FetchArticlesService,
-    private dialog: MatDialog,
     private router: Router,
     private modal: ModalService
     ) {}

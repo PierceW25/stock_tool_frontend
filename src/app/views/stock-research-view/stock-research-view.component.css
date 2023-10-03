@@ -19,19 +19,68 @@ body {
     display: flex;
     justify-content: center;
     padding: 10px;
+    background-color: #121212;
+  }
+
+  .chartAndSummaryContainer {
+    display: flex;
+    width: 48%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rightPanelContainer {
+    border: 1px solid white;
+  }
+
+  .stockSummaryContainer {
+    margin-top: 10px;
   }
   
   /* Place stockInfoContainer on the left side and add spacing */
   .stockInfoContainer {
-    width: 42%;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    width: 100%;
+    height: 550px;
+    padding-bottom: 30px;
     border-radius: 8px;
     background-color: #1e1e22;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 65px;
+  }
+
+  .addStockContainer {
+    margin-top: 15px;
+  }
+
+  .addStockContainer select {
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+    background-color: #121212;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+
+  .addStockContainer select:hover {
+    background-color: #232B32;
+    cursor: pointer;
+  }
+
+  .addStockContainer button {
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+    background-color: #121212;
+    border-radius: 5px;
+  }
+
+  .addStockContainer button:hover {
+    background-color: #232B32;
+    cursor: pointer;
   }
 
   .stockSummaryContainer {
