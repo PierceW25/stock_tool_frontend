@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChange, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
