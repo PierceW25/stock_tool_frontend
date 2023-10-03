@@ -184,10 +184,6 @@ body {
     font-weight: 400;
 }
 
-.article_display a:hover {
-    color: darkgray;
-}
-
 .article_display img {
     width: 210px;
     height: 120px;

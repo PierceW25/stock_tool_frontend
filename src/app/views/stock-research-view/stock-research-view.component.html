@@ -89,12 +89,17 @@
                 </div>
 
                 <div class="addStockContainer">
-                    <select value="primary" (change)="onChangeSelectedWatchlist($event)">
-                        <option value="primary">{{usersWatchlists.watchlist_one_title}}</option>
-                        <option value="secondary">{{usersWatchlists.watchlist_two_title}}</option>
-                        <option value="tertiary">{{usersWatchlists.watchlist_three_title}}</option>
-                    </select>
-                    <button (click)="onAddToWatchlist()">Add to Watchlist</button>
+                    <div class="addStockButtons">
+                        <select value="primary" (change)="onChangeSelectedWatchlist($event)">
+                            <option value="primary">{{usersWatchlists.watchlist_one_title}}</option>
+                            <option value="secondary">{{usersWatchlists.watchlist_two_title}}</option>
+                            <option value="tertiary">{{usersWatchlists.watchlist_three_title}}</option>
+                        </select>
+                        <button (click)="onAddToWatchlist()">Add to Watchlist</button>
+                    </div>
+                    <div class="stockAddedSuccessMessage">
+                        <p *ngIf="stockAddedToWatchlist">Added</p>
+                    </div>
                 </div>
             </div>
         </div>

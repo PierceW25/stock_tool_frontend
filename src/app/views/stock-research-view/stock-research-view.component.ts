@@ -60,6 +60,8 @@ export class StockResearchViewComponent implements OnInit {
 
   accentColor: string = ''
 
+  stockAddedToWatchlist: boolean = false
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {
@@ -167,6 +169,13 @@ export class StockResearchViewComponent implements OnInit {
     if (this.userEmail) {
       this.watchlist.editSelectedWatchlist(this.userEmail, this.watchlistToAddTo, dbWatchlist).subscribe(
         (response: any) => {
+          console.log(response)
+          if ('Watchlist updated' == response) {
+            this.stockAddedToWatchlist = true
+            setTimeout(() => {
+              this.stockAddedToWatchlist = false
+            }, 2000);
+          }
           this.articles.updateCustomArticles(this.userEmail || "").subscribe(
             (response: any) => {
             })

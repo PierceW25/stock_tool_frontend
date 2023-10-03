@@ -50,6 +50,10 @@ body {
 
   .addStockContainer {
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    align-items: center;
   }
 
   .addStockContainer select {
@@ -81,6 +85,12 @@ body {
   .addStockContainer button:hover {
     background-color: #232B32;
     cursor: pointer;
+  }
+
+  .stockAddedSuccessMessage p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #00FF00;
   }
 
   .stockSummaryContainer {
@@ -152,4 +162,3 @@ body {
   .timeOptionsContainer button {
     margin-right: 5px;
   }
-  
