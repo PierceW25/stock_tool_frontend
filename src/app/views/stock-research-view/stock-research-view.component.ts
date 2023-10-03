@@ -4,6 +4,7 @@ import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
+import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
 
 @Component({
   selector: 'app-stock-research-view',
@@ -14,7 +15,8 @@ export class StockResearchViewComponent implements OnInit {
   constructor( 
     private route: ActivatedRoute,
     private stockApi: StockApiService,
-    private watchlist: UpdateWatchlistsService
+    private watchlist: UpdateWatchlistsService,
+    private articles: FetchArticlesService
     ) {}
 
   chart: any = []
@@ -142,21 +144,34 @@ export class StockResearchViewComponent implements OnInit {
   }
 
   onAddToWatchlist() {
+    let dbWatchlist: string[] = []
+
     switch (this.watchlistToAddTo) {
       case 'primary':
         this.usersWatchlists.watchlist_one.push(this.stock.ticker.toUpperCase())
+        dbWatchlist = this.usersWatchlists.watchlist_one
         break;
       case 'secondary':
         this.usersWatchlists.watchlist_two.push(this.stock.ticker.toUpperCase())
+        dbWatchlist = this.usersWatchlists.watchlist_two
         break;
       case 'tertiary':
         this.usersWatchlists.watchlist_three.push(this.stock.ticker.toUpperCase())
+        dbWatchlist = this.usersWatchlists.watchlist_three
         break;
       default:
         console.log('error adding stock to watchlist')
         break;
     }
 
-    console.log(this.usersWatchlists)
+    if (this.userEmail) {
+      this.watchlist.editSelectedWatchlist(this.userEmail, this.watchlistToAddTo, dbWatchlist).subscribe(
+        (response: any) => {
+          this.articles.updateCustomArticles(this.userEmail || "").subscribe(
+            (response: any) => {
+            })
+        })
+    }
+    
   }
 }
