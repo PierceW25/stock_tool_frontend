@@ -19,7 +19,8 @@
         <a routerLink="news" (click)="goToBroadMarketView()">Market</a>
         <a routerLink="analysis">Analysis</a>
         <a routerLink="discovery">Discovery</a>
-        <button class="loginBtn" (click)="login()">Log in</button>
-        <button class="registerBtn" (click)="register()">Sign up</button>
+        <button *ngIf="userEmail == ''" class="loginBtn" (click)="login()">Log in</button>
+        <button *ngIf="userEmail == ''" class="registerBtn" (click)="register()">Sign up</button>
+        <a *ngIf="userEmail != ''" routerLink="account">Account</a>
     </div>
 </div>

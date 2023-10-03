@@ -21,6 +21,8 @@ export class CustomNavBarComponent {
   autofillOptions: any = []
   errorText: boolean = false
 
+  userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
+
   defaultValues = {
     name: '-',
     id: 0,
