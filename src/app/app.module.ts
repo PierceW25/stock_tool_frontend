@@ -27,6 +27,7 @@ import { CustomAddStockModalComponent } from './modals/custom-add-stock-modal/cu
 import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-bar.component';
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
+import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CustomMarketViewComponent } from './views/custom-market-view/custom-mar
     CustomAddStockModalComponent,
     CustomNavBarComponent,
     EarningsChartComponent,
-    CustomMarketViewComponent
+    CustomMarketViewComponent,
+    FinancialStatementsComponent
   ],
   imports: [
     BrowserModule,
