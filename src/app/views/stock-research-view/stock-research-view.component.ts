@@ -5,11 +5,15 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
 import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
+import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 
 @Component({
   selector: 'app-stock-research-view',
   templateUrl: './stock-research-view.component.html',
-  styleUrls: ['./stock-research-view.component.css']
+  styleUrls: ['./stock-research-view.component.css'],
+  animations: [
+    myInsertRemoveTrigger
+  ]
 })
 export class StockResearchViewComponent implements OnInit {
   constructor( 
@@ -180,7 +184,6 @@ export class StockResearchViewComponent implements OnInit {
             (response: any) => {
             })
         })
-    }
-    
+    } 
   }
 }

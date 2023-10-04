@@ -97,8 +97,8 @@
                         </select>
                         <button (click)="onAddToWatchlist()">Add to Watchlist</button>
                     </div>
-                    <div class="stockAddedSuccessMessage">
-                        <p *ngIf="stockAddedToWatchlist">Added</p>
+                    <div [@myInsertRemoveTrigger] *ngIf="stockAddedToWatchlist" class="stockAddedSuccessMessage">
+                        <p>Added</p>
                     </div>
                 </div>
             </div>
