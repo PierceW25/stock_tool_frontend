@@ -103,10 +103,12 @@ body {
   }
 
   .stockDetailsHeader {
-    margin-bottom: 10px;
-    width: 90%;
+    margin-bottom: 15px;
+    width: 100%;
     padding-bottom: 6px;
     border-bottom: 1px solid #6c6969;
+    display: flex;
+    justify-content: space-between;
   }
 
   .stockDetailsHeader h2 {
