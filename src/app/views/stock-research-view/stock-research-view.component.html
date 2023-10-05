@@ -88,7 +88,6 @@
                         <app-earnings-chart [stockSymbol]="stock.ticker" [backgroundColor]="accentColor"></app-earnings-chart>
                     </div>
                 </div>
-
                 <div class="addStockContainer">
                     <div class="addStockButtons">
                         <select value="primary" (change)="onChangeSelectedWatchlist($event)">
@@ -103,6 +102,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="financialStatements">
+            <app-financial-statements [ticker]="stock.ticker"></app-financial-statements>
         </div>
     </body>
 </html>
