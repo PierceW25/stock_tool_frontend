@@ -12,7 +12,7 @@
                 <button class="tabLinks" (click)="openTab($event, 'monetaryTab')">Monetary</button>
             </div>
             <div id="macroTab" class="tabContainer">
-                <div *ngFor="let article of articles.macros" class="article_display">
+                <a href="{{article.url}}" target="_blank" *ngFor="let article of articles.macros" class="article_display">
                     <div class="article_text">
                         <p>{{article.source}}</p>
                         <a href="{{article.url}}" target="_blank"><h3>{{article.title}}</h3></a>
@@ -20,7 +20,7 @@
                     <div class="article_image">
                         <img src="{{article.banner_image}}" alt="article image">
                     </div>
-                </div>
+                </a>
             </div>
         
             <div id="fiscalTab" class="tabContainer">
