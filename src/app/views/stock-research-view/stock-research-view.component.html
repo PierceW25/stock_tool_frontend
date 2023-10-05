@@ -90,21 +90,18 @@
                 </div>
                 <div class="addStockContainer">
                     <div class="addStockButtons">
+                        <button (click)="onAddToWatchlist()">Add to Watchlist</button>
                         <select value="primary" (change)="onChangeSelectedWatchlist($event)">
                             <option value="primary">{{usersWatchlists.watchlist_one_title}}</option>
                             <option value="secondary">{{usersWatchlists.watchlist_two_title}}</option>
                             <option value="tertiary">{{usersWatchlists.watchlist_three_title}}</option>
                         </select>
-                        <button (click)="onAddToWatchlist()">Add to Watchlist</button>
                     </div>
                     <div [@myInsertRemoveTrigger] *ngIf="stockAddedToWatchlist" class="stockAddedSuccessMessage">
                         <p>Added</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="financialStatements">
-            <app-financial-statements [ticker]="stock.ticker" [selectedStatement]="'income'"></app-financial-statements>
         </div>
     </body>
 </html>

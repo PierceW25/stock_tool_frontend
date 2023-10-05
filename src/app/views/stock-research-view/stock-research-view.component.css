@@ -57,14 +57,14 @@ body {
   }
 
   .addStockContainer select {
-    width: 150px;
+    width: 120px;
     height: 30px;
     font-size: 14px;
     border: darkgrey 1px solid;
     background-color: #121212;
     color: white;
     border-radius: 5px;
-    margin-right: 5px;
+    margin-left: 5px;
   }
 
   .addStockContainer select:hover {
@@ -74,7 +74,7 @@ body {
 
   .addStockContainer button {
     border: darkgrey 1px solid;
-    width: 150px;
+    width: 120px;
     height: 30px;
     font-size: 14px;
     background-color: #121212;
@@ -85,10 +85,6 @@ body {
   .addStockContainer button:hover {
     background-color: #232B32;
     cursor: pointer;
-  }
-
-  .stockAddedSuccessMessage {
-    transition: ease-in-out 0.5s;
   }
 
   .stockAddedSuccessMessage p {

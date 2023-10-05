@@ -7,3 +7,9 @@
     margin-top: 20px;
     background-color: #121212;
 }
+
+h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
