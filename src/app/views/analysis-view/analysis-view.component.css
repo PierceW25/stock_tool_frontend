@@ -1,0 +1,108 @@
+body {
+    overflow: hidden;
+}
+
+.pageContainer {
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+    overflow: hidden;
+}
+
+.allContentContainer {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.analyticalOptionsContainer {
+    width: 32%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.titleAndSearchContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #6c6969;
+    color: rgb(228, 217, 217);
+}
+
+h1 {
+    font-size: 22px;
+}
+
+.analysisOptionsContainer {
+    width: 100%;
+    height: 720px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.analysisOption {
+    border: 1px solid rgb(228, 217, 217);
+    color: rgb(228, 217, 217);
+}
+
+.analysisOption:hover {
+    background-color: #232B32;
+    cursor: pointer;
+}
+
+.analysisOption h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding: 10px;
+}
+
+.generalAnalysisOption {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 20%;
+    height: 99.99%;
+}
+
+.horizontalAnalysisOptionsContainer {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontalOption {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 33.33%;
+}
+
+
+.analyticalContentContainer {
+    width: 65%;
+    height: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+}

@@ -1,23 +1,44 @@
 <body>
     <app-custom-nav-bar></app-custom-nav-bar>
-    <div class="allContentContainer">
-        <div class="analyticalContentContainer">
-            <div class="titleAndSearchContainer">
-                <div class="titleContainer">
-                    <h1>Analysis</h1>
+    <div class="pageContainer">
+        <div class="allContentContainer">
+            <div class="analyticalOptionsContainer">
+                <div class="titleAndSearchContainer">
+                    <div class="titleContainer">
+                        <h1>Analysis</h1>
+                    </div>
+                    <div class="searchContainer">
+                        <p>{{stockSymbol}}</p>
+                        <input type="text" placeholder="Search" [(ngModel)]="searchTerm">
+                    </div>
                 </div>
-                <div class="searchContainer">
-                    <p>{{stockSymbol}}</p>
-                    <input type="text" placeholder="Search" [(ngModel)]="searchTerm">
+                <div class="analysisOptionsContainer">
+                    <div class="generalAnalysisOption analysisOption">
+                        <div class="analysisOptionTitle">
+                            <h2>General</h2>
+                        </div>
+                    </div>
+                    <div class="horizontalAnalysisOptionsContainer">
+                        <div class="incomeStatementAnalysisOption horizontalOption analysisOption">
+                            <div class="analysisOptionTitle">
+                                <h2>Income Statement</h2>
+                            </div>
+                        </div>
+                        <div class="balanceSheetAnalysisOption horizontalOption analysisOption">
+                            <div class="analysisOptionTitle">
+                                <h2>Balance Sheet</h2>
+                            </div>
+                        </div>
+                        <div class="cashFlowAnalysisOption horizontalOption analysisOption">
+                            <div class="analysisOptionTitle">
+                                <h2>Cash Flow</h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="analysisOptionsContainer">
-                <div class="generalAnalysisOption">
-                    <div class="analysisOptionTitle">
-                        <h2>General</h2>
-                    </div>
-                    
-                </div>
+            <div class="analyticalContentContainer">
+
             </div>
         </div>
     </div>

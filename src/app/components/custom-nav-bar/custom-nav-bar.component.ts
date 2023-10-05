@@ -99,6 +99,10 @@ export class CustomNavBarComponent {
     })
   }
 
+  goToAnalysisView() {
+    this.route.navigate(['analysis'])
+  }
+
   login() {
     this.route.navigate(['login'])
   }

@@ -17,7 +17,7 @@
             </datalist>
         </div>
         <a routerLink="news" (click)="goToBroadMarketView()">Market</a>
-        <a routerLink="analysis">Analysis</a>
+        <a routerLink="analysis" (click)="goToAnalysisView()">Analysis</a>
         <a routerLink="discovery">Discovery</a>
         <button *ngIf="userEmail == ''" class="loginBtn" (click)="login()">Log in</button>
         <button *ngIf="userEmail == ''" class="registerBtn" (click)="register()">Sign up</button>
