@@ -1,1 +1,73 @@
-<p>financial-statements works!</p>
+<div class="financialStatementsContainer">
+    <div class="incomeStatementContainer" *ngIf="selectedStatement == 'income' && incomeStatement != undefined">
+        <div class="incomeStatementHeader">
+            <h2>Income Statement</h2>
+        </div>
+        <div class="incomeStatementDataContainer">
+            <div class="incomeStatementData">
+                <p>Gross Profit: {{incomeStatement.grossProfit}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Total Revenue: {{incomeStatement.totalRevenue}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Cost of Revenue: {{incomeStatement.costOfRevenue}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Cost of Goods and Services Sold: {{incomeStatement.costofGoodsAndServicesSold}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Operating Income: {{incomeStatement.operatingIncome}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Net Investment Income: {{incomeStatement.investmentIncomeNet}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Net Interest Income: {{incomeStatement.netInterestIncome}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Interest Income: {{incomeStatement.interestIncome}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Interest Expense: {{incomeStatement.interestExpense}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Non-Interest Income: {{incomeStatement.nonInterestIncome}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Other Non-Operating Income: {{incomeStatement.otherNonOperatingIncome}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Depreciation: {{incomeStatement.depreciation}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Depreciation and Amortization: {{incomeStatement.depreciationAndAmortization}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Income Before Tax: {{incomeStatement.incomeBeforeTax}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Income Tax Expense: {{incomeStatement.incomeTaxExpense}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Interest and Debt Expense: {{incomeStatement.interestAndDebtExpense}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Net Income From Continuing Operations: {{incomeStatement.netIncomeFromContinuingOperations}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Comprehensive Income Net of Tax: {{incomeStatement.comprehensiveIncomeNetOfTax}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>EBIT: {{incomeStatement.ebit}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>EBITDA: {{incomeStatement.ebitda}}</p>
+            </div>
+            <div class="incomeStatementData">
+                <p>Net Income: {{incomeStatement.netIncome}}</p>
+            </div>
+
+        </div>
+    </div>
+</div>

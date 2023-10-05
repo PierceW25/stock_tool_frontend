@@ -13,10 +13,10 @@ export class FinancialStatementsComponent implements OnInit {
   @Input() ticker: string = ''
   @Input() selectedStatement: string = ''
 
-  incomeStatement: any
+  incomeStatement?: incomeStatement
 
   ngOnInit(): void {
-    this.incomeStatement = this.createIncomeStatement(this.ticker)
+    this.createIncomeStatement(this.ticker)
   }
 
 
@@ -27,7 +27,9 @@ export class FinancialStatementsComponent implements OnInit {
       let fullResponse: any = response
       let annualReports = fullResponse['annualReports']
       let incomeStatement: incomeStatement = annualReports[0]
-      return incomeStatement
+      incomeStatement.symbol = privateTicker
+      incomeStatement.statementTitle = 'Income Statement'
+      this.incomeStatement = incomeStatement
     })
   }
 }

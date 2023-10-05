@@ -1,5 +1,6 @@
 export interface incomeStatement {
     symbol: string;
+    statementTitle: string;
     grossProfit: string;
     totalRevenue: string;
     costOfRevenue: string;
