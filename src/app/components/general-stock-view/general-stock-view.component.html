@@ -1,0 +1,96 @@
+<div class="stockInfoAndChartContainer">
+    <div class="chartAndSummaryContainer">
+        <app-stock-chart [ticker]="stock.ticker" 
+        [chartWidth]='"800px"' 
+        [title]="stock.name"
+        [initialChartColor]="accentColor"
+        [displayPrice]="stock.price"
+        [constantPriceChange]="stock.days_change"
+        [constantPercentChange]="stock.percent_change"
+        (changeChartColor)="updateEarningsChartColor($event)"></app-stock-chart>
+        <div class="stockSummaryContainer">
+            <div class="stockDetailsHeader">
+                <h2>Summary</h2>
+            </div>
+            <div class="summaryContainer">
+                <p>{{stock.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="rightPanelContainer">
+        <div class="stockInfoContainer">
+            <div class="stockOverviewDetails">
+                <div class="stockDetailsHeader">
+                    <h2>General Stats</h2>
+                </div>
+                
+                <div class="overviewDetailsContainer">
+                    <div class="stockDetailsItem">
+                        <h3>Price</h3>
+                        <h4>{{stock.price}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Volume</h3>
+                        <h4>{{stock.volume}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Dividend Yield</h3>
+                        <h4>{{stock.dividend_yield}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Market Cap</h3>
+                        <h4>{{stock.market_cap}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>52 Week High</h3>
+                        <h4>{{stock.fifty_two_week_high}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>52 Week Low</h3>
+                        <h4>{{stock.fifty_two_week_low}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>PE Ratio</h3>
+                        <h4>{{stock.pe_ratio}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>EPS</h3>
+                        <h4>{{stock.earnings_per_share}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Forward PE Ratio</h3>
+                        <h4>{{stock.forward_pe}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Return on Equity</h3>
+                        <h4>{{stock.return_on_equity}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>EV to EBITDA</h3>
+                        <h4>{{stock.enterprise_value_to_ebitda}}</h4>
+                    </div>
+                    <div class="stockDetailsItem">
+                        <h3>Operating Margin</h3>
+                        <h4>{{stock.operating_margin}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="earningsContainer">
+                <app-earnings-chart [stockSymbol]="stock.ticker" [backgroundColor]="accentColor"></app-earnings-chart>
+            </div>
+        </div>
+        <div class="addStockContainer">
+            <div class="addStockButtons">
+                <button (click)="onAddToWatchlist()">Add to Watchlist</button>
+                <select value="primary" (change)="onChangeSelectedWatchlist($event)">
+                    <option value="primary">{{usersWatchlists.watchlist_one_title}}</option>
+                    <option value="secondary">{{usersWatchlists.watchlist_two_title}}</option>
+                    <option value="tertiary">{{usersWatchlists.watchlist_three_title}}</option>
+                </select>
+            </div>
+            <div [@myInsertRemoveTrigger] *ngIf="stockAddedToWatchlist" class="stockAddedSuccessMessage">
+                <p>Added</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,11 +5,18 @@
             <div class="analyticalOptionsContainer">
                 <div class="titleAndSearchContainer">
                     <div class="titleContainer">
-                        <h1>Analysis</h1>
+                        <h1>Analyze</h1>
                     </div>
                     <div class="searchContainer">
-                        <p>{{stockSymbol}}</p>
-                        <input type="text" placeholder="Search" [(ngModel)]="searchTerm">
+                        <input type="text"
+                        placeholder="Search Stock"
+                        (keyup)="editInput($event)"
+                        [(ngModel)]="searchTerm"
+                        list="stockOptions">
+                        <p class="errorText" *ngIf="errorText">Stock not found</p>
+                        <datalist id="stockOptions">
+                            <option *ngFor="let stock of autofillOptions" [value]="stock">{{stock}}</option>
+                        </datalist>
                     </div>
                 </div>
                 <div class="analysisOptionsContainer">

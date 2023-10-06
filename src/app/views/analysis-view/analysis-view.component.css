@@ -106,3 +106,21 @@ h1 {
     justify-content: center;
     border: 1px solid white;
 }
+
+
+.titleAndSearchContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titleAndSearchContainer input {
+    width: 200px;
+    height: 30px;
+    font-size: 14px;
+    border: none;
+    background-color: #232323;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: -5px;
+}
