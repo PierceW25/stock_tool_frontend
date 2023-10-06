@@ -17,7 +17,7 @@ export class StockChartComponent implements OnInit, OnChanges {
 
   @Input() title: string = '-'
   @Input() ticker: string = '-'
-  @Input() chartWidth: string = '700px'
+  @Input() chartWidth: string = ''
   @Input() showButtons: boolean = true
   @Input() indexChart: boolean = false
   @Input() initialChartColor: string = '-'

@@ -13,9 +13,12 @@ export class EarningsChartComponent {
 
   @Input() stockSymbol: string = '';
   @Input() backgroundColor: string = '';
+  @Input() chartWidth: string = '';
+  @Input() chartHeight: string = '';
 
   formattedEarnings?: EarningsDataPoint[];
   chart: any = [];
+  chartStyles: Record<string, string> = {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['stockSymbol']?.currentValue != changes['stockSymbol']?.previousValue) {
@@ -124,6 +127,11 @@ export class EarningsChartComponent {
   createChart(data: EarningsDataPoint[]) {
     let estimatedEPS: {x: string, y: Number}[] = [];
     let reportedEPS: {x: string, y: Number}[] = [];
+
+    this.chartStyles = {
+      'width': this.chartWidth,
+      'height': this.chartHeight
+    }
 
     for (let i = data.length - 1; i > -1; i--) {
       reportedEPS.push({x: data[i].fiscalQuarter, y: Number(data[i].reportedEPS)});

@@ -26,6 +26,8 @@ export class GeneralStockViewComponent {
 
   @Input() ticker: string = ''
   @Input() stockObject: any = {}
+  @Input() priceChartWidth: string = '800px'
+  @Input() earningsChartWidth: string = '800px'
 
   stock = {
     ticker: '-',

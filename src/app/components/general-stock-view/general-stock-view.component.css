@@ -12,7 +12,6 @@
     display: flex;
     width: 48%;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
   }
 
@@ -36,7 +35,6 @@
     background-color: #1e1e22;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin-top: 95px;
   }
