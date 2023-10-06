@@ -25,6 +25,8 @@ export class GeneralStockViewComponent {
   userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
 
   @Input() ticker: string = ''
+  @Input() stockObject: any = {}
+
   stock = {
     ticker: '-',
     name: '-',
@@ -85,7 +87,17 @@ export class GeneralStockViewComponent {
         (response: any) => {
           this.usersWatchlists = response
         })
+    }
+
+    if (this.stockObject.ticker) {
+      this.stock = this.stockObject
+      this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+      if (this.stock.days_change.includes('-')) {
+        this.stock.days_change = this.stock.days_change.replace('-', '-$')
+      } else {
+        this.stock.days_change = '$' + this.stock.days_change
       }
+    }
   }
 
   getDataForNewStock(ticker: string) {

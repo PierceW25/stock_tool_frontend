@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
+import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 
 @Component({
   selector: 'app-analysis-view',
@@ -9,11 +10,40 @@ import { StockApiService } from 'src/app/services/stock-api.service';
 export class AnalysisViewComponent {
   constructor(private stockApi: StockApiService) { }
 
-
   @Input() stockSymbol: string = '';
   searchTerm: string = '';
   autofillOptionsAnalysis: any = []
   errorText: boolean = false
+  analysisStock = {}
+
+  generalAnalysisOptionSelected = true
+  incomeStatementAnalysisSelected = false
+  balanceSheetAnalysisSelected = false
+  cashFlowAnalysisSelected = false
+
+  defaultValues = {
+    name: '-',
+    id: 0,
+    ticker: '-',
+    price: '-',
+    days_change: '-',
+    percent_change: '-',
+    volume: '-',
+    description: '-',
+    fiscalYearEnd: '-',
+    market_cap: '-',
+    pe_ratio: '-',
+    fifty_two_week_high: '-',
+    fifty_two_week_low: '-',
+    forward_pe: '-',
+    earnings_per_share: '-',
+    return_on_equity: '-',
+    dividend_yield: '-',
+    enterprise_value_to_ebitda: '-',
+    operating_margin: '-',
+    percent_of_purchase: 10.00,
+    purchase_amt: 0
+  }
 
 
   autoComplete(ticker: string) {
@@ -52,5 +82,50 @@ export class AnalysisViewComponent {
         this.errorText = false
       }
     })
+  }
+
+  getDataForNewStock(ticker: string): void {
+    let newStock = {
+      ...this.defaultValues
+    }
+    newStock.ticker = ticker
+    this.stockApi.getStockOverview(ticker).subscribe(
+      (response: any) => {
+        if (response['MarketCapitalization'] === undefined) {
+          console.log('error making overview call for new stock, display page ' + newStock.ticker)
+          console.log(response)
+        } else {
+          newStock.name = response['Name']
+          newStock.description = response['Description']
+          newStock.fiscalYearEnd = response['FiscalYearEnd']
+          newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
+          newStock.pe_ratio = response['PERatio']
+          newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()
+          newStock.fifty_two_week_low = Number(response['52WeekLow']).toFixed(2).toString()
+          newStock.forward_pe = response['ForwardPE']
+          newStock.earnings_per_share = response['EPS']
+          newStock.return_on_equity = response['ReturnOnEquityTTM']
+          newStock.dividend_yield = Number(response['DividendYield']).toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
+          newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
+          newStock.operating_margin = response['OperatingMarginTTM']
+
+          this.stockApi.getStockDailyInfo(ticker).subscribe(
+            (response: any) => {
+              if (response['Global Quote'] === undefined) {
+                console.log('error making daily info call for new stock, display page ' + newStock.ticker)
+                console.log(response)
+              } else {
+                newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
+                newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
+                newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
+      
+                let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
+                newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
+              }
+              this.stockSymbol = newStock.ticker
+              this.analysisStock = newStock
+            })
+        }
+      })
   }
 }

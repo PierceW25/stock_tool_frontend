@@ -29,7 +29,6 @@ import { EarningsChartComponent } from './components/earnings-chart/earnings-cha
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
 import { GeneralStockViewComponent } from './components/general-stock-view/general-stock-view.component';
-import { SearchStockInputComponent } from './components/search-stock-input/search-stock-input.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +52,7 @@ import { SearchStockInputComponent } from './components/search-stock-input/searc
     EarningsChartComponent,
     CustomMarketViewComponent,
     FinancialStatementsComponent,
-    GeneralStockViewComponent,
-    SearchStockInputComponent
+    GeneralStockViewComponent
   ],
   imports: [
     BrowserModule,
