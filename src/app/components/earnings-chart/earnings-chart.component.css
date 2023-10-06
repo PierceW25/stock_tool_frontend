@@ -1,8 +1,8 @@
-.earningsContainer {
-    width: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.earningsChartContainer {
+  border: 1px solid white;
+  width: 600px;
+  height: 200px;
 }
 
 .earningsHeader {
@@ -12,13 +12,8 @@
     border-bottom: 1px solid #6c6969;
   }
 
-  .earningsHeader h2 {
+.earningsHeader h2 {
     font-size: 18px;
     font-weight: 400;
     margin-bottom: 10px;
   }
-
-.earningsChartContainer {
-    width: 90%;
-    height: 200px;
-}

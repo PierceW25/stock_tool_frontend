@@ -12,6 +12,7 @@ html {
 body {
   background-color: #121212;
   color: white;
+  overflow-x: hidden;
 }
 
 /* Center the stockInfoAndChartContainer and add padding */
