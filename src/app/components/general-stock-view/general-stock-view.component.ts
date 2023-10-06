@@ -66,29 +66,6 @@ export class GeneralStockViewComponent {
   stockAddedToWatchlist: boolean = false
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (JSON.parse(params['stock']).ticker === undefined) {
-        // add logic to create stock object based on symbol below, also check if this logic works
-        this.stock = this.getDataForNewStock(JSON.parse(params['stock']))
-        
-      } else {
-        this.stock = JSON.parse(params['stock'])
-        this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
-        if (this.stock.days_change.includes('-')) {
-          this.stock.days_change = this.stock.days_change.replace('-', '-$')
-        } else {
-          this.stock.days_change = '$' + this.stock.days_change
-        }
-      }
-    })
-
-    if (this.userEmail) {
-      this.watchlist.getAllWatchlists(this.userEmail).subscribe(
-        (response: any) => {
-          this.usersWatchlists = response
-        })
-    }
-
     if (this.stockObject.ticker) {
       this.stock = this.stockObject
       this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
@@ -97,6 +74,29 @@ export class GeneralStockViewComponent {
       } else {
         this.stock.days_change = '$' + this.stock.days_change
       }
+    } else {
+      this.route.queryParams.subscribe(params => {
+        if (JSON.parse(params['stock']).ticker === undefined) {
+          // add logic to create stock object based on symbol below, also check if this logic works
+          this.stock = this.getDataForNewStock(JSON.parse(params['stock']))
+          
+        } else {
+          this.stock = JSON.parse(params['stock'])
+          this.accentColor = this.stock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+          if (this.stock.days_change.includes('-')) {
+            this.stock.days_change = this.stock.days_change.replace('-', '-$')
+          } else {
+            this.stock.days_change = '$' + this.stock.days_change
+          }
+        }
+      })
+    }
+
+    if (this.userEmail) {
+      this.watchlist.getAllWatchlists(this.userEmail).subscribe(
+        (response: any) => {
+          this.usersWatchlists = response
+        })
     }
   }
 

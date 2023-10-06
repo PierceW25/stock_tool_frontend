@@ -21,6 +21,8 @@ export class AnalysisViewComponent {
   balanceSheetAnalysisSelected = false
   cashFlowAnalysisSelected = false
 
+  analysisReady = false
+
   defaultValues = {
     name: '-',
     id: 0,
@@ -73,29 +75,17 @@ export class AnalysisViewComponent {
 
   searchStock() {
     let passableStock = this.searchTerm.split(' ')[0]
-    this.stockApi.getStockOverview(passableStock).subscribe(response => {
-      let stockInfo: any = response
-      if (stockInfo['Description'] === 'None') {
+    this.stockApi.getStockOverview(passableStock).subscribe((response: any) => {
+      if (response['Description'] === 'None') {
         this.errorText = true
       } else {
-        this.stockSymbol = passableStock
         this.errorText = false
-      }
-    })
-  }
 
-  getDataForNewStock(ticker: string): void {
-    let newStock = {
-      ...this.defaultValues
-    }
-    newStock.ticker = ticker
-    this.stockApi.getStockOverview(ticker).subscribe(
-      (response: any) => {
-        if (response['MarketCapitalization'] === undefined) {
-          console.log('error making overview call for new stock, display page ' + newStock.ticker)
-          console.log(response)
-        } else {
-          newStock.name = response['Name']
+        let newStock = {
+          ...this.defaultValues
+        }
+        newStock.ticker = passableStock
+        newStock.name = response['Name']
           newStock.description = response['Description']
           newStock.fiscalYearEnd = response['FiscalYearEnd']
           newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
@@ -109,7 +99,7 @@ export class AnalysisViewComponent {
           newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
           newStock.operating_margin = response['OperatingMarginTTM']
 
-          this.stockApi.getStockDailyInfo(ticker).subscribe(
+          this.stockApi.getStockDailyInfo(passableStock).subscribe(
             (response: any) => {
               if (response['Global Quote'] === undefined) {
                 console.log('error making daily info call for new stock, display page ' + newStock.ticker)
@@ -124,8 +114,11 @@ export class AnalysisViewComponent {
               }
               this.stockSymbol = newStock.ticker
               this.analysisStock = newStock
+
+              this.analysisReady = true
+              console.log(this.analysisStock)
             })
-        }
-      })
+      }
+    })
   }
 }

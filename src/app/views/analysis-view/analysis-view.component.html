@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="analyticalContentContainer">
-                <app-general-stock-view *ngIf="generalAnalysisOptionSelected && stockSymbol != ''" [ticker]="stockSymbol" [stockObject]="analysisStock"></app-general-stock-view>
+                <app-general-stock-view *ngIf="generalAnalysisOptionSelected && analysisReady" [ticker]="stockSymbol" [stockObject]="analysisStock"></app-general-stock-view>
             </div>
         </div>
     </div>
