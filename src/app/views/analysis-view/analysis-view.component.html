@@ -12,10 +12,10 @@
                         placeholder="Search Stock"
                         (keyup)="editInput($event)"
                         [(ngModel)]="searchTerm"
-                        list="stockOptions">
+                        list="stockOptionsAnalysis">
                         <p class="errorText" *ngIf="errorText">Stock not found</p>
-                        <datalist id="stockOptions">
-                            <option *ngFor="let stock of autofillOptions" [value]="stock">{{stock}}</option>
+                        <datalist id="stockOptionsAnalysis">
+                            <option *ngFor="let stock of autofillOptionsAnalysis" [value]="stock">{{stock}}</option>
                         </datalist>
                     </div>
                 </div>

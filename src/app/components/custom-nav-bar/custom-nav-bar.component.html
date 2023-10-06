@@ -10,10 +10,10 @@
             placeholder="Search Stock"
             (keyup)="editInput($event)"
             [(ngModel)]="searchValue"
-            list="stockOptions">
+            list="stockOptionsGeneral">
             <p class="errorText" *ngIf="errorText">Stock not found</p>
-            <datalist id="stockOptions">
-                <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
+            <datalist id="stockOptionsGeneral">
+                <option *ngFor="let stock of autofillOptionsGeneral" [value]="stock"></option>
             </datalist>
         </div>
         <a routerLink="news" (click)="goToBroadMarketView()">Market</a>

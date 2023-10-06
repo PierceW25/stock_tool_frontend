@@ -12,7 +12,7 @@ export class AnalysisViewComponent {
 
   @Input() stockSymbol: string = '';
   searchTerm: string = '';
-  autofillOptions: any = []
+  autofillOptionsAnalysis: any = []
   errorText: boolean = false
 
 
@@ -31,8 +31,7 @@ export class AnalysisViewComponent {
       }
     })
 
-    this.autofillOptions = privateOptions
-    console.log(this.autofillOptions)
+    this.autofillOptionsAnalysis = privateOptions
   }
 
   editInput(event: any) {
@@ -46,7 +45,6 @@ export class AnalysisViewComponent {
     let passableStock = this.searchTerm.split(' ')[0]
     this.stockApi.getStockOverview(passableStock).subscribe(response => {
       let stockInfo: any = response
-      console.log(stockInfo)
       if (stockInfo['Description'] === 'None') {
         this.errorText = true
       } else {

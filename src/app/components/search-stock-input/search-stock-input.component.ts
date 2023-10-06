@@ -1,26 +1,20 @@
 import { Component } from '@angular/core';
-import { StockApiService } from '../../services/stock-api.service';
 import { Router } from '@angular/router';
-import { FetchArticlesService } from '../../services/fetch-articles.service';
+import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
-import { MarketIndicatorsService } from 'src/app/services/market-indicators.service';
 
 @Component({
-  selector: 'app-custom-nav-bar',
-  templateUrl: './custom-nav-bar.component.html',
-  styleUrls: ['./custom-nav-bar.component.css']
+  selector: 'app-search-stock-input',
+  templateUrl: './search-stock-input.component.html',
+  styleUrls: ['./search-stock-input.component.css']
 })
-export class CustomNavBarComponent {
-  constructor(private stockApi: StockApiService, 
-    private route: Router, 
-    private fetchArticles: FetchArticlesService,
-    private fetchIndicators: MarketIndicatorsService) { }
+export class SearchStockInputComponent {
+  constructor(private stockApi: StockApiService,
+    private route: Router) { }
 
   searchValue: string = ''
-  autofillOptionsGeneral: any = []
+  autofillOptions: any = []
   errorText: boolean = false
-
-  userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
 
   defaultValues = {
     name: '-',
@@ -45,7 +39,6 @@ export class CustomNavBarComponent {
     percent_of_purchase: 10.00,
     purchase_amt: 0
   }
-
 
   editInput(event: any) {
     this.autoComplete(event.target.value)
@@ -81,34 +74,9 @@ export class CustomNavBarComponent {
       }
     })
 
-    this.autofillOptionsGeneral = privateOptions
+    this.autofillOptions = privateOptions
   }
 
-  goToBroadMarketView() {
-    let passableArticles: any;
-    let passableIndicators: any;
-    this.fetchArticles.getAllArticles().subscribe(response => {
-      passableArticles = JSON.stringify(response);
-
-      this.fetchIndicators.getAllMarketIndicators().subscribe(response => {
-        passableIndicators = JSON.stringify(response);
-
-        this.route.navigate(['news'], { queryParams: { articles: passableArticles, indicators: passableIndicators }})
-      })
-    })
-  }
-
-  goToAnalysisView() {
-    this.route.navigate(['analysis'])
-  }
-
-  login() {
-    this.route.navigate(['login'])
-  }
-
-  register() { 
-    this.route.navigate(['register'])
-  }
 
   getDataForNewStock(ticker: string): void {
     let newStock = {
@@ -154,5 +122,4 @@ export class CustomNavBarComponent {
         }
       })
   }
-
 }
