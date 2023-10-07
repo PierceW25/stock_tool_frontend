@@ -88,8 +88,7 @@
         <div class="indexContentContainer">
             <div class="chartContainer">
                 <app-stock-chart *ngIf="displayedIndexesPercentChange != '0.00%' && displayedIndexesPriceChange != '$0.00'"
-                [ticker]="displayTicker" 
-                [chartWidth]='"850px"' 
+                [ticker]="displayTicker"
                 [indexChart]="true" 
                 [title]="displayIndex"
                 [constantPercentChange]="displayedIndexesPercentChange"
