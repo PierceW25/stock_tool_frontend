@@ -66,6 +66,8 @@ export class StockResearchViewComponent implements OnInit {
 
   stockAddedToWatchlist: boolean = false
 
+  earningsChartHeight: string = '140px'
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {

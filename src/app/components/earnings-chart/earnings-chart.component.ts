@@ -13,6 +13,7 @@ export class EarningsChartComponent {
 
   @Input() stockSymbol: string = '';
   @Input() backgroundColor: string = '';
+  @Input() chartHeight: string = '';
 
   formattedEarnings?: EarningsDataPoint[];
   chart: any = [];
