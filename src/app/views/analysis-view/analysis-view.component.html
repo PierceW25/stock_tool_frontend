@@ -25,8 +25,9 @@
                             <h2>General</h2>
                         </div>
                     </div>
-                    <div class="horizontalAnalysisOptionsContainer" (click)="renderIncomeStatementAnalysis()">
-                        <div class="incomeStatementAnalysisOption horizontalOption analysisOption">
+                    <div class="horizontalAnalysisOptionsContainer">
+                        <div class="incomeStatementAnalysisOption horizontalOption analysisOption"
+                        (click)="renderIncomeStatementAnalysis()">
                             <div class="analysisOptionTitle">
                                 <h2>Income Statement</h2>
                             </div>
@@ -138,6 +139,7 @@
                 <div *ngIf="incomeStatementAnalysisSelected && analysisReady"  
                 class="incomeStatementAnalysisContainer anAnalysisContainer">
                     <p>income analysis</p>
+                    <app-financial-statements [selectedStatement]="'income'" [ticker]="analysisStock.ticker"></app-financial-statements>
                 </div>
             </div>
 

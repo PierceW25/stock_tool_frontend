@@ -14,12 +14,13 @@ export class FinancialStatementsComponent implements OnInit {
   @Input() ticker: string = ''
   @Input() selectedStatement: string = ''
 
-  incomeStatement?: incomeStatement
+  totalRevenueRecords: string[] = []
+  grossProfitMarginRecords: string[] = [] /* ((grossProfit / totalRevenue) * 100).toString() + '%' */ 
+  operatingIncomeMarginRecords: string[] = [] /* ((operatingIncome / totalRevenue) * 100).toString() + '%' */
 
   ngOnInit(): void {
     this.createIncomeStatement(this.ticker)
   }
-
 
   createIncomeStatement(stockSymbol: string) {
     let privateTicker = stockSymbol
@@ -27,13 +28,29 @@ export class FinancialStatementsComponent implements OnInit {
     this.stockApi.getIncomeStatement(privateTicker).subscribe(response => {
       let fullResponse: any = response
       let annualReports = fullResponse['annualReports']
-      let rawIncomeStatement = annualReports[0]
-      for (const [key, value] of Object.entries(rawIncomeStatement)) {
-        rawIncomeStatement[key] = this.formatFinancialData(value)
-      }
-      let incomeStatement: incomeStatement = rawIncomeStatement
+      
+      for (const reportNum in annualReports) {
+        this.totalRevenueRecords?.push(annualReports[reportNum]['totalRevenue'])
 
-      this.incomeStatement = incomeStatement
+        let grossProfit = Number(annualReports[reportNum]['grossProfit'])
+        let totalRevenue = Number(annualReports[reportNum]['totalRevenue'])
+        let operatingIncome = Number(annualReports[reportNum]['operatingIncome'])
+
+        let grossProfitMargin = ((grossProfit / totalRevenue) * 100).toFixed(2).toString() + '%'
+        let operatingIncomeMargin = ((operatingIncome / totalRevenue) * 100).toFixed(2).toString() + '%'
+
+        this.grossProfitMarginRecords?.push(grossProfitMargin)
+        this.operatingIncomeMarginRecords?.push(operatingIncomeMargin)
+
+        for (const [key, value] of Object.entries(annualReports[reportNum])) {
+          annualReports[reportNum][key] = this.formatFinancialData(value)
+        }
+      }
+
+      console.log(this.totalRevenueRecords)
+      console.log(this.grossProfitMarginRecords)
+      console.log(this.operatingIncomeMarginRecords)
+
     })
   }
 
