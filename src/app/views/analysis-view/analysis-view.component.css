@@ -133,3 +133,9 @@ h1 {
     font-size: 14px;
     background-color: #232323;
 }
+
+.anAnalysisContainer {
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+}

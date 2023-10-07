@@ -28,7 +28,6 @@ import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-ba
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
-import { GeneralStockViewComponent } from './components/general-stock-view/general-stock-view.component';
 
 @NgModule({
   declarations: [
@@ -51,8 +50,7 @@ import { GeneralStockViewComponent } from './components/general-stock-view/gener
     CustomNavBarComponent,
     EarningsChartComponent,
     CustomMarketViewComponent,
-    FinancialStatementsComponent,
-    GeneralStockViewComponent
+    FinancialStatementsComponent
   ],
   imports: [
     BrowserModule,
