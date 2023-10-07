@@ -61,7 +61,7 @@ export class CustomNavBarComponent {
       if (stockInfo['Description'] === 'None') {
         this.errorText = true
       } else {
-        this.getDataForNewStock(passableStock)
+        this.getDataForNewStock(passableStock, 'research')
       }
     })
   }
@@ -99,7 +99,7 @@ export class CustomNavBarComponent {
   }
 
   goToAnalysisView() {
-    this.route.navigate(['analysis'])
+    this.getDataForNewStock('AAPL', 'analysis')
   }
 
   login() {
@@ -110,7 +110,7 @@ export class CustomNavBarComponent {
     this.route.navigate(['register'])
   }
 
-  getDataForNewStock(ticker: string): void {
+  getDataForNewStock(ticker: string, path: string): void {
     let newStock = {
       ...this.defaultValues
     }
@@ -148,8 +148,12 @@ export class CustomNavBarComponent {
                 let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
                 newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
               }
-      
-              this.route.navigate(['research', ticker], { queryParams: { stock: JSON.stringify(newStock) }})
+              
+              if (path === 'research') {
+                this.route.navigate(['research', ticker], { queryParams: { stock: JSON.stringify(newStock) }})
+              } else if (path === 'analysis') {
+                this.route.navigate(['analysis'], { queryParams: { stock: JSON.stringify(newStock) }})
+              }
             })
         }
       })

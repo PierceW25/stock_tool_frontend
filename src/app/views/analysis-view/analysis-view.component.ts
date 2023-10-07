@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 
@@ -11,10 +11,11 @@ export class AnalysisViewComponent {
   constructor(private stockApi: StockApiService) { }
 
   @Input() stockSymbol: string = '';
+  analysisStock = {}
+
   searchTerm: string = '';
   autofillOptionsAnalysis: any = []
   errorText: boolean = false
-  analysisStock = {}
 
   generalAnalysisOptionSelected = true
   incomeStatementAnalysisSelected = false
@@ -86,38 +87,37 @@ export class AnalysisViewComponent {
         }
         newStock.ticker = passableStock
         newStock.name = response['Name']
-          newStock.description = response['Description']
-          newStock.fiscalYearEnd = response['FiscalYearEnd']
-          newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
-          newStock.pe_ratio = response['PERatio']
-          newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()
-          newStock.fifty_two_week_low = Number(response['52WeekLow']).toFixed(2).toString()
-          newStock.forward_pe = response['ForwardPE']
-          newStock.earnings_per_share = response['EPS']
-          newStock.return_on_equity = response['ReturnOnEquityTTM']
-          newStock.dividend_yield = Number(response['DividendYield']).toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
-          newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
-          newStock.operating_margin = response['OperatingMarginTTM']
+        newStock.description = response['Description']
+        newStock.fiscalYearEnd = response['FiscalYearEnd']
+        newStock.market_cap = formatLargeNumber(response['MarketCapitalization'])
+        newStock.pe_ratio = response['PERatio']
+        newStock.fifty_two_week_high = Number(response['52WeekHigh']).toFixed(2).toString()
+        newStock.fifty_two_week_low = Number(response['52WeekLow']).toFixed(2).toString()
+        newStock.forward_pe = response['ForwardPE']
+        newStock.earnings_per_share = response['EPS']
+        newStock.return_on_equity = response['ReturnOnEquityTTM']
+        newStock.dividend_yield = Number(response['DividendYield']).toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
+        newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
+        newStock.operating_margin = response['OperatingMarginTTM']
 
-          this.stockApi.getStockDailyInfo(passableStock).subscribe(
-            (response: any) => {
-              if (response['Global Quote'] === undefined) {
-                console.log('error making daily info call for new stock, display page ' + newStock.ticker)
-                console.log(response)
-              } else {
-                newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
-                newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
-                newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
-      
-                let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
-                newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
-              }
-              this.stockSymbol = newStock.ticker
-              this.analysisStock = newStock
+        this.stockApi.getStockDailyInfo(passableStock).subscribe(
+          (response: any) => {
+            if (response['Global Quote'] === undefined) {
+              console.log('error making daily info call for new stock, display page ' + newStock.ticker)
+              console.log(response)
+            } else {
+              newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
+              newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
+              newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
+    
+              let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
+              newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
+            }
+            this.stockSymbol = newStock.ticker
+            this.analysisStock = newStock
 
-              this.analysisReady = true
-              console.log(this.analysisStock)
-            })
+            this.analysisReady = true
+          })
       }
     })
   }

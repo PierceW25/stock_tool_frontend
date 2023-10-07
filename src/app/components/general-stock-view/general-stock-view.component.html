@@ -1,7 +1,6 @@
 <div class="stockInfoAndChartContainer">
-    <div class="chartAndSummaryContainer">
-        <app-stock-chart [ticker]="stock.ticker" 
-        [chartWidth]='priceChartWidth' 
+    <div class="chartAndSummaryContainer" [ngStyle]="{'width': leftPanelWidth}">
+        <app-stock-chart [ticker]="stock.ticker"
         [title]="stock.name"
         [initialChartColor]="accentColor"
         [displayPrice]="stock.price"
@@ -17,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="rightPanelContainer">
+    <div class="rightPanelContainer" [ngStyle]="{'width': rightPanelWidth}">
         <div class="stockInfoContainer">
             <div class="stockOverviewDetails">
                 <div class="stockDetailsHeader">
@@ -78,8 +77,8 @@
             <app-earnings-chart 
             [stockSymbol]="stock.ticker" 
             [backgroundColor]="accentColor"
-            [chartWidth]="'700px'"
-            [chartHeight]="'200px'"></app-earnings-chart>
+            [chartWidth]="earningsChartWidth"
+            [chartHeight]="earningsChartHeight"></app-earnings-chart>
         </div>
         <div class="addStockContainer">
             <div class="addStockButtons">

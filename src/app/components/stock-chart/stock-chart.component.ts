@@ -17,7 +17,6 @@ export class StockChartComponent implements OnInit, OnChanges {
 
   @Input() title: string = '-'
   @Input() ticker: string = '-'
-  @Input() chartWidth: string = ''
   @Input() showButtons: boolean = true
   @Input() indexChart: boolean = false
   @Input() initialChartColor: string = '-'
@@ -26,8 +25,6 @@ export class StockChartComponent implements OnInit, OnChanges {
   @Input() constantPercentChange = '-'
 
   @Output() changeChartColor = new EventEmitter<string>()
-
-  chartStyles: Record<string, string> = {}
 
   chart: any = []
   chartColor: string = ''
@@ -48,10 +45,6 @@ export class StockChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.daysPriceChange = this.constantPriceChange
     this.daysPercentChange = this.constantPercentChange
-
-    this.chartStyles = {
-      'width': this.chartWidth,
-    }
 
     if (this.indexChart) {
       let newChartData: {dates: string[], prices: string[]} = {dates: [], prices: []}

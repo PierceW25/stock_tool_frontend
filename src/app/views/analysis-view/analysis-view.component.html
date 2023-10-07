@@ -45,8 +45,32 @@
                 </div>
             </div>
             <div class="analyticalContentContainer">
-                <app-general-stock-view *ngIf="generalAnalysisOptionSelected && analysisReady" [ticker]="stockSymbol" [stockObject]="analysisStock"></app-general-stock-view>
+                <div class="generalAnalysisContainer"
+                *ngIf="analysisReady && generalAnalysisOptionSelected">
+                    <app-general-stock-view 
+                    *ngIf="generalAnalysisOptionSelected && analysisReady" 
+                    [ticker]="stockSymbol" 
+                    [stockObject]="analysisStock"
+                    [leftPanelWidth]="'52%'"
+                    [rightPanelWidth]="'45%'"
+                    [priceChartWidth]="'600px'"
+                    [earningsChartWidth]="'400px'"
+                    [earningsChartHeight]="'170px'"></app-general-stock-view>
+                </div>
+            </div>
+
+
+                <!--
+                <app-general-stock-view 
+                *ngIf="generalAnalysisOptionSelected && analysisReady" 
+                [ticker]="stockSymbol" 
+                [stockObject]="analysisStock"
+                [leftPanelWidth]="'52%'"
+                [rightPanelWidth]="'45%'"
+                [priceChartWidth]="'600px'"
+                [earningsChartWidth]="'400px'"
+                [earningsChartHeight]="'170px'"></app-general-stock-view>
+                -->
             </div>
         </div>
-    </div>
 </body>

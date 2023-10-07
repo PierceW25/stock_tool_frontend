@@ -11,7 +11,7 @@
         </div>
     </div>
     
-    <div class="stockChartContainer" [ngStyle]="chartStyles">
+    <div class="stockChartContainer">
         <canvas id="canvas">{{chart}}</canvas>
         <div class="timeOptionsContainer" *ngIf="showButtons">
             <button mat-fab color="primary" (click)="changeTime('1 day')">1D</button>
