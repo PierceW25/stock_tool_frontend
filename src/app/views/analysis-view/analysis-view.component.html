@@ -20,12 +20,12 @@
                     </div>
                 </div>
                 <div class="analysisOptionsContainer">
-                    <div class="generalAnalysisOption analysisOption">
+                    <div class="generalAnalysisOption analysisOption" (click)="renderGeneralAnalysis()">
                         <div class="analysisOptionTitle">
                             <h2>General</h2>
                         </div>
                     </div>
-                    <div class="horizontalAnalysisOptionsContainer">
+                    <div class="horizontalAnalysisOptionsContainer" (click)="renderIncomeStatementAnalysis()">
                         <div class="incomeStatementAnalysisOption horizontalOption analysisOption">
                             <div class="analysisOptionTitle">
                                 <h2>Income Statement</h2>
@@ -47,9 +47,101 @@
             <div class="analyticalContentContainer">
                 <div class="generalAnalysisContainer anAnalysisContainer"
                 *ngIf="analysisReady && generalAnalysisOptionSelected">
-                    
+                    <div class="leftPanelContainer">
+                        <div class="stockChartContainer">
+                            <app-stock-chart [ticker]="analysisStock.ticker"
+                            [title]="analysisStock.name"
+                            [initialChartColor]="accentColor"
+                            [displayPrice]="analysisStock.price"
+                            [constantPriceChange]="analysisStock.days_change"
+                            [constantPercentChange]="analysisStock.percent_change"
+                            (changeChartColor)="updateEarningsChartColor($event)"></app-stock-chart>
+                        </div>
+                        <div class="stockSummaryContainer">
+                            <div class="stockDetailsHeader">
+                                <h2>Summary</h2>
+                            </div>
+                            <div class="summaryContainer">
+                                <p>{{analysisStock.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rightPanelContainer">
+                        <div class="stockInfoContainer">
+                            <div class="stockOverviewDetails">
+                                <div class="stockDetailsHeader">
+                                    <h2>General Stats</h2>
+                                </div>
+                                
+                                <div class="overviewDetailsContainer">
+                                    <div class="stockDetailsItem">
+                                        <h3>Price</h3>
+                                        <h4>{{analysisStock.price}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Volume</h3>
+                                        <h4>{{analysisStock.volume}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Dividend Yield</h3>
+                                        <h4>{{analysisStock.dividend_yield}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Market Cap</h3>
+                                        <h4>{{analysisStock.market_cap}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>52 Week High</h3>
+                                        <h4>{{analysisStock.fifty_two_week_high}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>52 Week Low</h3>
+                                        <h4>{{analysisStock.fifty_two_week_low}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>PE Ratio</h3>
+                                        <h4>{{analysisStock.pe_ratio}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>EPS</h3>
+                                        <h4>{{analysisStock.earnings_per_share}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Forward PE Ratio</h3>
+                                        <h4>{{analysisStock.forward_pe}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Return on Equity</h3>
+                                        <h4>{{analysisStock.return_on_equity}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>EV to EBITDA</h3>
+                                        <h4>{{analysisStock.enterprise_value_to_ebitda}}</h4>
+                                    </div>
+                                    <div class="stockDetailsItem">
+                                        <h3>Operating Margin</h3>
+                                        <h4>{{analysisStock.operating_margin}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="earningsContainer">
+                                <div class="earningsChartContainer">
+                                    <app-earnings-chart 
+                                    [stockSymbol]="analysisStock.ticker" 
+                                    [backgroundColor]="accentColor"
+                                    [chartHeight]="earningsChartHeight"></app-earnings-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="incomeStatementAnalysisSelected && analysisReady"  
+                class="incomeStatementAnalysisContainer anAnalysisContainer">
+                    <p>income analysis</p>
                 </div>
             </div>
+
+            
 
 
                 <!--

@@ -138,4 +138,101 @@ h1 {
     width: 95%;
     height: 100%;
     margin: 0 auto;
+    color: white;
 }
+
+/* General Analysis container styling */
+
+.generalAnalysisContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.leftPanelContainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.stockChartContainer {
+    width: 100%;
+}
+
+.stockSummaryContainer {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.stockSummaryContainer h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #6c6969;
+}
+
+.rightPanelContainer {
+    width: 48%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.stockInfoContainer {
+    width: 90%;
+    height: 70%;
+    margin-top: 95px;
+    background-color: #232323;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.stockOverviewDetails {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stockDetailsHeader {
+    width: 100%;
+    border-bottom: 1px solid #6c6969;
+}
+
+.stockDetailsHeader h2 {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.overviewDetailsContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.overviewDetailsContainer h3 {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: -15px;
+}
+
+.stockDetailsItem {
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.earningsContainer {
+    width: 90%;
+}
+
+
+/* Income Statement analysis container */

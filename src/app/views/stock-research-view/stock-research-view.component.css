@@ -80,13 +80,6 @@ body {
   margin-bottom: 20px;
 }
 
-.stockDetailsHeader {
-  margin-bottom: 8px;
-  width: 100%;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #6c6969;
-}
-
 .stockDetailsHeader h2 {
   font-size: 18px;
   font-weight: 400;

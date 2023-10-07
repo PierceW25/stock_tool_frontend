@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 
@@ -8,10 +9,33 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
   styleUrls: ['./analysis-view.component.css']
 })
 export class AnalysisViewComponent {
-  constructor(private stockApi: StockApiService) { }
+  constructor(private stockApi: StockApiService,
+    private route: ActivatedRoute) { }
 
-  @Input() stockSymbol: string = '';
-  analysisStock = {}
+  @Input() stockSymbol: string = 'AAPL';
+  analysisStock = {
+    name: '-',
+    id: 0,
+    ticker: '-',
+    price: '-',
+    days_change: '-',
+    percent_change: '-',
+    volume: '-',
+    description: '-',
+    fiscalYearEnd: '-',
+    market_cap: '-',
+    pe_ratio: '-',
+    fifty_two_week_high: '-',
+    fifty_two_week_low: '-',
+    forward_pe: '-',
+    earnings_per_share: '-',
+    return_on_equity: '-',
+    dividend_yield: '-',
+    enterprise_value_to_ebitda: '-',
+    operating_margin: '-',
+    percent_of_purchase: 10.00,
+    purchase_amt: 0
+  }
 
   searchTerm: string = '';
   autofillOptionsAnalysis: any = []
@@ -48,6 +72,26 @@ export class AnalysisViewComponent {
     purchase_amt: 0
   }
 
+  earningsChartHeight: string = '100px'
+  accentColor: string = ''
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      let privateStock = JSON.parse(params['stock'])
+      if (privateStock.hasOwnProperty('days_change')) {
+        console.log('display analysis')
+        this.accentColor = privateStock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+        if (privateStock.days_change.includes('-')) {
+          privateStock.days_change = privateStock.days_change.replace('-', '-$')
+        } else {
+          privateStock.days_change = '$' + privateStock.days_change
+        }
+
+        this.analysisStock = privateStock
+        this.analysisReady = true
+      }
+    })
+  }
 
   autoComplete(ticker: string) {
     let privateOptions: any = []
@@ -120,5 +164,23 @@ export class AnalysisViewComponent {
           })
       }
     })
+  }
+
+  updateEarningsChartColor(color: string) {
+    this.accentColor = color
+  }
+
+  renderGeneralAnalysis() {
+    this.generalAnalysisOptionSelected = true
+    this.incomeStatementAnalysisSelected = false
+    this.balanceSheetAnalysisSelected = false
+    this.cashFlowAnalysisSelected = false
+  }
+
+  renderIncomeStatementAnalysis() {
+    this.generalAnalysisOptionSelected = false
+    this.incomeStatementAnalysisSelected = true
+    this.balanceSheetAnalysisSelected = false
+    this.cashFlowAnalysisSelected = false
   }
 }
