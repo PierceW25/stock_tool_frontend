@@ -28,6 +28,12 @@ export class FinancialStatementsComponent implements OnInit {
   debtToEquityRecords: string[][] = []
   longTermDebtToEquityRecords: string[][] = []
 
+  /* Cash flow analytics */
+  operatingCashFlowRecords: string[][] = []
+  capitalExpenditureRecords: string[][] = []
+  freeCashFlowRecords: string[][] = []
+
+
   ngOnInit(): void {
     this.createIncomeStatement(this.ticker)
   }
@@ -84,8 +90,30 @@ export class FinancialStatementsComponent implements OnInit {
           this.totalLiabilitiesRecords?.push([annualReports[reportNum]['totalLiabilities'], fiscalYear])
           this.shareHolderEquityRecords?.push([annualReports[reportNum]['totalShareholderEquity'], fiscalYear])
         }
-      })
 
+        this.stockApi.getCashFlow(privateTicker).subscribe(response => {
+          let fullResponse: any = response
+          let annualReports = fullResponse['annualReports']
+
+          for (const reportNum in annualReports) {
+            let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
+
+            let freeCashFlow = Number(annualReports[reportNum]['operatingCashflow']) - Number(annualReports[reportNum]['capitalExpenditures'])
+            let formattedFreeCashFlow = this.formatFinancialData(freeCashFlow)
+
+            for (const [key, value] of Object.entries(annualReports[reportNum])) {
+              annualReports[reportNum][key] = this.formatFinancialData(value)
+            }
+
+            let operatingCashFlow = annualReports[reportNum]['operatingCashflow']
+            let capitalExpenditure = annualReports[reportNum]['capitalExpenditures']
+
+            this.operatingCashFlowRecords?.push([operatingCashFlow, fiscalYear])
+            this.capitalExpenditureRecords?.push([capitalExpenditure, fiscalYear])
+            this.freeCashFlowRecords?.push([formattedFreeCashFlow, fiscalYear])
+          }
+        })
+      })
     })
   }
 
