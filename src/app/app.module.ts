@@ -28,6 +28,9 @@ import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-ba
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
+import { IncomeStatementAnalysisComponent } from './components/income-statement-analysis/income-statement-analysis.component';
+import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analysis/balance-sheet-analysis.component';
+import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { FinancialStatementsComponent } from './components/financial-statements/
     CustomNavBarComponent,
     EarningsChartComponent,
     CustomMarketViewComponent,
-    FinancialStatementsComponent
+    FinancialStatementsComponent,
+    IncomeStatementAnalysisComponent,
+    BalanceSheetAnalysisComponent,
+    CashFlowAnalysisComponent
   ],
   imports: [
     BrowserModule,
