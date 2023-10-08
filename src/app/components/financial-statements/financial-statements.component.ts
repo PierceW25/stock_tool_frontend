@@ -1,4 +1,6 @@
+import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 import { Component, Input, OnInit } from '@angular/core';
+import { share } from 'rxjs';
 import { incomeStatement } from 'src/app/interfaces/incomeStatement';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -14,9 +16,17 @@ export class FinancialStatementsComponent implements OnInit {
   @Input() ticker: string = ''
   @Input() selectedStatement: string = ''
 
-  totalRevenueRecords: string[] = []
-  grossProfitMarginRecords: string[] = [] /* ((grossProfit / totalRevenue) * 100).toString() + '%' */ 
-  operatingIncomeMarginRecords: string[] = [] /* ((operatingIncome / totalRevenue) * 100).toString() + '%' */
+  /* Income statement analytics */
+  totalRevenueRecords: string[][] = []
+  grossProfitMarginRecords: string[][] = []
+  operatingIncomeMarginRecords: string[][] = []
+
+  /* Balance sheet analytics */
+  totalAssetRecords: string[][] = []
+  totalLiabilitiesRecords: string[][] = []
+  shareHolderEquityRecords: string[][] = []
+  debtToEquityRecords: string[][] = []
+  longTermDebtToEquityRecords: string[][] = []
 
   ngOnInit(): void {
     this.createIncomeStatement(this.ticker)
@@ -30,6 +40,8 @@ export class FinancialStatementsComponent implements OnInit {
       let annualReports = fullResponse['annualReports']
       
       for (const reportNum in annualReports) {
+        let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
+
         this.totalRevenueRecords?.push(annualReports[reportNum]['totalRevenue'])
 
         let grossProfit = Number(annualReports[reportNum]['grossProfit'])
@@ -39,17 +51,40 @@ export class FinancialStatementsComponent implements OnInit {
         let grossProfitMargin = ((grossProfit / totalRevenue) * 100).toFixed(2).toString() + '%'
         let operatingIncomeMargin = ((operatingIncome / totalRevenue) * 100).toFixed(2).toString() + '%'
 
-        this.grossProfitMarginRecords?.push(grossProfitMargin)
-        this.operatingIncomeMarginRecords?.push(operatingIncomeMargin)
+        this.grossProfitMarginRecords?.push([grossProfitMargin, fiscalYear])
+        this.operatingIncomeMarginRecords?.push([operatingIncomeMargin, fiscalYear])
 
         for (const [key, value] of Object.entries(annualReports[reportNum])) {
           annualReports[reportNum][key] = this.formatFinancialData(value)
         }
       }
 
-      console.log(this.totalRevenueRecords)
-      console.log(this.grossProfitMarginRecords)
-      console.log(this.operatingIncomeMarginRecords)
+      this.stockApi.getBalanceSheet(privateTicker).subscribe(response => {
+        let fullResponse: any = response
+        let annualReports = fullResponse['annualReports']
+
+        for (const reportNum in annualReports) {
+          let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
+
+          let totalEquity = Number(annualReports[reportNum]['totalShareholderEquity'])
+          let totalDebt = Number(annualReports[reportNum]['shortLongTermDebtTotal'])
+          let longTermDebt = Number(annualReports[reportNum]['longTermDebtNoncurrent'])
+
+          let debtToEquityRatio = (totalDebt / totalEquity).toFixed(2).toString() + 'x'
+          let longTermDebtToEquityRatio = (longTermDebt / totalEquity).toFixed(2).toString() + 'x'
+
+          this.debtToEquityRecords?.push([debtToEquityRatio, fiscalYear])
+          this.longTermDebtToEquityRecords?.push([longTermDebtToEquityRatio, fiscalYear])
+
+          for (const [key, value] of Object.entries(annualReports[reportNum])) {
+            annualReports[reportNum][key] = this.formatFinancialData(value)
+          }
+
+          this.totalAssetRecords?.push([annualReports[reportNum]['totalAssets'], fiscalYear])
+          this.totalLiabilitiesRecords?.push([annualReports[reportNum]['totalLiabilities'], fiscalYear])
+          this.shareHolderEquityRecords?.push([annualReports[reportNum]['totalShareholderEquity'], fiscalYear])
+        }
+      })
 
     })
   }
