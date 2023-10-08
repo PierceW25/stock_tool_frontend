@@ -1,7 +1,4 @@
-import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 import { Component, Input, OnInit } from '@angular/core';
-import { share } from 'rxjs';
-import { incomeStatement } from 'src/app/interfaces/incomeStatement';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 
@@ -35,10 +32,10 @@ export class FinancialStatementsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.createIncomeStatement(this.ticker)
+    this.createFinancialStatementAnalysis(this.ticker)
   }
 
-  createIncomeStatement(stockSymbol: string) {
+  createFinancialStatementAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
 
     this.stockApi.getIncomeStatement(privateTicker).subscribe(response => {
