@@ -1,0 +1,12 @@
+.allContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.totalRevenueContent {
+    width: 90%;
+    display: flex;
+    
+}
