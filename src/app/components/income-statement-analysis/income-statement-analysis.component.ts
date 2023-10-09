@@ -38,7 +38,8 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
         this.fiscalYears?.push(fiscalYear)
 
-        this.totalRevenueRecords?.push(annualReports[reportNum]['totalRevenue'])
+        let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue']).slice(0, -1)
+        this.totalRevenueRecords?.push(formattedRevenue)
 
         let grossProfit = Number(annualReports[reportNum]['grossProfit'])
         let totalRevenue = Number(annualReports[reportNum]['totalRevenue'])
@@ -49,10 +50,6 @@ export class IncomeStatementAnalysisComponent implements OnInit {
 
         this.grossProfitMarginRecords?.push(grossProfitMargin)
         this.operatingIncomeMarginRecords?.push(operatingIncomeMargin)
-
-        for (const [key, value] of Object.entries(annualReports[reportNum])) {
-          annualReports[reportNum][key] = this.formatFinancialData(value)
-        }
       }
 
       let revenueChartData = {
