@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-balance-sheet-analysis',
@@ -24,6 +25,11 @@ export class BalanceSheetAnalysisComponent implements OnInit {
   totalAssetsMetric: string = ''
   totalLiabilitiesMetric: string = ''
   totalShareholderEquityMetric: string = ''
+
+  assetsAndLiabilitiesChart: any
+  shareholderEquityChart: any
+  debtToEquityChart: any
+  longTermDebtToEquityChart: any
 
   ngOnInit(): void {
     this.createBalanceSheetAnalysis(this.ticker)
@@ -64,6 +70,13 @@ export class BalanceSheetAnalysisComponent implements OnInit {
         this.totalLiabilitiesRecords?.push(totalLiabilities)
         this.shareHolderEquityRecords?.push(totalShareholderEquity)
       }
+      this.fiscalYears.reverse()
+      this.debtToEquityRecords.reverse()
+      this.longTermDebtToEquityRecords.reverse()
+      this.totalAssetRecords.reverse()
+      this.totalLiabilitiesRecords.reverse()
+      this.shareHolderEquityRecords.reverse()
+
       let numberTypeTotalAssets = this.formatFinancialData(annualReports[0]['totalAssets']).slice(-1)
       let numberTypeTotalLiabilities = this.formatFinancialData(annualReports[0]['totalLiabilities']).slice(-1)
       let numberTypeTotalShareholderEquity = this.formatFinancialData(annualReports[0]['totalShareholderEquity']).slice(-1)
@@ -72,15 +85,57 @@ export class BalanceSheetAnalysisComponent implements OnInit {
       this.totalLiabilitiesMetric = numberTypeTotalLiabilities == 'M' ? 'Millions' : numberTypeTotalLiabilities == 'B' ? 'Billions' : 'Trillions'
       this.totalShareholderEquityMetric = numberTypeTotalShareholderEquity == 'M' ? 'Millions' : numberTypeTotalShareholderEquity == 'B' ? 'Billions' : 'Trillions'
 
+      let debtToEquityChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.debtToEquityRecords
+      }
+      let longTermDebtToEquityChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.longTermDebtToEquityRecords
+      }
+      let totalAssetChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.totalAssetRecords
+      }
+      let totalLiabilitiesChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.totalLiabilitiesRecords
+      }
+      let totalShareholderEquityChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.shareHolderEquityRecords
+      }
       
 
-      console.log(this.totalAssetRecords)
-      console.log(this.totalLiabilitiesRecords)
-      console.log(this.shareHolderEquityRecords)
-      console.log(this.debtToEquityRecords)
-      console.log(this.longTermDebtToEquityRecords)
-
+      this.assetsAndLiabilitiesChart = this.createAssetsAndLiabilitiesChart(totalAssetChartData, totalLiabilitiesChartData)
     })
+  }
+
+  createAssetsAndLiabilitiesChart(assetsData: {fy: string[], dataValue: number[]}, 
+    liabilitiesData: {fy: string[], dataValue: number[]}) {
+      let formattedChartData = {
+        labels: assetsData.fy,
+        datasets: [
+          {
+            label: 'Total Assets',
+            data: assetsData.dataValue,
+            borderColor: 'rgb(0, 255, 0)',
+            backgroundColor: 'rgba(0, 255, 0, 0.8)'
+          },
+          {
+            label: 'Total Liabilities',
+            data: liabilitiesData.dataValue,
+            borderColor: 'rgb(255, 0, 0)',
+            backgroundColor: 'rgba(255, 0, 0, 0.8)'
+          }
+        ]
+      }
+    let privateChart = new Chart('assetsAndLiabilitiesChart', {
+      type: 'bar',
+      data: formattedChartData
+    })
+
+    return privateChart
   }
 
   formatFinancialData(data: any): string {

@@ -1,0 +1,12 @@
+.mainContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.anAnalysisContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
