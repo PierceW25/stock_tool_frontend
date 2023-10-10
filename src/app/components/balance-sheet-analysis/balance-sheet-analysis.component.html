@@ -18,4 +18,17 @@
             <canvas id="shareholderEquityChart">{{shareholderEquityChart}}</canvas>
         </div>
     </div>
+    <div class="debtToEquity anAnalysisContainer">
+        <div class="analysisHeader">
+            <h2>Debt to Equity Ratio</h2>
+        </div>
+        <div class="chartToggleContainer">
+            <div class="chartSelection">
+                <button (click)="displayDebtToEquityChart()">General</button>
+                <button (click)="displayLongTermDebtToEquityChart()">Long Term</button>
+            </div>
+        </div>
+        <div class="chartContainer generalDebtToEquityChart">
+            <canvas id="debtToEquityChart">{{debtToEquityChart}}</canvas>
+        </div>
 </div>

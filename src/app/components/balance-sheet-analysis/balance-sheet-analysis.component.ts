@@ -27,10 +27,15 @@ export class BalanceSheetAnalysisComponent implements OnInit {
   totalLiabilitiesMetric: string = ''
   totalShareholderEquityMetric: string = ''
 
+  debtToEquityChartData: {fy: string[], dataValue: number[]} = {fy: [], dataValue: []}
+  longTermDebtToEquityChartData: {fy: string[], dataValue: number[]} = {fy: [], dataValue: []}
+
   assetsAndLiabilitiesChart: any
   shareholderEquityChart: any
   debtToEquityChart: any
-  longTermDebtToEquityChart: any
+
+  showGeneralDebtToEquityChart: boolean = true
+  showLongTermDebtToEquityChart: boolean = false
 
   ngOnInit(): void {
     this.createBalanceSheetAnalysis(this.ticker)
@@ -86,11 +91,11 @@ export class BalanceSheetAnalysisComponent implements OnInit {
       this.totalLiabilitiesMetric = numberTypeTotalLiabilities == 'M' ? 'Millions' : numberTypeTotalLiabilities == 'B' ? 'Billions' : 'Trillions'
       this.totalShareholderEquityMetric = numberTypeTotalShareholderEquity == 'M' ? 'Millions' : numberTypeTotalShareholderEquity == 'B' ? 'Billions' : 'Trillions'
 
-      let debtToEquityChartData = {
+      this.debtToEquityChartData = {
         fy: this.fiscalYears,
         dataValue: this.debtToEquityRecords
       }
-      let longTermDebtToEquityChartData = {
+      this.longTermDebtToEquityChartData = {
         fy: this.fiscalYears,
         dataValue: this.longTermDebtToEquityRecords
       }
@@ -106,9 +111,18 @@ export class BalanceSheetAnalysisComponent implements OnInit {
         fy: this.fiscalYears,
         dataValue: this.shareHolderEquityRecords
       }
+
+      let shareholderEquityChange = this.shareHolderEquityRecords[this.shareHolderEquityRecords.length - 1] - this.shareHolderEquityRecords[0]
+      let debtToEquityChange = this.debtToEquityRecords[this.debtToEquityRecords.length - 1] - this.debtToEquityRecords[0]
+      let longTermDebtToEquityChange = this.longTermDebtToEquityRecords[this.longTermDebtToEquityRecords.length - 1] - this.longTermDebtToEquityRecords[0]
+      let shareholderEquityChartColor = shareholderEquityChange < 0 ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)'
+      let debtToEquityChartColor = debtToEquityChange < 0 ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)'
+      let longTermDebtToEquityChartColor = longTermDebtToEquityChange < 0 ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)'
       
 
       this.assetsAndLiabilitiesChart = this.createAssetsAndLiabilitiesChart(totalAssetChartData, totalLiabilitiesChartData)
+      this.shareholderEquityChart = this.createShareholderEquityChart(totalShareholderEquityChartData, shareholderEquityChartColor, 'shareholderEquityChart')
+      this.debtToEquityChart = this.createShareholderEquityChart(this.debtToEquityChartData, debtToEquityChartColor, 'debtToEquityChart')
     })
   }
 
@@ -139,6 +153,45 @@ export class BalanceSheetAnalysisComponent implements OnInit {
     return privateChart
   }
 
+  createShareholderEquityChart(data: {fy: string[], dataValue: number[]}, chartColor: string, chartName: string) {
+    let privateChart = new Chart(chartName, {
+      type: 'line',
+      data: {
+        labels: data.fy,
+        datasets: [
+          {
+            //hide the label of this dataset
+            label: '',
+            data: data.dataValue,
+            borderWidth: 1.8,
+            borderColor: chartColor,
+            pointRadius: 0,
+            hoverBorderColor: '#000000',
+            hoverBorderWidth: 1.8,
+            hoverBackgroundColor: '#000000'
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          },
+
+        },
+        scales: {
+          y: {
+            display: true
+          },
+          x: {
+            display: true
+          },
+        },
+      }
+    });
+    return privateChart
+  }
+
   formatFinancialData(data: any): string {
     if (isNaN(Number(data))) {
       return data
@@ -146,5 +199,15 @@ export class BalanceSheetAnalysisComponent implements OnInit {
       let dataAsNum = Number(data)
       return formatLargeNumber(dataAsNum).toString()
     }
+  }
+
+  displayDebtToEquityChart() {
+    this.debtToEquityChart.data.datasets[0].data = this.debtToEquityChartData.dataValue
+    this.debtToEquityChart.update()
+  }
+
+  displayLongTermDebtToEquityChart() {
+    this.debtToEquityChart.data.datasets[0].data = this.longTermDebtToEquityChartData.dataValue
+    this.debtToEquityChart.update()
   }
 }
