@@ -183,4 +183,11 @@ export class AnalysisViewComponent {
     this.balanceSheetAnalysisSelected = false
     this.cashFlowAnalysisSelected = false
   }
+
+  renderBalanceSheetAnalysis() {
+    this.generalAnalysisOptionSelected = false
+    this.incomeStatementAnalysisSelected = false
+    this.balanceSheetAnalysisSelected = true
+    this.cashFlowAnalysisSelected = false
+  }
 }
