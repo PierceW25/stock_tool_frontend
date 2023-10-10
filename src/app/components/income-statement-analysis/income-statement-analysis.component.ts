@@ -15,16 +15,20 @@ export class IncomeStatementAnalysisComponent implements OnInit {
   @Input() stockName: string = ''
 
   /* Income statement analytics */
-  totalRevenueRecords: string[] = []
+  totalRevenueRecords: number[] = []
   totalRevenueRecordsNumberType: string = '' /* Millions, billions, trillions */
-  revenueChartColor: string = ''
 
-  grossProfitMarginRecords: string[] = []
-  operatingIncomeMarginRecords: string[] = []
+  grossProfitMarginRecords: number[] = []
+  operatingIncomeMarginRecords: number[] = []
   fiscalYears: string[] = []
 
   revenueChart: any
+  profitMarginChart: any
+  incomeMarginChart: any
 
+  revenueChartColor: string = ''
+  profitMarginChartColor: string = ''
+  incomeMarginChartColor: string = ''
 
   ngOnInit(): void {
     this.createIncomeStatementAnalysis(this.ticker)
@@ -48,7 +52,7 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         this.fiscalYears?.push(fiscalYear)
 
         let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue'])
-        let revenueNumbersAsNum = formattedRevenue.slice(0, -1)
+        let revenueNumbersAsNum = Number(formattedRevenue.slice(0, -1))
         this.totalRevenueRecordsNumberType = formattedRevenue.slice(-1) == 'M' ? 'Millions' : formattedRevenue.slice(-1) == 'B' ? 'Billions' : 'Trillions'
         this.totalRevenueRecords?.push(revenueNumbersAsNum)
 
@@ -56,22 +60,52 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         let totalRevenue = Number(annualReports[reportNum]['totalRevenue'])
         let operatingIncome = Number(annualReports[reportNum]['operatingIncome'])
 
-        let grossProfitMargin = ((grossProfit / totalRevenue) * 100).toFixed(2).toString() + '%'
-        let operatingIncomeMargin = ((operatingIncome / totalRevenue) * 100).toFixed(2).toString() + '%'
+        let grossProfitMargin = Number(((grossProfit / totalRevenue) * 100).toFixed(2))
+        let operatingIncomeMargin = Number(((operatingIncome / totalRevenue) * 100).toFixed(2))
 
         this.grossProfitMarginRecords?.push(grossProfitMargin)
         this.operatingIncomeMarginRecords?.push(operatingIncomeMargin)
       }
+      let differenceFirstAndLastYearProfitMargin = Number(this.grossProfitMarginRecords[0]) - Number(this.grossProfitMarginRecords[this.grossProfitMarginRecords.length - 1])
+      let differenceFirstAndLastYearOperatingIncome = Number(this.operatingIncomeMarginRecords[0]) - Number(this.operatingIncomeMarginRecords[this.operatingIncomeMarginRecords.length - 1])
+
+      this.fiscalYears.reverse()
+      this.totalRevenueRecords.reverse()
+      this.grossProfitMarginRecords.reverse()
+      this.operatingIncomeMarginRecords.reverse()
 
       let revenueChartData = {
-        fy: this.fiscalYears.reverse(),
-        dataValue: this.totalRevenueRecords.reverse()
+        fy: this.fiscalYears,
+        dataValue: this.totalRevenueRecords
       }
-      this.revenueChart = this.createChartForData(revenueChartData, 'revenueChart')
+      let profitMarginChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.grossProfitMarginRecords
+      }
+      let operatingIncomeChartData = {
+        fy: this.fiscalYears,
+        dataValue: this.operatingIncomeMarginRecords
+      }
+
+      if (differenceFirstAndLastYearProfitMargin < 0) {
+        this.profitMarginChartColor = 'rgb(255, 0, 0)'
+      } else {
+        this.profitMarginChartColor = 'rgb(0, 255, 0)'
+      }
+      if (differenceFirstAndLastYearOperatingIncome < 0) {
+        this.incomeMarginChartColor = 'rgb(255, 0, 0)'
+      } else {
+        this.incomeMarginChartColor = 'rgb(0, 255, 0)'
+      }
+
+
+      this.revenueChart = this.createChartForData(revenueChartData, 'revenueChart', this.revenueChartColor)
+      this.profitMarginChart = this.createChartForData(profitMarginChartData, 'profitMarginChart', this.profitMarginChartColor)
+      this.incomeMarginChart = this.createChartForData(operatingIncomeChartData, 'incomeMarginChart', this.incomeMarginChartColor)
     })
   }
 
-  createChartForData(data: {fy: string[], dataValue: string[]}, chartName: string) {
+  createChartForData(data: {fy: string[], dataValue: number[]}, chartName: string, chartColor: string) {
     let privateChart = new Chart(chartName, {
       type: 'line',
       data: {
@@ -82,7 +116,7 @@ export class IncomeStatementAnalysisComponent implements OnInit {
             label: '',
             data: data.dataValue,
             borderWidth: 1.8,
-            borderColor: this.revenueChartColor,
+            borderColor: chartColor,
             pointRadius: 0,
             hoverBorderColor: '#000000',
             hoverBorderWidth: 1.8,

@@ -3,11 +3,27 @@
         <p>{{stockName}}</p>
     </div>
     <div class="totalRevenueContent">
-        <div class="totalRevenueHeader">
+        <div class="totalRevenueHeader chartHeader">
             <h2>Total Revenue ({{this.totalRevenueRecordsNumberType}})</h2>
         </div>
         <div class="totalRevenueChartContainer">
             <canvas id="revenueChart">{{revenueChart}}</canvas>
+        </div>
+    </div>
+    <div class="grossProfitContent">
+        <div class="grossProfitHeader chartHeader">
+            <h2>Gross Profit Margin (%)</h2>
+        </div>
+        <div class="grossProfitChartContainer">
+            <canvas id="profitMarginChart">{{profitMarginChart}}</canvas>
+        </div>
+    </div>
+    <div class="incomeMarginContent">
+        <div class="incomeMarginHeader chartHeader">
+            <h2>Operating Income Margin (%)</h2>
+        </div>
+        <div class="incomeMarginChartContainer">
+            <canvas id="incomeMarginChart">{{incomeMarginChart}}</canvas>
         </div>
     </div>
 </div>

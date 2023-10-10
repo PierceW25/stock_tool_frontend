@@ -2,7 +2,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .stockName p {
@@ -11,14 +10,26 @@
 }
 
 .totalRevenueContent {
-    width: 50%;
+    width: 45%;
     display: flex;
     flex-direction: column;
 }
 
-.totalRevenueContent h2 {
+.chartHeader h2 {
     font-size: 18px;
     font-weight: 400;
     margin: 0;
     padding-bottom: 5px;
+}
+
+.grossProfitContent {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.incomeMarginContent {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
 }
