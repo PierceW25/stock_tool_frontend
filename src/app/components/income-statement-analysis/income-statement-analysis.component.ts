@@ -16,6 +16,9 @@ export class IncomeStatementAnalysisComponent implements OnInit {
 
   /* Income statement analytics */
   totalRevenueRecords: string[] = []
+  totalRevenueRecordsNumberType: string = '' /* Millions, billions, trillions */
+  revenueChartColor: string = ''
+
   grossProfitMarginRecords: string[] = []
   operatingIncomeMarginRecords: string[] = []
   fiscalYears: string[] = []
@@ -33,13 +36,21 @@ export class IncomeStatementAnalysisComponent implements OnInit {
     this.stockApi.getIncomeStatement(privateTicker).subscribe(response => {
       let fullResponse: any = response
       let annualReports = fullResponse['annualReports']
+      let differenceBetweenFirstAndLastYearRev = Number(annualReports[0]['totalRevenue']) - Number(annualReports[annualReports.length - 1]['totalRevenue'])
+      if (differenceBetweenFirstAndLastYearRev < 0) {
+        this.revenueChartColor = 'rgb(255, 0, 0)'
+      } else {
+        this.revenueChartColor = 'rgb(0, 255, 0)'
+      }
       
       for (const reportNum in annualReports) {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
         this.fiscalYears?.push(fiscalYear)
 
-        let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue']).slice(0, -1)
-        this.totalRevenueRecords?.push(formattedRevenue)
+        let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue'])
+        let revenueNumbersAsNum = formattedRevenue.slice(0, -1)
+        this.totalRevenueRecordsNumberType = formattedRevenue.slice(-1) == 'M' ? 'Millions' : formattedRevenue.slice(-1) == 'B' ? 'Billions' : 'Trillions'
+        this.totalRevenueRecords?.push(revenueNumbersAsNum)
 
         let grossProfit = Number(annualReports[reportNum]['grossProfit'])
         let totalRevenue = Number(annualReports[reportNum]['totalRevenue'])
@@ -71,6 +82,7 @@ export class IncomeStatementAnalysisComponent implements OnInit {
             label: '',
             data: data.dataValue,
             borderWidth: 1.8,
+            borderColor: this.revenueChartColor,
             pointRadius: 0,
             hoverBorderColor: '#000000',
             hoverBorderWidth: 1.8,
@@ -95,7 +107,6 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         },
       }
     });
-    console.log('chart creation complete')
     return privateChart
   }
 

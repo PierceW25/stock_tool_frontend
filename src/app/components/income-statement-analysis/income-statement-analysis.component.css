@@ -5,8 +5,20 @@
     align-items: center;
 }
 
+.stockName p {
+    font-size: 28px;
+    font-weight: 500;
+}
+
 .totalRevenueContent {
-    width: 90%;
+    width: 50%;
     display: flex;
-    
+    flex-direction: column;
+}
+
+.totalRevenueContent h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 5px;
 }
