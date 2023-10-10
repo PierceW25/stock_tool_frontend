@@ -12,6 +12,7 @@ export class BalanceSheetAnalysisComponent implements OnInit {
   constructor(private stockApi: StockApiService) { }
 
   @Input() ticker: string = ''
+  @Input() stockName: string = ''
 
   /* Balance sheet analytics */
   totalAssetRecords: number[] = []

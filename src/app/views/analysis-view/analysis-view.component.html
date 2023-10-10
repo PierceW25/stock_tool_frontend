@@ -143,8 +143,11 @@
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"></app-income-statement-analysis>
                 </div>
-                <div *ngIf="balanceSheetAnalysisSelected && analysisReady">
-                    <app-balance-sheet-analysis [ticker]="analysisStock.ticker"></app-balance-sheet-analysis>
+                <div *ngIf="balanceSheetAnalysisSelected && analysisReady"
+                class="balanceSheetAnalysisContainer anAnalysisContainer">
+                    <app-balance-sheet-analysis 
+                    [ticker]="analysisStock.ticker"
+                    [stockName]="analysisStock.name"></app-balance-sheet-analysis>
                 </div>
                 <div *ngIf="cashFlowAnalysisSelected && analysisReady">
                     <app-cash-flow-analysis [ticker]="analysisStock.ticker"></app-cash-flow-analysis>
