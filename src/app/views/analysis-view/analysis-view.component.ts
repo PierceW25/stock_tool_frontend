@@ -190,4 +190,11 @@ export class AnalysisViewComponent {
     this.balanceSheetAnalysisSelected = true
     this.cashFlowAnalysisSelected = false
   }
+
+  renderCashFlowAnalysis() {
+    this.generalAnalysisOptionSelected = false
+    this.incomeStatementAnalysisSelected = false
+    this.balanceSheetAnalysisSelected = false
+    this.cashFlowAnalysisSelected = true
+  }
 }

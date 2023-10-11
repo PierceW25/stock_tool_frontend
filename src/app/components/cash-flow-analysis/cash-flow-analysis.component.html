@@ -1,1 +1,29 @@
-<p>cash-flow-analysis works!</p>
+<div class="mainContentContainer">
+    <div class="stockAnalyzed">
+        <p>{{stockName}}</p>
+    </div>
+    <div class="operatingCashFlowContainer anAnalysisContainer">
+        <div class="analysisHeader">
+            <h2>Operating Cash Flow ({{operatingCashFlowMetric}})</h2>
+        </div>
+        <div class="chartContainer">
+            <canvas id="operatingCashFlowChart">{{operatingCashFlowChart}}</canvas>
+        </div>
+    </div>
+    <div class="freeCashFlowContainer anAnalysisContainer">
+        <div class="analysisHeader">
+            <h2>Free Cash Flow ({{freeCashFlowMetric}})</h2>
+        </div>
+        <div class="chartContainer">
+            <canvas id="freeCashFlowChart">{{freeCashFlowChart}}</canvas>
+        </div>
+    </div>
+    <div class="capitalExpenditureContainer anAnalysisContainer">
+        <div class="analysisHeader">
+            <h2>Capital Expenditures ({{capitalExpenditureMetric}})</h2>
+        </div>
+        <div class="chartContainer">
+            <canvas id="capitalExpendituresChart">{{capitalExpenditureChart}}</canvas>
+        </div>
+    </div>
+</div>

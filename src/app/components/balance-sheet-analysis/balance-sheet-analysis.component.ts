@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
+import { pullValuesMetric } from 'src/app/utils/pullValuesMetric';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -83,13 +84,13 @@ export class BalanceSheetAnalysisComponent implements OnInit {
       this.totalLiabilitiesRecords.reverse()
       this.shareHolderEquityRecords.reverse()
 
-      let numberTypeTotalAssets = this.formatFinancialData(annualReports[0]['totalAssets']).slice(-1)
-      let numberTypeTotalLiabilities = this.formatFinancialData(annualReports[0]['totalLiabilities']).slice(-1)
-      let numberTypeTotalShareholderEquity = this.formatFinancialData(annualReports[0]['totalShareholderEquity']).slice(-1)
+      let numberTypeTotalAssets = pullValuesMetric(this.formatFinancialData(annualReports[0]['totalAssets']))
+      let numberTypeTotalLiabilities = pullValuesMetric(this.formatFinancialData(annualReports[0]['totalLiabilities']))
+      let numberTypeTotalShareholderEquity = pullValuesMetric(this.formatFinancialData(annualReports[0]['totalShareholderEquity']))
 
-      this.totalAssetsMetric = numberTypeTotalAssets == 'M' ? 'Millions' : numberTypeTotalAssets == 'B' ? 'Billions' : 'Trillions'
-      this.totalLiabilitiesMetric = numberTypeTotalLiabilities == 'M' ? 'Millions' : numberTypeTotalLiabilities == 'B' ? 'Billions' : 'Trillions'
-      this.totalShareholderEquityMetric = numberTypeTotalShareholderEquity == 'M' ? 'Millions' : numberTypeTotalShareholderEquity == 'B' ? 'Billions' : 'Trillions'
+      this.totalAssetsMetric = numberTypeTotalAssets
+      this.totalLiabilitiesMetric = numberTypeTotalLiabilities
+      this.totalShareholderEquityMetric = numberTypeTotalShareholderEquity
 
       this.debtToEquityChartData = {
         fy: this.fiscalYears,
@@ -203,11 +204,17 @@ export class BalanceSheetAnalysisComponent implements OnInit {
 
   displayDebtToEquityChart() {
     this.debtToEquityChart.data.datasets[0].data = this.debtToEquityChartData.dataValue
+    let debtToEquityChange = this.debtToEquityRecords[this.debtToEquityRecords.length - 1] - this.debtToEquityRecords[0]
+    let debtToEquityChartColor = debtToEquityChange < 0 ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)'
+    this.debtToEquityChart.data.datasets[0].borderColor = debtToEquityChartColor
     this.debtToEquityChart.update()
   }
 
   displayLongTermDebtToEquityChart() {
     this.debtToEquityChart.data.datasets[0].data = this.longTermDebtToEquityChartData.dataValue
+    let longTermDebtToEquityChange = this.longTermDebtToEquityRecords[this.longTermDebtToEquityRecords.length - 1] - this.longTermDebtToEquityRecords[0]
+    let longTermDebtToEquityChartColor = longTermDebtToEquityChange < 0 ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)'
+    this.debtToEquityChart.data.datasets[0].borderColor = longTermDebtToEquityChartColor
     this.debtToEquityChart.update()
   }
 }

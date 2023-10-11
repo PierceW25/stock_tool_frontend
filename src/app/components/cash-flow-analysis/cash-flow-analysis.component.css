@@ -1,0 +1,25 @@
+.mainContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+.stockAnalyzed p {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.analysisHeader h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.anAnalysisContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}

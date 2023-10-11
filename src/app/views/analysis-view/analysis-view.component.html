@@ -38,7 +38,8 @@
                                 <h2>Balance Sheet</h2>
                             </div>
                         </div>
-                        <div class="cashFlowAnalysisOption horizontalOption analysisOption">
+                        <div class="cashFlowAnalysisOption horizontalOption analysisOption"
+                        (click)="renderCashFlowAnalysis()">
                             <div class="analysisOptionTitle">
                                 <h2>Cash Flow</h2>
                             </div>
@@ -149,8 +150,11 @@
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"></app-balance-sheet-analysis>
                 </div>
-                <div *ngIf="cashFlowAnalysisSelected && analysisReady">
-                    <app-cash-flow-analysis [ticker]="analysisStock.ticker"></app-cash-flow-analysis>
+                <div *ngIf="cashFlowAnalysisSelected && analysisReady"
+                class="cashflowAnalysisContainer anAnalysisContainer">
+                    <app-cash-flow-analysis 
+                    [ticker]="analysisStock.ticker"
+                    [stockName]="analysisStock.ticker"></app-cash-flow-analysis>
                 </div>
             </div>
 
