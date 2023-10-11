@@ -18,8 +18,8 @@ export class IncomeStatementAnalysisComponent implements OnInit {
   totalRevenueRecords: number[] = []
   totalRevenueRecordsNumberType: string = '' /* Millions, billions, trillions */
 
-  grossProfitMarginRecords: number[] = []
-  operatingIncomeMarginRecords: number[] = []
+  grossProfitMarginRecords: {x: string, y: number}[] = []
+  operatingIncomeMarginRecords: {x: string, y: number}[] = []
   fiscalYears: string[] = []
 
   revenueChart: any
@@ -63,28 +63,21 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         let grossProfitMargin = Number(((grossProfit / totalRevenue) * 100).toFixed(2))
         let operatingIncomeMargin = Number(((operatingIncome / totalRevenue) * 100).toFixed(2))
 
-        this.grossProfitMarginRecords?.push(grossProfitMargin)
-        this.operatingIncomeMarginRecords?.push(operatingIncomeMargin)
+        this.grossProfitMarginRecords?.push({x:fiscalYear , y: grossProfitMargin})
+        this.operatingIncomeMarginRecords?.push({x: fiscalYear, y: operatingIncomeMargin})
       }
-      let differenceFirstAndLastYearProfitMargin = Number(this.grossProfitMarginRecords[0]) - Number(this.grossProfitMarginRecords[this.grossProfitMarginRecords.length - 1])
-      let differenceFirstAndLastYearOperatingIncome = Number(this.operatingIncomeMarginRecords[0]) - Number(this.operatingIncomeMarginRecords[this.operatingIncomeMarginRecords.length - 1])
 
       this.fiscalYears.reverse()
       this.totalRevenueRecords.reverse()
       this.grossProfitMarginRecords.reverse()
       this.operatingIncomeMarginRecords.reverse()
 
+      let differenceFirstAndLastYearProfitMargin = this.grossProfitMarginRecords[this.grossProfitMarginRecords.length - 1].y - this.grossProfitMarginRecords[0].y
+      let differenceFirstAndLastYearOperatingIncome = this.operatingIncomeMarginRecords[this.operatingIncomeMarginRecords.length - 1].y - this.operatingIncomeMarginRecords[0].y
+
       let revenueChartData = {
         fy: this.fiscalYears,
         dataValue: this.totalRevenueRecords
-      }
-      let profitMarginChartData = {
-        fy: this.fiscalYears,
-        dataValue: this.grossProfitMarginRecords
-      }
-      let operatingIncomeChartData = {
-        fy: this.fiscalYears,
-        dataValue: this.operatingIncomeMarginRecords
       }
 
       if (differenceFirstAndLastYearProfitMargin < 0) {
@@ -99,13 +92,13 @@ export class IncomeStatementAnalysisComponent implements OnInit {
       }
 
 
-      this.revenueChart = this.createChartForData(revenueChartData, 'revenueChart', this.revenueChartColor)
-      this.profitMarginChart = this.createChartForData(profitMarginChartData, 'profitMarginChart', this.profitMarginChartColor)
-      this.incomeMarginChart = this.createChartForData(operatingIncomeChartData, 'incomeMarginChart', this.incomeMarginChartColor)
+      this.revenueChart = this.createLineChartForData(revenueChartData, 'revenueChart', this.revenueChartColor)
+      this.profitMarginChart = this.createScatterChartForData(this.grossProfitMarginRecords, this.profitMarginChartColor, 'profitMarginChart')
+      this.incomeMarginChart = this.createScatterChartForData(this.operatingIncomeMarginRecords, this.incomeMarginChartColor, 'incomeMarginChart')
     })
   }
 
-  createChartForData(data: {fy: string[], dataValue: number[]}, chartName: string, chartColor: string) {
+  createLineChartForData(data: {fy: string[], dataValue: number[]}, chartName: string, chartColor: string) {
     let privateChart = new Chart(chartName, {
       type: 'line',
       data: {
@@ -141,6 +134,43 @@ export class IncomeStatementAnalysisComponent implements OnInit {
         },
       }
     });
+    return privateChart
+  }
+
+  createScatterChartForData(dataset: {x: string, y: number}[], chartColor: string, chartName: string) {
+    console.log(dataset)
+    let privateChart = new Chart(chartName, {
+      type: 'scatter',
+      data: {
+        datasets: [
+          {
+            label: '',
+            data: dataset,
+            pointRadius: 7,
+            backgroundColor: chartColor
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            }
+          },
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+      }
+    })
     return privateChart
   }
 

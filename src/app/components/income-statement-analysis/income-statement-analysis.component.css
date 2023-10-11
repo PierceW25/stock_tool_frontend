@@ -23,3 +23,7 @@
     margin: 0;
     padding-bottom: 5px;
 }
+
+.scatterChart {
+    height: 300px;
+}
