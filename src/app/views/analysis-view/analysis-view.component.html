@@ -154,24 +154,9 @@
                 class="cashflowAnalysisContainer anAnalysisContainer">
                     <app-cash-flow-analysis 
                     [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.ticker"></app-cash-flow-analysis>
+                    [stockName]="analysisStock.name"></app-cash-flow-analysis>
                 </div>
             </div>
-
-            
-
-
-                <!--
-                <app-general-stock-view 
-                *ngIf="generalAnalysisOptionSelected && analysisReady" 
-                [ticker]="stockSymbol" 
-                [stockObject]="analysisStock"
-                [leftPanelWidth]="'52%'"
-                [rightPanelWidth]="'45%'"
-                [priceChartWidth]="'600px'"
-                [earningsChartWidth]="'400px'"
-                [earningsChartHeight]="'170px'"></app-general-stock-view>
-                -->
             </div>
         </div>
 </body>

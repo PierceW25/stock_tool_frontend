@@ -51,6 +51,9 @@ export class CashFlowAnalysisComponent implements OnInit {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
         this.fiscalYears?.push(fiscalYear)
 
+        console.log(annualReports[reportNum]['operatingCashflow'])
+        console.log(annualReports[reportNum]['capitalExpenditures'])
+
         let freeCashFlow = Number(annualReports[reportNum]['operatingCashflow']) - Number(annualReports[reportNum]['capitalExpenditures'])
         let formattedFreeCashFlow = this.formatFinancialData(freeCashFlow)
 
