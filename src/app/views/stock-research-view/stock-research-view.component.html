@@ -11,9 +11,11 @@
             <div class="mainContentContainer">
                 <div class="leftPanelContainer">
                     <div class="stockChartContainer">
-                        <app-stock-chart [ticker]="stock.ticker"
+                        <app-stock-chart *ngIf="stock.percent_change != '-' && stock.days_change != '-'"
+                        [ticker]="stock.ticker"
                         [title]="stock.name"
                         [initialChartColor]="accentColor"
+                        [indexChart]="false"
                         [displayPrice]="stock.price"
                         [constantPriceChange]="stock.days_change"
                         [constantPercentChange]="stock.percent_change"

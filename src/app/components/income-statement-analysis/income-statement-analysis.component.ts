@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -32,6 +32,13 @@ export class IncomeStatementAnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.createIncomeStatementAnalysis(this.ticker)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+      this.ticker = changes['ticker']?.currentValue;
+      this.createIncomeStatementAnalysis(this.ticker)
+    }
   }
 
   createIncomeStatementAnalysis(stockSymbol: string) {
@@ -138,7 +145,6 @@ export class IncomeStatementAnalysisComponent implements OnInit {
   }
 
   createScatterChartForData(dataset: {x: string, y: number}[], chartColor: string, chartName: string) {
-    console.log(dataset)
     let privateChart = new Chart(chartName, {
       type: 'scatter',
       data: {

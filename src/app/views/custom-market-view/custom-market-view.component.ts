@@ -36,8 +36,6 @@ export class CustomMarketViewComponent implements OnInit {
     } else {
       console.log('fail')
     }
-
-    console.log(this.marketIndicators)
   }
 
 

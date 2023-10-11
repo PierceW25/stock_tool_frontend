@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { pullValuesMetric } from 'src/app/utils/pullValuesMetric';
@@ -40,6 +40,31 @@ export class BalanceSheetAnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.createBalanceSheetAnalysis(this.ticker)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+      this.ticker = changes['ticker']?.currentValue;
+      this.clearBalanceSheetAnalysis()
+      this.createBalanceSheetAnalysis(this.ticker)
+    }
+  }
+
+  clearBalanceSheetAnalysis() {
+    this.totalAssetRecords = []
+    this.totalLiabilitiesRecords = []
+    this.shareHolderEquityRecords = []
+    this.debtToEquityRecords = []
+    this.longTermDebtToEquityRecords = []
+    this.fiscalYears = []
+    this.totalAssetsMetric = ''
+    this.totalLiabilitiesMetric = ''
+    this.totalShareholderEquityMetric = ''
+    this.debtToEquityChartData = {fy: [], dataValue: []}
+    this.longTermDebtToEquityChartData = {fy: [], dataValue: []}
+    this.assetsAndLiabilitiesChart.destroy()
+    this.shareholderEquityChart.destroy()
+    this.debtToEquityChart.destroy()
   }
 
   createBalanceSheetAnalysis(stockSymbol: string) {

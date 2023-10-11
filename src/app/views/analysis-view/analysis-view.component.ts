@@ -8,7 +8,7 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
   templateUrl: './analysis-view.component.html',
   styleUrls: ['./analysis-view.component.css']
 })
-export class AnalysisViewComponent {
+export class AnalysisViewComponent implements OnInit {
   constructor(private stockApi: StockApiService,
     private route: ActivatedRoute) { }
 
@@ -79,7 +79,6 @@ export class AnalysisViewComponent {
     this.route.queryParams.subscribe(params => {
       let privateStock = JSON.parse(params['stock'])
       if (privateStock.hasOwnProperty('days_change')) {
-        console.log('display analysis')
         this.accentColor = privateStock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
         if (privateStock.days_change.includes('-')) {
           privateStock.days_change = privateStock.days_change.replace('-', '-$')
@@ -159,6 +158,7 @@ export class AnalysisViewComponent {
             }
             this.stockSymbol = newStock.ticker
             this.analysisStock = newStock
+            this.renderGeneralAnalysis()
 
             this.analysisReady = true
           })

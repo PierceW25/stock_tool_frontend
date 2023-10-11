@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { pullValuesMetric } from 'src/app/utils/pullValuesMetric';
@@ -39,6 +39,12 @@ export class CashFlowAnalysisComponent implements OnInit {
     this.createCashFlowAnalysis(this.ticker)
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+      this.ticker = changes['ticker']?.currentValue;
+      this.createCashFlowAnalysis(this.ticker)
+    }
+  }
 
   createCashFlowAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
@@ -50,9 +56,6 @@ export class CashFlowAnalysisComponent implements OnInit {
       for (const reportNum in annualReports) {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
         this.fiscalYears?.push(fiscalYear)
-
-        console.log(annualReports[reportNum]['operatingCashflow'])
-        console.log(annualReports[reportNum]['capitalExpenditures'])
 
         let freeCashFlow = Number(annualReports[reportNum]['operatingCashflow']) - Number(annualReports[reportNum]['capitalExpenditures'])
         let formattedFreeCashFlow = this.formatFinancialData(freeCashFlow)

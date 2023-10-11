@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { EarningsDataPoint } from 'src/app/interfaces/earningsDataPoint';
 import { Chart } from 'chart.js';
