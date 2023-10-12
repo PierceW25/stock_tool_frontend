@@ -47,6 +47,9 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
     this.grossProfitMarginRecords = []
     this.operatingIncomeMarginRecords = []
     this.fiscalYears = []
+    this.revenueChart.destroy()
+    this.profitMarginChart.destroy()
+    this.incomeMarginChart.destroy()
   }
 
   createIncomeStatementAnalysis(stockSymbol: string) {

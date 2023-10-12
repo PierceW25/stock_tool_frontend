@@ -140,6 +140,9 @@ export class BalanceSheetAnalysisComponent {
     this.totalAssetRecords = []
     this.totalLiabilitiesRecords = []
     this.shareHolderEquityRecords = []
+    this.assetsAndLiabilitiesChart.destroy()
+    this.shareholderEquityChart.destroy()
+    this.debtToEquityChart.destroy()
   }
 
   updateBalanceSheetAnalysis(stockSymbol: string) {

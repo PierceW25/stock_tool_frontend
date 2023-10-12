@@ -138,19 +138,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="incomeStatementAnalysisContainer anAnalysisContainer" [hidden]="!incomeStatementAnalysisSelected">
+                <div class="incomeStatementAnalysisContainer anAnalysisContainer" 
+                [hidden]="!incomeStatementAnalysisSelected">
                     <app-income-statement-analysis 
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"
                     (analysisCreated)="incomeStatementAnalysisReady($event)"></app-income-statement-analysis>
                 </div>
-                <div class="balanceSheetAnalysisContainer anAnalysisContainer" [hidden]="!balanceSheetAnalysisSelected">
+                <div class="balanceSheetAnalysisContainer anAnalysisContainer" 
+                [hidden]="!balanceSheetAnalysisSelected">
                     <app-balance-sheet-analysis 
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"
                     (analysisCreated)="balanceSheetAnalysisReady($event)"></app-balance-sheet-analysis>
                 </div>
-                <div class="cashflowAnalysisContainer anAnalysisContainer" [hidden]="!cashFlowAnalysisSelected">
+                <div class="cashflowAnalysisContainer anAnalysisContainer" 
+                [hidden]="!cashFlowAnalysisSelected">
                     <app-cash-flow-analysis 
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"

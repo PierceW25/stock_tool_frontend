@@ -51,6 +51,9 @@ export class CashFlowAnalysisComponent {
     this.capitalExpenditureRecords = []
     this.freeCashFlowRecords = []
     this.fiscalYears = []
+    this.capitalExpenditureChart?.destroy()
+    this.freeCashFlowChart?.destroy()
+    this.operatingCashFlowChart?.destroy()
   }
 
   createCashFlowAnalysis(stockSymbol: string) {
