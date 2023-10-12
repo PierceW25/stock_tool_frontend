@@ -182,7 +182,6 @@ export class AnalysisViewComponent implements OnInit {
     this.cashFlowReady = condition
   }
 
-
   updateEarningsChartColor(color: string) {
     this.accentColor = color
   }

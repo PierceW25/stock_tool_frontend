@@ -140,12 +140,9 @@ export class CashFlowAnalysisComponent {
             //hide the label of this dataset
             label: '',
             data: data.dataValues,
-            borderWidth: 1.8,
+            borderWidth: 3,
             borderColor: chartColor,
-            pointRadius: 0,
-            hoverBorderColor: '#000000',
-            hoverBorderWidth: 1.8,
-            hoverBackgroundColor: '#000000'
+            pointRadius: 3,
           },
         ],
       },

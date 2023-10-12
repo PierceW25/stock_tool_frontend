@@ -127,12 +127,10 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
             //hide the label of this dataset
             label: '',
             data: data.dataValue,
-            borderWidth: 1.8,
+            borderWidth: 2.8,
             borderColor: chartColor,
-            pointRadius: 0,
-            hoverBorderColor: '#000000',
-            hoverBorderWidth: 1.8,
-            hoverBackgroundColor: '#000000'
+            pointRadius: 3,
+            hoverBorderWidth: 2,
           },
         ],
       },
