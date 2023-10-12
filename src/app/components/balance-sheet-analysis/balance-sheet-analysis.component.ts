@@ -39,8 +39,9 @@ export class BalanceSheetAnalysisComponent {
   showLongTermDebtToEquityChart: boolean = false
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker']?.previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+    if (changes['ticker']?.previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.ticker = changes['ticker']?.currentValue;
+      this.clearRecords()
       this.createBalanceSheetAnalysis(this.ticker)
     } else {
       this.createBalanceSheetAnalysis(this.ticker)
@@ -129,6 +130,15 @@ export class BalanceSheetAnalysisComponent {
     })
   }
 
+  clearRecords() {
+    this.fiscalYears = []
+    this.debtToEquityRecords = []
+    this.longTermDebtToEquityRecords = []
+    this.totalAssetRecords = []
+    this.totalLiabilitiesRecords = []
+    this.shareHolderEquityRecords = []
+  }
+
   updateBalanceSheetAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
     this.fiscalYears = []
@@ -173,6 +183,9 @@ export class BalanceSheetAnalysisComponent {
       this.totalAssetRecords.reverse()
       this.totalLiabilitiesRecords.reverse()
       this.shareHolderEquityRecords.reverse()
+
+      console.log(this.debtToEquityRecords)
+      console.log(this.longTermDebtToEquityRecords)
 
       let numberTypeTotalAssets = pullValuesMetric(this.formatFinancialData(annualReports[0]['totalAssets']))
       let numberTypeTotalLiabilities = pullValuesMetric(this.formatFinancialData(annualReports[0]['totalLiabilities']))
@@ -311,7 +324,8 @@ export class BalanceSheetAnalysisComponent {
 
   displayLongTermDebtToEquityChart() {
     this.debtToEquityChart.data.datasets[0].data = this.longTermDebtToEquityChartData.dataValue
-    let longTermDebtToEquityChange = this.longTermDebtToEquityRecords[this.longTermDebtToEquityRecords.length - 1] - this.longTermDebtToEquityRecords[0]
+    console.log(this.longTermDebtToEquityChartData.dataValue)
+    let longTermDebtToEquityChange = Number(this.longTermDebtToEquityRecords[this.longTermDebtToEquityRecords.length - 1]) - Number(this.longTermDebtToEquityRecords[0])
     let longTermDebtToEquityChartColor = longTermDebtToEquityChange < 0 ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)'
     this.debtToEquityChart.data.datasets[0].borderColor = longTermDebtToEquityChartColor
     this.debtToEquityChart.update()

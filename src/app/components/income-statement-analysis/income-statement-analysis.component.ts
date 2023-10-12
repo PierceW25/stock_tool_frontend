@@ -8,7 +8,7 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
   templateUrl: './income-statement-analysis.component.html',
   styleUrls: ['./income-statement-analysis.component.css']
 })
-export class IncomeStatementAnalysisComponent implements OnInit {
+export class IncomeStatementAnalysisComponent {
   constructor(private stockApi: StockApiService) { }
 
   @Input() ticker: string = ''
@@ -30,15 +30,21 @@ export class IncomeStatementAnalysisComponent implements OnInit {
   profitMarginChartColor: string = ''
   incomeMarginChartColor: string = ''
 
-  ngOnInit(): void {
-    this.createIncomeStatementAnalysis(this.ticker)
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker'].previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+    if (changes['ticker'].previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.ticker = changes['ticker']?.currentValue;
+      this.clearRecords()
+      this.createIncomeStatementAnalysis(this.ticker)
+    } else {
       this.createIncomeStatementAnalysis(this.ticker)
     }
+  }
+
+  clearRecords() {
+    this.totalRevenueRecords = []
+    this.grossProfitMarginRecords = []
+    this.operatingIncomeMarginRecords = []
+    this.fiscalYears = []
   }
 
   createIncomeStatementAnalysis(stockSymbol: string) {

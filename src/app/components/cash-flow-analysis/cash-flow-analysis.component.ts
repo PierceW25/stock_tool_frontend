@@ -9,7 +9,7 @@ import { Chart } from 'chart.js';
   templateUrl: './cash-flow-analysis.component.html',
   styleUrls: ['./cash-flow-analysis.component.css']
 })
-export class CashFlowAnalysisComponent implements OnInit {
+export class CashFlowAnalysisComponent {
   constructor(private stockApi: StockApiService) { }
 
   @Input() ticker: string = ''
@@ -34,16 +34,21 @@ export class CashFlowAnalysisComponent implements OnInit {
 
   fiscalYears: string[] = []
 
-
-  ngOnInit(): void {
-    this.createCashFlowAnalysis(this.ticker)
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker'].previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+    if (changes['ticker'].previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.ticker = changes['ticker']?.currentValue;
+      this.clearRecords()
+      this.createCashFlowAnalysis(this.ticker)
+    } else {
       this.createCashFlowAnalysis(this.ticker)
     }
+  }
+
+  clearRecords() {
+    this.operatingCashFlowRecords = []
+    this.capitalExpenditureRecords = []
+    this.freeCashFlowRecords = []
+    this.fiscalYears = []
   }
 
   createCashFlowAnalysis(stockSymbol: string) {
