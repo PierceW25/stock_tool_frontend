@@ -35,7 +35,7 @@ export class IncomeStatementAnalysisComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+    if (changes['ticker'].previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.ticker = changes['ticker']?.currentValue;
       this.createIncomeStatementAnalysis(this.ticker)
     }

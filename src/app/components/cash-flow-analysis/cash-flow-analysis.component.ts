@@ -40,7 +40,7 @@ export class CashFlowAnalysisComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+    if (changes['ticker'].previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.ticker = changes['ticker']?.currentValue;
       this.createCashFlowAnalysis(this.ticker)
     }

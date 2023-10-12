@@ -191,7 +191,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && this.allIndexData) {
+    if (changes['ticker']?.previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue && this.allIndexData) {
       let newIndexData = this.allIndexData.find((element: any) => element.ticker === this.ticker)
       this.daysPriceChange = '$' + this.daysPriceChange
       this.oneDayChartData = newIndexData['daily_indexes_data']
@@ -204,7 +204,7 @@ export class StockChartComponent implements OnInit, OnChanges {
       this.oneWeekChartData = newIndexData['week_indexes_data']
       
     }
-    if (changes['ticker']?.currentValue != changes['ticker']?.previousValue && !this.indexChart) {
+    if (changes['ticker']?.previousValue && changes['ticker']?.currentValue != changes['ticker']?.previousValue && !this.indexChart) {
       let functionalStockData: any
 
       this.stockApi.getStockDailyChartData(this.ticker).subscribe(response => {
