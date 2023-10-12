@@ -172,14 +172,17 @@ export class AnalysisViewComponent implements OnInit {
 
   incomeStatementAnalysisReady(condition: boolean) {
     this.incomeStatementReady = condition
+    console.log(this.incomeStatementReady)
   }
 
   balanceSheetAnalysisReady(condition: boolean) {
     this.balanceSheetReady = condition
+    console.log(this.balanceSheetReady)
   }
 
   cashflowAnalysisReady(condition: boolean) {
     this.cashFlowReady = condition
+    console.log(this.cashFlowReady)
   }
 
 
