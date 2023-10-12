@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { pullValuesMetric } from 'src/app/utils/pullValuesMetric';
@@ -14,6 +14,8 @@ export class BalanceSheetAnalysisComponent {
 
   @Input() ticker: string = ''
   @Input() stockName: string = ''
+
+  @Output() analysisCreated = new EventEmitter<boolean>()
 
   /* Balance sheet analytics */
   totalAssetRecords: number[] = []
@@ -127,6 +129,7 @@ export class BalanceSheetAnalysisComponent {
       this.assetsAndLiabilitiesChart = this.createAssetsAndLiabilitiesChart(totalAssetChartData, totalLiabilitiesChartData)
       this.shareholderEquityChart = this.createShareholderEquityChart(totalShareholderEquityChartData, shareholderEquityChartColor, 'shareholderEquityChart')
       this.debtToEquityChart = this.createShareholderEquityChart(this.debtToEquityChartData, debtToEquityChartColor, 'debtToEquityChart')
+      this.analysisCreated.emit(true)
     })
   }
 

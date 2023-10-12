@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -8,11 +8,13 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
   templateUrl: './income-statement-analysis.component.html',
   styleUrls: ['./income-statement-analysis.component.css']
 })
-export class IncomeStatementAnalysisComponent {
+export class IncomeStatementAnalysisComponent implements OnChanges {
   constructor(private stockApi: StockApiService) { }
 
   @Input() ticker: string = ''
   @Input() stockName: string = ''
+
+  @Output() analysisCreated = new EventEmitter<boolean>()
 
   /* Income statement analytics */
   totalRevenueRecords: number[] = []
@@ -108,6 +110,7 @@ export class IncomeStatementAnalysisComponent {
       this.revenueChart = this.createLineChartForData(revenueChartData, 'revenueChart', this.revenueChartColor)
       this.profitMarginChart = this.createScatterChartForData(this.grossProfitMarginRecords, this.profitMarginChartColor, 'profitMarginChart')
       this.incomeMarginChart = this.createScatterChartForData(this.operatingIncomeMarginRecords, this.incomeMarginChartColor, 'incomeMarginChart')
+      this.analysisCreated.emit(true)
     })
   }
 

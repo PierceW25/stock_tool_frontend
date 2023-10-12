@@ -12,6 +12,7 @@ export class AnalysisViewComponent implements OnInit {
   constructor(private stockApi: StockApiService,
     private route: ActivatedRoute) { }
 
+
   @Input() stockSymbol: string = 'AAPL';
   analysisStock = {
     name: '-',
@@ -47,6 +48,9 @@ export class AnalysisViewComponent implements OnInit {
   cashFlowAnalysisSelected = false
 
   analysisReady = false
+  incomeStatementReady = false
+  balanceSheetReady = false
+  cashFlowReady = false
 
   defaultValues = {
     name: '-',
@@ -165,6 +169,19 @@ export class AnalysisViewComponent implements OnInit {
       }
     })
   }
+
+  incomeStatementAnalysisReady(condition: boolean) {
+    this.incomeStatementReady = condition
+  }
+
+  balanceSheetAnalysisReady(condition: boolean) {
+    this.balanceSheetReady = condition
+  }
+
+  cashflowAnalysisReady(condition: boolean) {
+    this.cashFlowReady = condition
+  }
+
 
   updateEarningsChartColor(color: string) {
     this.accentColor = color

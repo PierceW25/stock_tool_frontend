@@ -138,23 +138,26 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="incomeStatementAnalysisSelected && analysisReady"  
-                class="incomeStatementAnalysisContainer anAnalysisContainer">
+                <div class="incomeStatementAnalysisContainer anAnalysisContainer">
                     <app-income-statement-analysis 
                     [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.name"></app-income-statement-analysis>
+                    [stockName]="analysisStock.name"
+                    [hidden]="!incomeStatementAnalysisSelected"
+                    (analysisCreated)="incomeStatementAnalysisReady($event)"></app-income-statement-analysis>
                 </div>
-                <div *ngIf="balanceSheetAnalysisSelected && analysisReady"
-                class="balanceSheetAnalysisContainer anAnalysisContainer">
+                <div class="balanceSheetAnalysisContainer anAnalysisContainer">
                     <app-balance-sheet-analysis 
                     [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.name"></app-balance-sheet-analysis>
+                    [stockName]="analysisStock.name"
+                    [hidden]="!balanceSheetAnalysisSelected"
+                    (analysisCreated)="balanceSheetAnalysisReady($event)"></app-balance-sheet-analysis>
                 </div>
-                <div *ngIf="cashFlowAnalysisSelected && analysisReady"
-                class="cashflowAnalysisContainer anAnalysisContainer">
+                <div class="cashflowAnalysisContainer anAnalysisContainer">
                     <app-cash-flow-analysis 
                     [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.name"></app-cash-flow-analysis>
+                    [stockName]="analysisStock.name"
+                    [hidden]="!cashFlowAnalysisSelected"
+                    (analysisCreated)="cashflowAnalysisReady($event)"></app-cash-flow-analysis>
                 </div>
             </div>
             </div>

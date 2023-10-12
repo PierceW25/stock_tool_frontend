@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { pullValuesMetric } from 'src/app/utils/pullValuesMetric';
@@ -14,6 +14,8 @@ export class CashFlowAnalysisComponent {
 
   @Input() ticker: string = ''
   @Input() stockName: string = ''
+
+  @Output() analysisCreated = new EventEmitter<boolean>()
 
   /* Cash flow analytics 
   operatingCashFlowRecords: string[][] = []
@@ -111,6 +113,7 @@ export class CashFlowAnalysisComponent {
         {fy: this.fiscalYears, dataValues: this.freeCashFlowRecords}, 
         freeCashFlowChartColor, 
         'freeCashFlowChart')
+        this.analysisCreated.emit(true)
     })
 
   }
