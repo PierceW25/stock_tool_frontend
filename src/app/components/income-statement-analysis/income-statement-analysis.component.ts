@@ -16,7 +16,7 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
 
   @Output() analysisCreated = new EventEmitter<boolean>()
 
-  /* Income statement analytics */
+  /* Income statement analytics  */
   totalRevenueRecords: number[] = []
   totalRevenueRecordsNumberType: string = '' /* Millions, billions, trillions */
 
@@ -54,6 +54,7 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
 
   createIncomeStatementAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
+    let unformattedTotalRevenueRecords: number[] = []
 
     this.stockApi.getIncomeStatement(privateTicker).subscribe(response => {
       let fullResponse: any = response
@@ -68,7 +69,8 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
       for (const reportNum in annualReports) {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
         this.fiscalYears?.push(fiscalYear)
-
+        
+        unformattedTotalRevenueRecords?.push(Number(annualReports[reportNum]['totalRevenue']))
         let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue'])
         let revenueNumbersAsNum = Number(formattedRevenue.slice(0, -1))
         this.totalRevenueRecordsNumberType = formattedRevenue.slice(-1) == 'M' ? 'Millions' : formattedRevenue.slice(-1) == 'B' ? 'Billions' : 'Trillions'
@@ -84,6 +86,30 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
         this.grossProfitMarginRecords?.push({x:fiscalYear , y: grossProfitMargin})
         this.operatingIncomeMarginRecords?.push({x: fiscalYear, y: operatingIncomeMargin})
       }
+      console.log(unformattedTotalRevenueRecords)
+
+      let maxRevenue = Math.max(...unformattedTotalRevenueRecords)
+      let revenueRecordType = this.formatFinancialData(maxRevenue).slice(-1)
+      this.totalRevenueRecordsNumberType = revenueRecordType == 'M' ? 'Millions' : revenueRecordType == 'B' ? 'Billions' : 'Trillions'
+      let newTotalRevenueRecords: number[] = []
+
+      for (let i = 0; i < unformattedTotalRevenueRecords.length; i++) {
+        let formattedRecord: number = this.totalRevenueRecords[i]
+        let formattedRecordType = this.formatFinancialData(unformattedTotalRevenueRecords[i]).slice(-1)
+        if (formattedRecordType != revenueRecordType) {
+          this.totalRevenueRecords.slice(i, 1)
+          if (revenueRecordType == 'M') {
+            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000
+          } else if (revenueRecordType == 'B') {
+            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000000
+          } else if (revenueRecordType == 'T') {
+            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000000000
+          }
+        }
+
+        newTotalRevenueRecords.push(formattedRecord)
+      }
+      this.totalRevenueRecords = newTotalRevenueRecords
 
       this.fiscalYears.reverse()
       this.totalRevenueRecords.reverse()
@@ -108,7 +134,6 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
       } else {
         this.incomeMarginChartColor = 'rgb(0, 255, 0)'
       }
-
 
       this.revenueChart = this.createLineChartForData(revenueChartData, 'revenueChart', this.revenueChartColor)
       this.profitMarginChart = this.createScatterChartForData(this.grossProfitMarginRecords, this.profitMarginChartColor, 'profitMarginChart')
