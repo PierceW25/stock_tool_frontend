@@ -54,11 +54,18 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
 
   createIncomeStatementAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
-    let unformattedTotalRevenueRecords: number[] = []
+    let rawTotalRevenueRecords: number[] = []
+    let localTotalRevenueRecords: number[] = []
+    let localFiscalYears: string[] = []
+    let localGrossProfitMarginRecords: {x: string, y: number}[] = []
+    let localOperatingIncomeMarginRecords: {x: string, y: number}[] = []
 
     this.stockApi.getIncomeStatement(privateTicker).subscribe(response => {
+
       let fullResponse: any = response
       let annualReports = fullResponse['annualReports']
+
+
       let differenceBetweenFirstAndLastYearRev = Number(annualReports[0]['totalRevenue']) - Number(annualReports[annualReports.length - 1]['totalRevenue'])
       if (differenceBetweenFirstAndLastYearRev < 0) {
         this.revenueChartColor = 'rgb(255, 0, 0)'
@@ -66,16 +73,9 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
         this.revenueChartColor = 'rgb(0, 255, 0)'
       }
       
+
       for (const reportNum in annualReports) {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
-        this.fiscalYears?.push(fiscalYear)
-        
-        unformattedTotalRevenueRecords?.push(Number(annualReports[reportNum]['totalRevenue']))
-        let formattedRevenue = this.formatFinancialData(annualReports[reportNum]['totalRevenue'])
-        let revenueNumbersAsNum = Number(formattedRevenue.slice(0, -1))
-        this.totalRevenueRecordsNumberType = formattedRevenue.slice(-1) == 'M' ? 'Millions' : formattedRevenue.slice(-1) == 'B' ? 'Billions' : 'Trillions'
-        this.totalRevenueRecords?.push(revenueNumbersAsNum)
-
         let grossProfit = Number(annualReports[reportNum]['grossProfit'])
         let totalRevenue = Number(annualReports[reportNum]['totalRevenue'])
         let operatingIncome = Number(annualReports[reportNum]['operatingIncome'])
@@ -83,38 +83,41 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
         let grossProfitMargin = Number(((grossProfit / totalRevenue) * 100).toFixed(2))
         let operatingIncomeMargin = Number(((operatingIncome / totalRevenue) * 100).toFixed(2))
 
-        this.grossProfitMarginRecords?.push({x:fiscalYear , y: grossProfitMargin})
-        this.operatingIncomeMarginRecords?.push({x: fiscalYear, y: operatingIncomeMargin})
-      }
-      console.log(unformattedTotalRevenueRecords)
 
-      let maxRevenue = Math.max(...unformattedTotalRevenueRecords)
+        localFiscalYears?.push(fiscalYear)
+        rawTotalRevenueRecords?.push(Number(annualReports[reportNum]['totalRevenue']))
+        localGrossProfitMarginRecords?.push({x:fiscalYear , y: grossProfitMargin})
+        localOperatingIncomeMarginRecords?.push({x: fiscalYear, y: operatingIncomeMargin})
+      }
+
+      let maxRevenue = Math.max(...rawTotalRevenueRecords)
       let revenueRecordType = this.formatFinancialData(maxRevenue).slice(-1)
       this.totalRevenueRecordsNumberType = revenueRecordType == 'M' ? 'Millions' : revenueRecordType == 'B' ? 'Billions' : 'Trillions'
-      let newTotalRevenueRecords: number[] = []
 
-      for (let i = 0; i < unformattedTotalRevenueRecords.length; i++) {
-        let formattedRecord: number = this.totalRevenueRecords[i]
-        let formattedRecordType = this.formatFinancialData(unformattedTotalRevenueRecords[i]).slice(-1)
-        if (formattedRecordType != revenueRecordType) {
-          this.totalRevenueRecords.slice(i, 1)
+
+      for (let i = 0; i < rawTotalRevenueRecords.length; i++) {
+        let returnedRecord = this.formatFinancialData(rawTotalRevenueRecords[i])
+        let numberRecord: number = Number(returnedRecord.slice(0, -1))
+        let recordType = returnedRecord.slice(-1)
+        
+        if (recordType != revenueRecordType) {
           if (revenueRecordType == 'M') {
-            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000
+            numberRecord = rawTotalRevenueRecords[i] / 1000000
           } else if (revenueRecordType == 'B') {
-            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000000
+            numberRecord = rawTotalRevenueRecords[i] / 1000000000
           } else if (revenueRecordType == 'T') {
-            formattedRecord = unformattedTotalRevenueRecords[i] / 1000000000000
+            numberRecord = rawTotalRevenueRecords[i] / 1000000000000
           }
         }
 
-        newTotalRevenueRecords.push(formattedRecord)
+        localTotalRevenueRecords.push(numberRecord)
       }
-      this.totalRevenueRecords = newTotalRevenueRecords
+      
 
-      this.fiscalYears.reverse()
-      this.totalRevenueRecords.reverse()
-      this.grossProfitMarginRecords.reverse()
-      this.operatingIncomeMarginRecords.reverse()
+      this.fiscalYears = localFiscalYears.reverse()
+      this.totalRevenueRecords = localTotalRevenueRecords.reverse()
+      this.grossProfitMarginRecords = localGrossProfitMarginRecords.reverse()
+      this.operatingIncomeMarginRecords = localOperatingIncomeMarginRecords.reverse()
 
       let differenceFirstAndLastYearProfitMargin = this.grossProfitMarginRecords[this.grossProfitMarginRecords.length - 1].y - this.grossProfitMarginRecords[0].y
       let differenceFirstAndLastYearOperatingIncome = this.operatingIncomeMarginRecords[this.operatingIncomeMarginRecords.length - 1].y - this.operatingIncomeMarginRecords[0].y
