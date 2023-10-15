@@ -27,7 +27,6 @@ import { CustomAddStockModalComponent } from './modals/custom-add-stock-modal/cu
 import { CustomNavBarComponent } from './components/custom-nav-bar/custom-nav-bar.component';
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
-import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
 import { IncomeStatementAnalysisComponent } from './components/income-statement-analysis/income-statement-analysis.component';
 import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analysis/balance-sheet-analysis.component';
 import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
@@ -53,7 +52,6 @@ import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-
     CustomNavBarComponent,
     EarningsChartComponent,
     CustomMarketViewComponent,
-    FinancialStatementsComponent,
     IncomeStatementAnalysisComponent,
     BalanceSheetAnalysisComponent,
     CashFlowAnalysisComponent

@@ -58,6 +58,14 @@ export class CashFlowAnalysisComponent {
 
   createCashFlowAnalysis(stockSymbol: string) {
     let privateTicker = stockSymbol
+    let rawOperatingCashflowRecords: number[] = []
+    let rawFreeCashflowRecords: number[] = []
+    let rawCapitalExpenditureRecords: number[] = []
+
+    let localFiscalYears: string[] = []
+    let localCapitalExpendituresRecords: number[] = []
+    let localFreeCashflowRecords: number[] = []
+    let localOperatingCashflowRecords: number[] = []
 
     this.stockApi.getCashFlow(privateTicker).subscribe(response => {
       let fullResponse: any = response
@@ -65,36 +73,81 @@ export class CashFlowAnalysisComponent {
 
       for (const reportNum in annualReports) {
         let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
-        this.fiscalYears?.push(fiscalYear)
+        localFiscalYears?.push(fiscalYear)
 
-        let freeCashFlow = Number(annualReports[reportNum]['operatingCashflow']) - Number(annualReports[reportNum]['capitalExpenditures'])
-        let formattedFreeCashFlow = this.formatFinancialData(freeCashFlow)
+        let rawOperatingCashflow = Number(annualReports[reportNum]['operatingCashflow'])
+        let rawCapitalExpenditure = Number(annualReports[reportNum]['capitalExpenditures'])
+        let rawFreeCashFlow = rawOperatingCashflow - rawCapitalExpenditure
 
-        let operatingCashFlow = this.formatFinancialData(annualReports[reportNum]['operatingCashflow'])
-        let capitalExpenditure = this.formatFinancialData(annualReports[reportNum]['capitalExpenditures'])
-
-        let numericalOperatingCashFlow = Number(operatingCashFlow.slice(0, -1))
-        let numericalCapitalExpenditure = Number(capitalExpenditure.slice(0, -1))
-        let numericalFreeCashFlow = Number(formattedFreeCashFlow.slice(0, -1))
-
-        this.operatingCashFlowRecords?.push(numericalOperatingCashFlow)
-        this.capitalExpenditureRecords?.push(numericalCapitalExpenditure)
-        this.freeCashFlowRecords?.push(numericalFreeCashFlow)
+        rawOperatingCashflowRecords?.push(rawOperatingCashflow)
+        rawCapitalExpenditureRecords?.push(rawCapitalExpenditure)
+        rawFreeCashflowRecords?.push(rawFreeCashFlow)
       }
 
-      this.operatingCashFlowRecords?.reverse()
-      this.capitalExpenditureRecords?.reverse()
-      this.freeCashFlowRecords?.reverse()
-      this.fiscalYears?.reverse()
+      let maxOperatingCashflow = Math.max(...rawOperatingCashflowRecords)
+      let maxCapitalExpenditure = Math.max(...rawCapitalExpenditureRecords)
+      let maxFreeCashflow = Math.max(...rawFreeCashflowRecords)
 
-      let operatingCashFlowMetric = pullValuesMetric(this.formatFinancialData(annualReports[0]['operatingCashflow']))
-      let capitalExpenditureMetric = pullValuesMetric(this.formatFinancialData(annualReports[0]['capitalExpenditures']))
-      let freeCashFlowSample = this.formatFinancialData(Number(annualReports[0]['operatingCashflow']) - Number(annualReports[0]['capitalExpenditures']))
-      let freeCashFlowMetric = pullValuesMetric(freeCashFlowSample)
+      let operatingCashflowRecordType = this.formatFinancialData(maxOperatingCashflow).slice(-1)
+      let capitalExpenditureRecordType = this.formatFinancialData(maxCapitalExpenditure).slice(-1)
+      let freeCashflowRecordType = this.formatFinancialData(maxFreeCashflow).slice(-1)
 
-      this.operatingCashFlowMetric = operatingCashFlowMetric
-      this.capitalExpenditureMetric = capitalExpenditureMetric
-      this.freeCashFlowMetric = freeCashFlowMetric
+      for (let i = 0; i < rawOperatingCashflowRecords.length; i++) {
+        let thisRecordFormatted = this.formatFinancialData(rawOperatingCashflowRecords[i])
+        let thisRecordType = thisRecordFormatted.slice(-1)
+        let thisRecordNumber = Number(thisRecordFormatted.slice(0, -1))
+
+        if (thisRecordType != operatingCashflowRecordType) {
+          if (operatingCashflowRecordType == 'M') {
+            thisRecordNumber = rawOperatingCashflowRecords[i] / 1000000
+          } else if (operatingCashflowRecordType == 'B') {
+            thisRecordNumber = rawOperatingCashflowRecords[i] / 1000000000
+          }
+        }
+
+        localOperatingCashflowRecords.push(thisRecordNumber)
+      }
+
+      for (let i = 0; i < rawCapitalExpenditureRecords.length; i++) {
+        let thisRecordFormatted = this.formatFinancialData(rawCapitalExpenditureRecords[i])
+        let thisRecordType = thisRecordFormatted.slice(-1)
+        let thisRecordNumber = Number(thisRecordFormatted.slice(0, -1))
+
+        if (thisRecordType != capitalExpenditureRecordType) {
+          if (capitalExpenditureRecordType == 'M') {
+            thisRecordNumber = rawCapitalExpenditureRecords[i] / 1000000
+          } else if (capitalExpenditureRecordType == 'B') {
+            thisRecordNumber = rawCapitalExpenditureRecords[i] / 1000000000
+          }
+        }
+
+        localCapitalExpendituresRecords.push(thisRecordNumber)
+      }
+
+      for (let i = 0; i < rawFreeCashflowRecords.length; i++) {
+        let thisRecordFormatted = this.formatFinancialData(rawFreeCashflowRecords[i])
+        let thisRecordType = thisRecordFormatted.slice(-1)
+        let thisRecordNumber = Number(thisRecordFormatted.slice(0, -1))
+
+        if (thisRecordType != freeCashflowRecordType) {
+          if (freeCashflowRecordType == 'M') {
+            thisRecordNumber = rawFreeCashflowRecords[i] / 1000000
+          } else if (freeCashflowRecordType == 'B') {
+            thisRecordNumber = rawFreeCashflowRecords[i] / 1000000000
+          }
+        }
+
+        localFreeCashflowRecords.push(thisRecordNumber)
+      }
+
+      this.operatingCashFlowRecords = localOperatingCashflowRecords.reverse()
+      this.capitalExpenditureRecords = localCapitalExpendituresRecords.reverse()
+      this.freeCashFlowRecords = localFreeCashflowRecords.reverse()
+      this.fiscalYears = localFiscalYears.reverse()
+
+      this.operatingCashFlowMetric = operatingCashflowRecordType == 'M' ? 'Millions' : operatingCashflowRecordType == 'B' ? 'Billions' : 'Trillions' 
+      this.capitalExpenditureMetric = capitalExpenditureRecordType == 'M' ? 'Millions' : capitalExpenditureRecordType == 'B' ? 'Billions' : 'Trillions'
+      this.freeCashFlowMetric = freeCashflowRecordType == 'M' ? 'Millions' : freeCashflowRecordType == 'B' ? 'Billions' : 'Trillions'
 
       let operatingCashFlowChange = this.operatingCashFlowRecords[this.operatingCashFlowRecords.length - 1] - this.operatingCashFlowRecords[0]
       let capitalExpenditureChange = this.capitalExpenditureRecords[this.capitalExpenditureRecords.length - 1] - this.capitalExpenditureRecords[0]

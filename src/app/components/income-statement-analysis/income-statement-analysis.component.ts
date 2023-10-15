@@ -85,7 +85,7 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
 
 
         localFiscalYears?.push(fiscalYear)
-        rawTotalRevenueRecords?.push(Number(annualReports[reportNum]['totalRevenue']))
+        rawTotalRevenueRecords?.push(totalRevenue)
         localGrossProfitMarginRecords?.push({x:fiscalYear , y: grossProfitMargin})
         localOperatingIncomeMarginRecords?.push({x: fiscalYear, y: operatingIncomeMargin})
       }
@@ -99,7 +99,7 @@ export class IncomeStatementAnalysisComponent implements OnChanges {
         let returnedRecord = this.formatFinancialData(rawTotalRevenueRecords[i])
         let numberRecord: number = Number(returnedRecord.slice(0, -1))
         let recordType = returnedRecord.slice(-1)
-        
+
         if (recordType != revenueRecordType) {
           if (revenueRecordType == 'M') {
             numberRecord = rawTotalRevenueRecords[i] / 1000000
