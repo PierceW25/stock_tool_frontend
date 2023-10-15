@@ -30,6 +30,9 @@ import { CustomMarketViewComponent } from './views/custom-market-view/custom-mar
 import { IncomeStatementAnalysisComponent } from './components/income-statement-analysis/income-statement-analysis.component';
 import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analysis/balance-sheet-analysis.component';
 import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
+import { StockKeyMetricsComponent } from './stock-key-metrics/stock-key-metrics.component';
+import { StockHealthMetricsComponent } from './stock-health-metrics/stock-health-metrics.component';
+import { StockGrowthMetricsComponent } from './stock-growth-metrics/stock-growth-metrics.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-
     CustomMarketViewComponent,
     IncomeStatementAnalysisComponent,
     BalanceSheetAnalysisComponent,
-    CashFlowAnalysisComponent
+    CashFlowAnalysisComponent,
+    StockKeyMetricsComponent,
+    StockHealthMetricsComponent,
+    StockGrowthMetricsComponent
   ],
   imports: [
     BrowserModule,

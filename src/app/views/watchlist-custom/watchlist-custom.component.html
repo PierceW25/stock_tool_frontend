@@ -59,15 +59,6 @@
                                 <a (click)="onDeleteStock(stock)">Delete</a>
                             </div>
                         </div>
-                        <!--
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu" xPosition="after" overlapTrigger="true" class="stockLinks">
-                            <button mat-menu-item (click)="onResearchStock(stock)">Research</button>
-                            <button mat-menu-item (click)="onDeleteStock(stock)">Delete</button>
-                        </mat-menu>
-                        -->
                     </td>
                     <td>{{stock.price}}</td>
                     <td [ngClass]="{
