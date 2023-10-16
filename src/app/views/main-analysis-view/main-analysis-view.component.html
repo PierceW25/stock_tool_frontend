@@ -141,6 +141,7 @@
                 <div class="incomeStatementAnalysisContainer anAnalysisContainer financialStatement" 
                 [hidden]="!incomeStatementAnalysisSelected">
                     <app-stock-key-metrics
+                    [stockName]="analysisStock.name"
                     [fiscalYears]="incomeStatementFiscalYears"
                     [allMetrics]="formattedKeyMetrics"></app-stock-key-metrics>
                 </div>

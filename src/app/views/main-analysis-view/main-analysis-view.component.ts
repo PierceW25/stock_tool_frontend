@@ -328,17 +328,17 @@ export class MainAnalysisViewComponent {
 
           this.cashflowAnalysisReady(true)
           this.formattedKeyMetrics.push(this.rawTotalRevenue)
+          this.formattedKeyMetrics.push(this.rawTotalAssets)
+          this.formattedKeyMetrics.push(this.rawTotalLiabilities)
           this.formattedKeyMetrics.push(this.rawNetIncome)
+          this.formattedKeyMetrics.push(this.rawTotalShareholderEquity)
+          this.formattedKeyMetrics.push(this.rawOperatingCashflow)
+          this.formattedKeyMetrics.push(this.rawFreeCashflow)
+          this.formattedKeyMetrics.push(this.rawCapitalExpenditures)
           this.formattedKeyMetrics.push(this.rawGrossProfit)
           this.formattedKeyMetrics.push(this.rawOperatingIncome)
           this.formattedKeyMetrics.push(this.rawTotalDebt)
           this.formattedKeyMetrics.push(this.rawLongTermDebt)
-          this.formattedKeyMetrics.push(this.rawTotalAssets)
-          this.formattedKeyMetrics.push(this.rawTotalLiabilities)
-          this.formattedKeyMetrics.push(this.rawTotalShareholderEquity)
-          this.formattedKeyMetrics.push(this.rawOperatingCashflow)
-          this.formattedKeyMetrics.push(this.rawCapitalExpenditures)
-          this.formattedKeyMetrics.push(this.rawFreeCashflow)
 
 
 
