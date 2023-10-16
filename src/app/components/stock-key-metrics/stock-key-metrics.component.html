@@ -2,6 +2,12 @@
 <div class="allContentContainer">
     <div class="stockName">
         <p>{{stockName}}</p>
+        <div class="profitableTag" [hidden]="!profitable">
+            Profitable
+        </div>
+        <div class="notProfitableTag" [hidden]="profitable">
+            Nonprofitable
+        </div>
     </div>
     <div class="keyMetricsTableContainer">
         <table class="keyMetricsTable">

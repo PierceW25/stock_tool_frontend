@@ -6,29 +6,12 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
   templateUrl: './stock-key-metrics.component.html',
   styleUrls: ['./stock-key-metrics.component.css']
 })
-export class StockKeyMetricsComponent implements OnChanges {
+export class StockKeyMetricsComponent {
   constructor() {}
 
   @Input() stockName: string = ''
   @Input() fiscalYears: string[] = []
   @Input() allMetrics: any[][] = []
+  @Input() profitable: boolean = false
 
-  keyMetrics: any[][] = []
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['stockName'].previousValue != undefined && changes['stockName']?.currentValue != changes['stockName']?.previousValue) {
-      this.stockName = changes['stockName']?.currentValue;
-    } else {
-      this.stockName = changes['stockName']?.currentValue;
-    }
-  }
-
-  formatFinancialData(data: any): string {
-    if (isNaN(Number(data))) {
-      return data
-    } else {
-      let dataAsNum = Number(data)
-      return formatLargeNumber(dataAsNum).toString()
-    }
-  }
 }

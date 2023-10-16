@@ -91,6 +91,7 @@ export class MainAnalysisViewComponent {
   rawTotalAssets: any[] = []
   rawTotalLiabilities: any[] = []
   rawTotalShareholderEquity: any[] = []
+  profitable: boolean = false
 
   formattedKeyMetrics: any[][] = []
 
@@ -263,6 +264,10 @@ export class MainAnalysisViewComponent {
       this.rawNetIncome.reverse()
       this.rawGrossProfit.reverse()
       this.rawOperatingIncome.reverse()
+
+      if (Number(this.rawNetIncome[this.rawNetIncome.length - 1].slice(0,-1)) > 0) {
+        this.profitable = true
+      }
 
       this.incomeStatementAnalysisReady(true)
 

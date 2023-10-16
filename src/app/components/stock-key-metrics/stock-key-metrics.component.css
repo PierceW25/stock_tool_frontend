@@ -5,9 +5,34 @@
     padding-bottom: 50px;
 }
 
+.stockName {
+    display: flex;
+    width: 500px;
+    align-items: center;
+}
+
 .stockName p {
     font-size: 28px;
     font-weight: 500;
+    color: white;
+}
+
+.profitableTag, .nonProfitableTage {
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 30px;
+}
+
+.profitableTag {
+    background-color: #00C805;
+}
+
+.nonProfitableTage {
+    background-color: #FF0000;
 }
 
 table {
@@ -31,5 +56,5 @@ td {
 }
 
 tr {
-    border-bottom: 1px solid darkgray;
+    border-bottom: 1px solid rgb(86, 82, 82);
 }
