@@ -140,10 +140,9 @@
                 </div>
                 <div class="incomeStatementAnalysisContainer anAnalysisContainer financialStatement" 
                 [hidden]="!incomeStatementAnalysisSelected">
-                    <app-income-statement-analysis 
-                    [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.name"
-                    (analysisCreated)="incomeStatementAnalysisReady($event)"></app-income-statement-analysis>
+                    <app-stock-key-metrics
+                    [fiscalYears]="incomeStatementFiscalYears"
+                    [allMetrics]="formattedKeyMetrics"></app-stock-key-metrics>
                 </div>
                 <div class="balanceSheetAnalysisContainer anAnalysisContainer financialStatement" 
                 [hidden]="!balanceSheetAnalysisSelected">
@@ -164,3 +163,10 @@
         </div>
 </body>
 
+
+<!--
+    <app-income-statement-analysis 
+    [ticker]="analysisStock.ticker"
+    [stockName]="analysisStock.name"
+    (analysisCreated)="incomeStatementAnalysisReady($event)"></app-income-statement-analysis>
+-->

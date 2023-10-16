@@ -1,1 +1,17 @@
-<p>stock-key-metrics works!</p>
+
+<div class="allContentContainer">
+    <div class="stockName">
+        <p>{{stockName}}</p>
+    </div>
+    <div class="keyMetricsTableContainer">
+        <table class="keyMetricsTable">
+            <tr>
+                <th>Metric</th>
+                <th *ngFor="let year of fiscalYears">{{year}}</th>
+            </tr>
+            <tr *ngFor="let metric of allMetrics">
+                <td *ngFor="let value of metric">{{value}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

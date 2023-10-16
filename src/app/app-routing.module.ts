@@ -7,6 +7,7 @@ import { DiscoveryViewComponent } from './views/discovery-view/discovery-view.co
 import { HomePageViewComponent } from './views/home-page-view/home-page-view.component';
 import { LoginUserComponent } from './views/login-user/login-user.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
+import { MainAnalysisViewComponent } from './views/main-analysis-view/main-analysis-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginUserComponent },
   { path: 'research/:ticker', component: StockResearchViewComponent },
   { path: 'news', component: CustomMarketViewComponent },
-  { path: 'analysis', component: AnalysisViewComponent },
+  { path: 'analysis', component: MainAnalysisViewComponent },
   { path: 'discovery', component: DiscoveryViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }

@@ -10,7 +10,7 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 })
 export class MainAnalysisViewComponent {
   constructor(private stockApi: StockApiService,
-    private route: ActivatedRoute) { }
+              private route: ActivatedRoute) { }
 
 
   @Input() stockSymbol: string = 'AAPL';
@@ -79,21 +79,24 @@ export class MainAnalysisViewComponent {
   earningsChartHeight: string = '100px'
   accentColor: string = ''
 
-  rawTotalRevenue: number[] = []
-  rawTotalAssets: number[] = []
-  rawTotalLiabilities: number[] = []
-  rawNetIncome: number[] = []
-  rawOperatingCashflow: number[] = []
-  rawFreeCashflow: number[] = []
-  rawCapitalExpenditures: number[] = []
-  rawGrossProfit: number[] = []
-  rawOperatingIncome: number[] = []
-  rawDebtToEquity: number[] = []
+  rawTotalRevenue: any[] = []
+  rawNetIncome: any[] = []
+  rawOperatingCashflow: any[] = []
+  rawFreeCashflow: any[] = []
+  rawCapitalExpenditures: any[] = []
+  rawGrossProfit: any[] = []
+  rawOperatingIncome: any[] = []
+  rawTotalDebt: any[] = []
+  rawLongTermDebt: any[] = []
+  rawTotalAssets: any[] = []
+  rawTotalLiabilities: any[] = []
+  rawTotalShareholderEquity: any[] = []
+
+  formattedKeyMetrics: any[][] = []
 
   incomeStatementFiscalYears: string[] = []
   balanceSheetFiscalYears: string[] = []
   cashFlowFiscalYears: string[] = []
-
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -105,9 +108,8 @@ export class MainAnalysisViewComponent {
         } else {
           privateStock.days_change = '$' + privateStock.days_change
         }
-
         this.analysisStock = privateStock
-        this.analysisReady = true
+        this.getFinancialStatementsData()
       }
     })
   }
@@ -228,5 +230,130 @@ export class MainAnalysisViewComponent {
     this.incomeStatementAnalysisSelected = false
     this.balanceSheetAnalysisSelected = false
     this.cashFlowAnalysisSelected = true
+  }
+
+  getFinancialStatementsData() {
+    this.stockApi.getIncomeStatement(this.stockSymbol).subscribe(response => {
+      let fullResponse: any = response
+      let annualReports = fullResponse['annualReports']
+
+      for (const reportNum in annualReports) {
+        let fiscalYear = 'FY' + annualReports[reportNum]['fiscalDateEnding'].slice(2, 4)
+        let totalRevenue = Number(annualReports[reportNum]['totalRevenue']) || 'N/A'
+        let netIncome = Number(annualReports[reportNum]['netIncome']) || 'N/A'
+        let grossProfit = Number(annualReports[reportNum]['grossProfit']) || 'N/A'
+        let operatingIncome = Number(annualReports[reportNum]['operatingIncome']) || 'N/A'
+
+        let grossProfitMargin = ((Number(grossProfit) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
+        let operatingIncomeMargin = ((Number(operatingIncome) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
+
+        this.incomeStatementFiscalYears.push(fiscalYear)
+        this.rawTotalRevenue.push(this.formatFinancialData(totalRevenue))
+        this.rawNetIncome.push(this.formatFinancialData(netIncome))
+        this.rawGrossProfit.push(grossProfitMargin)
+        this.rawOperatingIncome.push(operatingIncomeMargin)
+      }
+      this.rawTotalRevenue.push('Total Revenue')
+      this.rawNetIncome.push('Net Income')
+      this.rawGrossProfit.push('Gross Profit Margin')
+      this.rawOperatingIncome.push('Operating Income Margin')
+
+      this.incomeStatementFiscalYears.reverse()
+      this.rawTotalRevenue.reverse()
+      this.rawNetIncome.reverse()
+      this.rawGrossProfit.reverse()
+      this.rawOperatingIncome.reverse()
+
+      this.incomeStatementAnalysisReady(true)
+
+      this.stockApi.getBalanceSheet(this.stockSymbol).subscribe(response => {
+        let fullResponse: any = response
+        let annualReports = fullResponse['annualReports']
+
+        for (const reportNum in annualReports) {
+          let totalDebt = Number(annualReports[reportNum]['shortLongTermDebtTotal']) || 'N/A'
+          let longTermDebt = Number(annualReports[reportNum]['longTermDebtNoncurrent']) || 'N/A'
+          let totalAssets = this.formatFinancialData(Number(annualReports[reportNum]['totalAssets']) || 'N/A')
+          let totalLiabilities = this.formatFinancialData(Number(annualReports[reportNum]['totalLiabilities']) || 'N/A')
+          let totalShareholderEquity = Number(annualReports[reportNum]['totalShareholderEquity']) || 'N/A'
+
+          let debtToEquityRatio = (Number(totalDebt) / Number(totalShareholderEquity)).toFixed(2).toString() + 'x' || 'N/A'
+          let longTermDebtToEquityRatio = (Number(longTermDebt) / Number(totalShareholderEquity)).toFixed(2).toString() + 'x' || 'N/A'
+
+          this.rawTotalDebt.push(debtToEquityRatio)
+          this.rawLongTermDebt.push(longTermDebtToEquityRatio)
+          this.rawTotalAssets.push(totalAssets)
+          this.rawTotalLiabilities.push(totalLiabilities)
+          this.rawTotalShareholderEquity.push(this.formatFinancialData(totalShareholderEquity))
+        }
+        this.rawTotalDebt.push('Debt to Equity Ratio')
+        this.rawLongTermDebt.push('Long Term Debt to Equity Ratio')
+        this.rawTotalAssets.push('Total Assets')
+        this.rawTotalLiabilities.push('Total Liabilities')
+        this.rawTotalShareholderEquity.push('Total Shareholder Equity')
+
+        this.rawTotalDebt.reverse()
+        this.rawLongTermDebt.reverse()
+        this.rawTotalAssets.reverse()
+        this.rawTotalLiabilities.reverse()
+        this.rawTotalShareholderEquity.reverse()
+
+        this.balanceSheetAnalysisReady(true)
+
+        this.stockApi.getCashFlow(this.stockSymbol).subscribe(response => {
+          let fullResponse: any = response
+          let annualReports = fullResponse['annualReports']
+
+          for (const reportNum in annualReports) {
+            let operatingCashflow = Number(annualReports[reportNum]['operatingCashflow']) || 'N/A'
+            let capitalExpenditures = Number(annualReports[reportNum]['capitalExpenditures']) || 'N/A'
+            let freeCashflow: any
+            if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
+              freeCashflow = 'N/A'
+            } else {
+              freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
+            }
+
+            this.rawOperatingCashflow.push(this.formatFinancialData(operatingCashflow))
+            this.rawCapitalExpenditures.push(this.formatFinancialData(capitalExpenditures))
+            this.rawFreeCashflow.push(freeCashflow)
+          }
+          this.rawOperatingCashflow.push('Operating Cashflow')
+          this.rawCapitalExpenditures.push('Capital Expenditures')
+          this.rawFreeCashflow.push('Free Cashflow')
+
+          this.rawOperatingCashflow.reverse()
+          this.rawCapitalExpenditures.reverse()
+          this.rawFreeCashflow.reverse()
+
+          this.cashflowAnalysisReady(true)
+          this.formattedKeyMetrics.push(this.rawTotalRevenue)
+          this.formattedKeyMetrics.push(this.rawNetIncome)
+          this.formattedKeyMetrics.push(this.rawGrossProfit)
+          this.formattedKeyMetrics.push(this.rawOperatingIncome)
+          this.formattedKeyMetrics.push(this.rawTotalDebt)
+          this.formattedKeyMetrics.push(this.rawLongTermDebt)
+          this.formattedKeyMetrics.push(this.rawTotalAssets)
+          this.formattedKeyMetrics.push(this.rawTotalLiabilities)
+          this.formattedKeyMetrics.push(this.rawTotalShareholderEquity)
+          this.formattedKeyMetrics.push(this.rawOperatingCashflow)
+          this.formattedKeyMetrics.push(this.rawCapitalExpenditures)
+          this.formattedKeyMetrics.push(this.rawFreeCashflow)
+
+
+
+          this.analysisReady = true
+        })
+      })
+    })
+  }
+
+  formatFinancialData(data: any): string {
+    if (isNaN(Number(data))) {
+      return data
+    } else {
+      let dataAsNum = Number(data)
+      return formatLargeNumber(dataAsNum).toString()
+    }
   }
 }
