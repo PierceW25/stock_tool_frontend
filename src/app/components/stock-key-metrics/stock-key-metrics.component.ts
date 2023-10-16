@@ -13,5 +13,16 @@ export class StockKeyMetricsComponent {
   @Input() fiscalYears: string[] = []
   @Input() allMetrics: any[][] = []
   @Input() profitable: boolean = false
+  @Input() growingRevenue: boolean = false
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['allMetrics'].previousValue != undefined && changes['allMetrics']?.currentValue != changes['allMetrics']?.previousValue) {
+      this.allMetrics = changes['allMetrics']?.currentValue;
+      this.profitable = changes['profitable']?.currentValue;
+      this.growingRevenue = changes['growingRevenue']?.currentValue;
+    } else {
+      this.profitable = changes['profitable']?.currentValue;
+      this.growingRevenue = changes['growingRevenue']?.currentValue;
+    }
+  }
 }

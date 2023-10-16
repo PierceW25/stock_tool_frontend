@@ -92,6 +92,7 @@ export class MainAnalysisViewComponent {
   rawTotalLiabilities: any[] = []
   rawTotalShareholderEquity: any[] = []
   profitable: boolean = false
+  revenueGrowing: boolean = false
 
   formattedKeyMetrics: any[][] = []
 
@@ -182,8 +183,6 @@ export class MainAnalysisViewComponent {
             this.stockSymbol = newStock.ticker
             this.analysisStock = newStock
             this.renderGeneralAnalysis()
-
-            this.analysisReady = true
           })
       }
     })
@@ -269,6 +268,11 @@ export class MainAnalysisViewComponent {
         this.profitable = true
       }
 
+      if (Number(this.rawNetIncome[this.rawNetIncome.length - 2].slice(0,-1)) < 
+      Number(this.rawNetIncome[this.rawNetIncome.length - 1].slice(0,-1))) {
+        this.revenueGrowing = true
+      }
+
       this.incomeStatementAnalysisReady(true)
 
       this.stockApi.getBalanceSheet(this.stockSymbol).subscribe(response => {
@@ -344,8 +348,6 @@ export class MainAnalysisViewComponent {
           this.formattedKeyMetrics.push(this.rawOperatingIncome)
           this.formattedKeyMetrics.push(this.rawTotalDebt)
           this.formattedKeyMetrics.push(this.rawLongTermDebt)
-
-
 
           this.analysisReady = true
         })
