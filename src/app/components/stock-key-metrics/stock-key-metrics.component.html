@@ -2,17 +2,19 @@
 <div class="allContentContainer">
     <div class="stockName">
         <p>{{stockName}}</p>
-        <div class="stockConditionTag positiveTag" [hidden]="profitable == false">
-            Profitable
-        </div>
-        <div class="stockConditionTag negativeTag" [hidden]="profitable == true">
-            Nonprofitable
-        </div>
-        <div class="stockConditionTag positiveTag" [hidden]="growingRevenue == false">
-            Growing
-        </div>
-        <div class="stockConditionTag negativeTag" [hidden]="growingRevenue == true">
-            Shrinking
+        <div class="stockConditionTags">
+            <div class="stockConditionTag positiveTag" [hidden]="profitable == false">
+                Profitable
+            </div>
+            <div class="stockConditionTag negativeTag" [hidden]="profitable == true">
+                Nonprofitable
+            </div>
+            <div class="stockConditionTag positiveTag" [hidden]="growingRevenue == false">
+                Growing
+            </div>
+            <div class="stockConditionTag negativeTag" [hidden]="growingRevenue == true">
+                Shrinking
+            </div>
         </div>
     </div>
     <div class="keyMetricsTableContainer">
