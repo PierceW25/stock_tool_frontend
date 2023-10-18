@@ -1,34 +1,43 @@
 
 <div class="allContentContainer">
-    <div class="stockName">
-        <p>{{stockName}}</p>
-        <div class="stockConditionTags">
-            <div class="stockConditionTag positiveTag" [hidden]="!profitable">
-                Profitable
-            </div>
-            <div class="stockConditionTag negativeTag" [hidden]="profitable">
-                Nonprofitable
-            </div>
-            <div class="stockConditionTag positiveTag" [hidden]="!growingRevenue">
-                Growing
-            </div>
-            <div class="stockConditionTag negativeTag" [hidden]="growingRevenue">
-                Shrinking
+    <div class="stockTitleAndTableContainer">
+        <div class="stockName">
+            <p>{{stockName}}</p>
+            <div class="stockConditionTags">
+                <div class="stockConditionTag positiveTag" [hidden]="!profitable">
+                    Profitable
+                </div>
+                <div class="stockConditionTag negativeTag" [hidden]="profitable">
+                    Nonprofitable
+                </div>
+                <div class="stockConditionTag positiveTag" [hidden]="!growingRevenue">
+                    Growing
+                </div>
+                <div class="stockConditionTag negativeTag" [hidden]="growingRevenue">
+                    Shrinking
+                </div>
             </div>
         </div>
-    </div>
-    <div class="keyMetricsTableContainer">
-        <table class="keyMetricsTable">
-            <tr>
-                <th>Metric</th>
-                <th *ngFor="let year of fiscalYears">{{year}}</th>
-            </tr>
-            <tr *ngFor="let metric of allMetrics" (click)="renderDefinition(metric[0])">
-                <td *ngFor="let value of metric">{{value}}</td>
-            </tr>
-        </table>
+        <div class="keyMetricsTableContainer">
+            <table class="keyMetricsTable">
+                <tr>
+                    <th>Metric</th>
+                    <th *ngFor="let year of fiscalYears">{{year}}</th>
+                </tr>
+                <tr *ngFor="let metric of allMetrics" (click)="renderDefinition(metric[0])" class="dataRow">
+                    <td *ngFor="let value of metric">{{value}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div class="metricDefinitionsContainer">
-
+        <div class="metricDefinition">
+            <div class="metricDefinitionHeader">
+                <h2>{{displayedMetric}}</h2>
+            </div>
+            <div class="metricDefinitionContent">
+                <p>{{displayedDefinition}}</p>
+            </div>
+        </div>
     </div>
 </div>

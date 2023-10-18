@@ -1,8 +1,39 @@
 .allContentContainer {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     padding-bottom: 50px;
+}
+
+.stockTitleAndTableContainer {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    color: white;
+}
+
+.metricDefinitionsContainer {
+    width: 30%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    background-color: #232323;
+    border-radius: 8px;
+}
+
+.metricDefinitionsContainer h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding: 15px 15px 0 15px;
+}
+
+.metricDefinitionsContainer p {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    padding: 15px 15px 0 15px;
 }
 
 .stockName {
@@ -61,4 +92,9 @@ td {
 
 tr {
     border-bottom: 1px solid rgb(86, 82, 82);
+}
+
+.dataRow:hover {
+    background-color: #232B32;
+    cursor: pointer;
 }
