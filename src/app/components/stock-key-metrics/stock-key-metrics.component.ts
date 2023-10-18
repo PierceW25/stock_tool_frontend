@@ -29,8 +29,6 @@ export class StockKeyMetricsComponent {
     }
   }
 
-
-
   renderDefinition(metric: string) {
     let metricToDefine = metric
 
