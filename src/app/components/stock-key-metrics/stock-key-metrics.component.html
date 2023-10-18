@@ -3,16 +3,16 @@
     <div class="stockName">
         <p>{{stockName}}</p>
         <div class="stockConditionTags">
-            <div class="stockConditionTag positiveTag" [hidden]="profitable == false">
+            <div class="stockConditionTag positiveTag" [hidden]="!profitable">
                 Profitable
             </div>
-            <div class="stockConditionTag negativeTag" [hidden]="profitable == true">
+            <div class="stockConditionTag negativeTag" [hidden]="profitable">
                 Nonprofitable
             </div>
-            <div class="stockConditionTag positiveTag" [hidden]="growingRevenue == false">
+            <div class="stockConditionTag positiveTag" [hidden]="!growingRevenue">
                 Growing
             </div>
-            <div class="stockConditionTag negativeTag" [hidden]="growingRevenue == true">
+            <div class="stockConditionTag negativeTag" [hidden]="growingRevenue">
                 Shrinking
             </div>
         </div>
@@ -23,9 +23,12 @@
                 <th>Metric</th>
                 <th *ngFor="let year of fiscalYears">{{year}}</th>
             </tr>
-            <tr *ngFor="let metric of allMetrics">
+            <tr *ngFor="let metric of allMetrics" (click)="renderDefinition(metric[0])">
                 <td *ngFor="let value of metric">{{value}}</td>
             </tr>
         </table>
+    </div>
+    <div class="metricDefinitionsContainer">
+
     </div>
 </div>
