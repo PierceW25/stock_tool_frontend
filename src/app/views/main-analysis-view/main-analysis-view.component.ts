@@ -255,6 +255,7 @@ export class MainAnalysisViewComponent {
 
 
     this.stockApi.getIncomeStatement(this.stockSymbol).subscribe(response => {
+      console.log(response)
       let fullResponse: any = response
       let annualReports = fullResponse['annualReports']
 
@@ -304,9 +305,6 @@ export class MainAnalysisViewComponent {
         }
       }
 
-      console.log(numericNetIncomeRecords)
-      console.log(numericTotalRevenueRecords)
-
       if (Number(numericNetIncomeRecords[0]) > 0) {
         this.profitable = true
       } else {
@@ -323,6 +321,7 @@ export class MainAnalysisViewComponent {
       this.incomeStatementAnalysisReady(true)
 
       this.stockApi.getBalanceSheet(this.stockSymbol).subscribe(response => {
+        console.log(response)
         let fullResponse: any = response
         let annualReports = fullResponse['annualReports']
 
@@ -357,6 +356,7 @@ export class MainAnalysisViewComponent {
         this.balanceSheetAnalysisReady(true)
 
         this.stockApi.getCashFlow(this.stockSymbol).subscribe(response => {
+          console.log(response)
           let fullResponse: any = response
           let annualReports = fullResponse['annualReports']
 
@@ -400,6 +400,46 @@ export class MainAnalysisViewComponent {
           this.formattedKeyMetrics = localAllMetrics
 
           this.analysisReady = true
+        })
+      })
+    })
+  }
+
+  getFinancialStatementsData2() {
+    let localAllMetrics: any[][] = []
+    let localTotalRevenueRecords: any[] = []
+    let localNetIncomeRecords: any[] = []
+    let localOperatingCashflowRecords: any[] = []
+    let localFreeCashflowRecords: any[] = []
+    let localCapitalExpenditureRecords: any[] = []
+    let localGrossProfitRecords: any[] = []
+    let localOperatingIncomeRecords: any[] = []
+    let localTotalDebtRecords: any[] = []
+    let localLongTermDebtRecords: any[] = []
+    let localTotalAssetsRecords: any[] = []
+    let localTotalLiabilitiesRecords: any[] = []
+    let localTotalShareholderEquityRecords: any[] = []
+    let localFiscalYears: string[] = []
+
+    let numericTotalRevenueRecords: any[] = []
+    let numericNetIncomeRecords: any[] = []
+
+    this.stockApi.getIncomeStatement(this.stockSymbol).subscribe((incomeResponse: any) => {
+      let incomeStatementResponse: any = incomeResponse
+      let incomeStatementAnnualReports = incomeStatementResponse['annualReports']
+      let lengthAnnualReports = incomeStatementAnnualReports.length
+
+      this.stockApi.getBalanceSheet(this.stockSymbol).subscribe((balanceResponse: any) => {
+        let balanceSheetResponse: any = balanceResponse
+        let balanceSheetAnnualReports = balanceSheetResponse['annualReports']
+        let lengthBalanceSheetReports = balanceSheetAnnualReports.length
+
+        this.stockApi.getCashFlow(this.stockSymbol).subscribe((cashResponse: any) => {
+          let cashFlowResponse: any = cashResponse
+          let cashFlowAnnualReports = cashFlowResponse['annualReports']
+          let lengthCashFlowReports = cashFlowAnnualReports.length
+
+
         })
       })
     })
