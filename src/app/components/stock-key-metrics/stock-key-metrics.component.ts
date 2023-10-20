@@ -19,11 +19,10 @@ export class StockKeyMetricsComponent {
   displayedDefinition: string = 'A key financial metric that indicates the overall income generated y the company before deducting any expenses, taxes, or interest. This is the best metric to determine if a companies core product sales are growing or shrinking.'
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['allMetrics'].previousValue != undefined && changes['allMetrics']?.currentValue != changes['allMetrics']?.previousValue) {
+    if (changes['stockName'].previousValue != undefined && changes['stockName']?.currentValue != changes['stockName']?.previousValue) {
+      this.stockName = changes['stockName']?.currentValue;
+      this.fiscalYears = changes['fiscalYears']?.currentValue;
       this.allMetrics = changes['allMetrics']?.currentValue;
-      this.profitable = changes['profitable']?.currentValue;
-      this.growingRevenue = changes['growingRevenue']?.currentValue;
-    } else {
       this.profitable = changes['profitable']?.currentValue;
       this.growingRevenue = changes['growingRevenue']?.currentValue;
     }
@@ -73,13 +72,9 @@ export class StockKeyMetricsComponent {
         this.displayedMetric = 'Operating Income Margin'
         this.displayedDefinition = 'A key financial metric that indicates the percentage of revenue that becomes operating income by subtracting all expenses except interest paid and taxes.'
         break
-      case 'Debt to Equity Ratio':
-        this.displayedMetric = 'Debt to Equity Ratio'
-        this.displayedDefinition = 'A key financial metric that indicates the ratio of all debt to shareholder equity, and is a great way to determine how much of the company is owned by debtors vs shareholders.'
-        break
-      case 'Long Term Debt to Equity Ratio':
-        this.displayedMetric = 'Long Term Debt to Equity Ratio'
-        this.displayedDefinition = 'A key financial metric that indicates the ratio of long term debt to shareholder equity, this metric is more indicative of the long term health of the company.'
+      case 'Total Debt':
+        this.displayedMetric = 'Total Debt'
+        this.displayedDefinition = 'Includes all forms of debt obligations, such as loans, bonds, credit lines, and other borrowed funds that the company is obligated to repay within a specified time frame. A negative value here means that the company has more cash/liquidity than debt.'
         break
       default :
         break

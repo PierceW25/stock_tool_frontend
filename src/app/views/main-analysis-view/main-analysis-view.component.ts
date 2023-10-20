@@ -245,7 +245,6 @@ export class MainAnalysisViewComponent {
     let localGrossProfitRecords: any[] = []
     let localOperatingIncomeRecords: any[] = []
     let localTotalDebtRecords: any[] = []
-    let localLongTermDebtRecords: any[] = []
     let localTotalAssetsRecords: any[] = []
     let localTotalLiabilitiesRecords: any[] = []
     let localTotalShareholderEquityRecords: any[] = []
@@ -281,6 +280,8 @@ export class MainAnalysisViewComponent {
             cashFlowAnnualReports.pop()
           }
 
+          console.log(balanceSheetAnnualReports)
+
 
           for (let i = 0; i < lengthOfReports; i++) {
             let fiscalYear = 'FY' + incomeStatementAnnualReports[i]['fiscalDateEnding'].slice(2, 4)
@@ -289,7 +290,6 @@ export class MainAnalysisViewComponent {
             let grossProfit = Number(incomeStatementAnnualReports[i]['grossProfit']) || 'N/A'
             let operatingIncome = Number(incomeStatementAnnualReports[i]['operatingIncome']) || 'N/A'
             let totalDebt = Number(balanceSheetAnnualReports[i]['shortLongTermDebtTotal']) || 'N/A'
-            let longTermDebt = Number(balanceSheetAnnualReports[i]['longTermDebtNoncurrent']) || 'N/A'
             let totalAssets = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalAssets']) || 'N/A')
             let totalLiabilities = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalLiabilities']) || 'N/A')
             let totalShareholderEquity = Number(balanceSheetAnnualReports[i]['totalShareholderEquity']) || 'N/A'
@@ -305,8 +305,6 @@ export class MainAnalysisViewComponent {
             }
             let grossProfitMargin = ((Number(grossProfit) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
             let operatingIncomeMargin = ((Number(operatingIncome) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
-            let debtToEquityRatio = (Number(totalDebt) / Number(totalShareholderEquity)).toFixed(2).toString() + 'x' || 'N/A'
-            let longTermDebtToEquityRatio = (Number(longTermDebt) / Number(totalShareholderEquity)).toFixed(2).toString() + 'x' || 'N/A'
 
 
             numericNetIncomeRecords.push(netIncome)
@@ -319,14 +317,14 @@ export class MainAnalysisViewComponent {
             localOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
             localCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
             localFreeCashflowRecords.push(freeCashflow)
-            localTotalDebtRecords.push(debtToEquityRatio)
-            localLongTermDebtRecords.push(longTermDebtToEquityRatio)
+            localTotalDebtRecords.push(this.formatFinancialData(totalDebt))
             localTotalAssetsRecords.push(totalAssets)
             localTotalLiabilitiesRecords.push(totalLiabilities)
             localTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
             localGrossProfitRecords.push(grossProfitMargin)
             localOperatingIncomeRecords.push(operatingIncomeMargin)
           }
+
 
           //Formatting and checking net income and total revenue numeric records for profitability and revenue growth tags
           for (let record of numericNetIncomeRecords) {
@@ -361,8 +359,7 @@ export class MainAnalysisViewComponent {
           localNetIncomeRecords.push('Net Income')
           localGrossProfitRecords.push('Gross Profit Margin')
           localOperatingIncomeRecords.push('Operating Income Margin')
-          localTotalDebtRecords.push('Debt to Equity Ratio')
-          localLongTermDebtRecords.push('Long Term Debt to Equity Ratio')
+          localTotalDebtRecords.push('Total Debt')
           localTotalAssetsRecords.push('Total Assets')
           localTotalLiabilitiesRecords.push('Total Liabilities')
           localTotalShareholderEquityRecords.push('Total Shareholder Equity')
@@ -378,7 +375,6 @@ export class MainAnalysisViewComponent {
           this.rawGrossProfit = localGrossProfitRecords.reverse()
           this.rawOperatingIncome = localOperatingIncomeRecords.reverse()
           this.rawTotalDebt = localTotalDebtRecords.reverse()
-          this.rawLongTermDebt = localLongTermDebtRecords.reverse()
           this.rawTotalAssets = localTotalAssetsRecords.reverse()
           this.rawTotalLiabilities = localTotalLiabilitiesRecords.reverse()
           this.rawTotalShareholderEquity = localTotalShareholderEquityRecords.reverse()
@@ -399,7 +395,7 @@ export class MainAnalysisViewComponent {
           localAllMetrics.push(this.rawTotalDebt)
           localAllMetrics.push(this.rawLongTermDebt)
 
-          
+
           this.formattedKeyMetrics = localAllMetrics
           this.analysisReady = true
         })

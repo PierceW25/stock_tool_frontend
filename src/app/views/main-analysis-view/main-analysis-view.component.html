@@ -139,7 +139,8 @@
                     </div>
                 </div>
                 <div class="incomeStatementAnalysisContainer anAnalysisContainer financialStatement" 
-                [hidden]="!incomeStatementAnalysisSelected">
+                [hidden]="!incomeStatementAnalysisSelected"
+                *ngIf="analysisReady">
                     <app-stock-key-metrics
                     [stockName]="analysisStock.name"
                     [fiscalYears]="incomeStatementFiscalYears"
