@@ -1,7 +1,9 @@
 body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
     background-color: #121212;
-    color: white;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .pageContainer {
