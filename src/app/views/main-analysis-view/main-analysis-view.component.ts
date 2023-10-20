@@ -215,7 +215,7 @@ export class MainAnalysisViewComponent {
     this.cashFlowAnalysisSelected = false
   }
 
-  renderIncomeStatementAnalysis() {
+  renderKeyMetrics() {
     this.generalAnalysisOptionSelected = false
     this.incomeStatementAnalysisSelected = true
     this.balanceSheetAnalysisSelected = false
