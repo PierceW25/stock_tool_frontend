@@ -52,7 +52,9 @@
                 *ngIf="analysisReady && generalAnalysisOptionSelected">
                     <div class="leftPanelContainer">
                         <div class="stockChartContainer">
-                            <app-stock-chart [ticker]="analysisStock.ticker"
+                            <app-stock-chart 
+                            *ngIf="analysisStock.percent_change != '-' && analysisStock.days_change != '-'"
+                            [ticker]="analysisStock.ticker"
                             [title]="analysisStock.name"
                             [initialChartColor]="accentColor"
                             [displayPrice]="analysisStock.price"

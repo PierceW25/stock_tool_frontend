@@ -183,6 +183,7 @@ export class MainAnalysisViewComponent {
               newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
             }
             this.stockSymbol = newStock.ticker
+            this.accentColor = newStock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
             this.analysisStock = newStock
             this.renderGeneralAnalysis()
             this.getFinancialStatementsData()
