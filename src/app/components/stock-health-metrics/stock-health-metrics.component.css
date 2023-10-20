@@ -1,0 +1,27 @@
+.allContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    padding-bottom: 50px;
+}
+
+.viewDetails {
+    width: 55%;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+.viewDetails h3 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+    padding: 15px 15px 0 0;
+}
+
+.viewDetails p {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 15px 15px 0 0;
+}

@@ -33,15 +33,15 @@
                             </div>
                         </div>
                         <div class="balanceSheetAnalysisOption horizontalOption analysisOption"
-                        (click)="renderBalanceSheetAnalysis()">
+                        (click)="renderHealthAndStability()">
                             <div class="analysisOptionTitle">
-                                <h2>Balance Sheet</h2>
+                                <h2>Health and Stability</h2>
                             </div>
                         </div>
                         <div class="cashFlowAnalysisOption horizontalOption analysisOption"
-                        (click)="renderCashFlowAnalysis()">
+                        (click)="renderGrowthAndPotential()">
                             <div class="analysisOptionTitle">
-                                <h2>Cash Flow</h2>
+                                <h2>Growth and Potential</h2>
                             </div>
                         </div>
                     </div>
@@ -140,8 +140,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="incomeStatementAnalysisContainer anAnalysisContainer financialStatement" 
-                [hidden]="!incomeStatementAnalysisSelected"
+                <div class="keyMetricsContainer anAnalysisContainer financialStatement" 
+                [hidden]="!keyMetricsSelected"
                 *ngIf="analysisReady">
                     <app-stock-key-metrics
                     [stockName]="analysisStock.name"
@@ -150,15 +150,14 @@
                     [growingRevenue]="revenueGrowing"
                     [allMetrics]="formattedKeyMetrics"></app-stock-key-metrics>
                 </div>
-                <div class="balanceSheetAnalysisContainer anAnalysisContainer financialStatement" 
-                [hidden]="!balanceSheetAnalysisSelected">
-                    <app-balance-sheet-analysis 
-                    [ticker]="analysisStock.ticker"
-                    [stockName]="analysisStock.name"
-                    (analysisCreated)="balanceSheetAnalysisReady($event)"></app-balance-sheet-analysis>
+                <div class="healthAndStability anAnalysisContainer financialStatement" 
+                [hidden]="!healthAndStabilitySelected">
+                    <app-stock-health-metrics 
+                    [stockName]="analysisStock.name">
+                    </app-stock-health-metrics>
                 </div>
-                <div class="cashflowAnalysisContainer anAnalysisContainer financialStatement" 
-                [hidden]="!cashFlowAnalysisSelected">
+                <div class="growthAndPotential anAnalysisContainer financialStatement" 
+                [hidden]="!growthAndPotentialSelected">
                     <app-cash-flow-analysis 
                     [ticker]="analysisStock.ticker"
                     [stockName]="analysisStock.name"

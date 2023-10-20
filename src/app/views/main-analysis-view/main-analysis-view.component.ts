@@ -43,9 +43,9 @@ export class MainAnalysisViewComponent {
   errorText: boolean = false
 
   generalAnalysisOptionSelected = true
-  incomeStatementAnalysisSelected = false
-  balanceSheetAnalysisSelected = false
-  cashFlowAnalysisSelected = false
+  keyMetricsSelected = false
+  healthAndStabilitySelected = false
+  growthAndPotentialSelected = false
 
   analysisReady = false
   incomeStatementReady = false
@@ -210,30 +210,30 @@ export class MainAnalysisViewComponent {
 
   renderGeneralAnalysis() {
     this.generalAnalysisOptionSelected = true
-    this.incomeStatementAnalysisSelected = false
-    this.balanceSheetAnalysisSelected = false
-    this.cashFlowAnalysisSelected = false
+    this.keyMetricsSelected = false
+    this.healthAndStabilitySelected = false
+    this.growthAndPotentialSelected = false
   }
 
   renderKeyMetrics() {
     this.generalAnalysisOptionSelected = false
-    this.incomeStatementAnalysisSelected = true
-    this.balanceSheetAnalysisSelected = false
-    this.cashFlowAnalysisSelected = false
+    this.keyMetricsSelected = true
+    this.healthAndStabilitySelected = false
+    this.growthAndPotentialSelected = false
   }
 
-  renderBalanceSheetAnalysis() {
+  renderHealthAndStability() {
     this.generalAnalysisOptionSelected = false
-    this.incomeStatementAnalysisSelected = false
-    this.balanceSheetAnalysisSelected = true
-    this.cashFlowAnalysisSelected = false
+    this.keyMetricsSelected = false
+    this.healthAndStabilitySelected = true
+    this.growthAndPotentialSelected = false
   }
 
-  renderCashFlowAnalysis() {
+  renderGrowthAndPotential() {
     this.generalAnalysisOptionSelected = false
-    this.incomeStatementAnalysisSelected = false
-    this.balanceSheetAnalysisSelected = false
-    this.cashFlowAnalysisSelected = true
+    this.keyMetricsSelected = false
+    this.healthAndStabilitySelected = false
+    this.growthAndPotentialSelected = true
   }
 
   getFinancialStatementsData() {
@@ -243,8 +243,6 @@ export class MainAnalysisViewComponent {
     let localOperatingCashflowRecords: any[] = []
     let localFreeCashflowRecords: any[] = []
     let localCapitalExpenditureRecords: any[] = []
-    let localGrossProfitRecords: any[] = []
-    let localOperatingIncomeRecords: any[] = []
     let localTotalDebtRecords: any[] = []
     let localTotalAssetsRecords: any[] = []
     let localTotalLiabilitiesRecords: any[] = []
@@ -288,8 +286,6 @@ export class MainAnalysisViewComponent {
             let fiscalYear = 'FY' + incomeStatementAnnualReports[i]['fiscalDateEnding'].slice(2, 4)
             let totalRevenue = Number(incomeStatementAnnualReports[i]['totalRevenue']) || 'N/A'
             let netIncome = Number(incomeStatementAnnualReports[i]['netIncome']) || 'N/A'
-            let grossProfit = Number(incomeStatementAnnualReports[i]['grossProfit']) || 'N/A'
-            let operatingIncome = Number(incomeStatementAnnualReports[i]['operatingIncome']) || 'N/A'
             let totalDebt = Number(balanceSheetAnnualReports[i]['shortLongTermDebtTotal']) || 'N/A'
             let totalAssets = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalAssets']) || 'N/A')
             let totalLiabilities = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalLiabilities']) || 'N/A')
@@ -304,9 +300,6 @@ export class MainAnalysisViewComponent {
             } else {
               freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
             }
-            let grossProfitMargin = ((Number(grossProfit) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
-            let operatingIncomeMargin = ((Number(operatingIncome) / Number(totalRevenue)) * 100).toFixed(2).toString() + '%' || 'N/A'
-
 
             numericNetIncomeRecords.push(netIncome)
             numericTotalRevenueRecords.push(totalRevenue)
@@ -322,8 +315,6 @@ export class MainAnalysisViewComponent {
             localTotalAssetsRecords.push(totalAssets)
             localTotalLiabilitiesRecords.push(totalLiabilities)
             localTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
-            localGrossProfitRecords.push(grossProfitMargin)
-            localOperatingIncomeRecords.push(operatingIncomeMargin)
           }
 
 
@@ -358,8 +349,6 @@ export class MainAnalysisViewComponent {
           //Formatting all local records with their respective titles
           localTotalRevenueRecords.push('Total Revenue')
           localNetIncomeRecords.push('Net Income')
-          localGrossProfitRecords.push('Gross Profit Margin')
-          localOperatingIncomeRecords.push('Operating Income Margin')
           localTotalDebtRecords.push('Total Debt')
           localTotalAssetsRecords.push('Total Assets')
           localTotalLiabilitiesRecords.push('Total Liabilities')
@@ -373,8 +362,6 @@ export class MainAnalysisViewComponent {
           this.incomeStatementFiscalYears = localFiscalYears.reverse()
           this.rawTotalRevenue = localTotalRevenueRecords.reverse()
           this.rawNetIncome = localNetIncomeRecords.reverse()
-          this.rawGrossProfit = localGrossProfitRecords.reverse()
-          this.rawOperatingIncome = localOperatingIncomeRecords.reverse()
           this.rawTotalDebt = localTotalDebtRecords.reverse()
           this.rawTotalAssets = localTotalAssetsRecords.reverse()
           this.rawTotalLiabilities = localTotalLiabilitiesRecords.reverse()
@@ -391,8 +378,6 @@ export class MainAnalysisViewComponent {
           localAllMetrics.push(this.rawOperatingCashflow)
           localAllMetrics.push(this.rawFreeCashflow)
           localAllMetrics.push(this.rawCapitalExpenditures)
-          localAllMetrics.push(this.rawGrossProfit)
-          localAllMetrics.push(this.rawOperatingIncome)
           localAllMetrics.push(this.rawTotalDebt)
           localAllMetrics.push(this.rawLongTermDebt)
 
