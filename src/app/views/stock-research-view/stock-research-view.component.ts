@@ -213,6 +213,7 @@ export class StockResearchViewComponent implements OnInit {
   }
 
   getFinancialStatementsData(ticker: string) {
+    /* Annual records */
     let localAllMetrics: any[][] = []
     let localTotalRevenueRecords: any[] = []
     let localNetIncomeRecords: any[] = []
@@ -228,22 +229,31 @@ export class StockResearchViewComponent implements OnInit {
     let numericTotalRevenueRecords: any[] = []
     let numericNetIncomeRecords: any[] = []
 
+    /* Quarterly Records */
+
     this.stockApi.getIncomeStatement(ticker).subscribe((incomeResponse: any) => {
       let incomeStatementResponse: any = incomeResponse
       let incomeStatementAnnualReports = incomeStatementResponse['annualReports']
+      let incomeStatementQuarterlyReports = incomeStatementResponse['quarterlyReports']
       let lengthAnnualReports = incomeStatementAnnualReports.length
+      let lengthQuarterlyReports = incomeStatementQuarterlyReports.length
 
       this.stockApi.getBalanceSheet(ticker).subscribe((balanceResponse: any) => {
         let balanceSheetResponse: any = balanceResponse
         let balanceSheetAnnualReports = balanceSheetResponse['annualReports']
+        let balanceSheetQuarterlyReports = balanceSheetResponse['quarterlyReports']
         let lengthBalanceSheetReports = balanceSheetAnnualReports.length
+        let lengthBalanceSheetQuarterlyReports = balanceSheetQuarterlyReports.length
 
         this.stockApi.getCashFlow(ticker).subscribe((cashResponse: any) => {
           let cashFlowResponse: any = cashResponse
           let cashFlowAnnualReports = cashFlowResponse['annualReports']
+          let cashFlowQuarterlyReports = cashFlowResponse['quarterlyReports']
           let lengthCashFlowReports = cashFlowAnnualReports.length
+          let lengthCashFlowQuarterlyReports = cashFlowQuarterlyReports.length
 
           let lengthOfReports = Math.min(lengthAnnualReports, lengthBalanceSheetReports, lengthCashFlowReports)
+          let lengthOfQuarterlyReports = Math.min(lengthQuarterlyReports, lengthBalanceSheetQuarterlyReports, lengthCashFlowQuarterlyReports)
 
           if (lengthAnnualReports > lengthOfReports) {
             incomeStatementAnnualReports.pop()
@@ -255,7 +265,19 @@ export class StockResearchViewComponent implements OnInit {
             cashFlowAnnualReports.pop()
           }
 
-          console.log(balanceSheetAnnualReports)
+          if (lengthQuarterlyReports > lengthOfQuarterlyReports) {
+            incomeStatementQuarterlyReports.pop()
+          }
+          if (lengthBalanceSheetQuarterlyReports > lengthOfQuarterlyReports) {
+            balanceSheetQuarterlyReports.pop()
+          }
+          if (lengthCashFlowQuarterlyReports > lengthOfQuarterlyReports) {
+            cashFlowQuarterlyReports.pop()
+          }
+
+          console.log(incomeStatementQuarterlyReports)
+          console.log(balanceSheetQuarterlyReports)
+          console.log(cashFlowQuarterlyReports)
 
 
           for (let i = 0; i < lengthOfReports; i++) {
