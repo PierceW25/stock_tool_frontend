@@ -102,14 +102,13 @@
             </div>
             <div class="keyMetricsContainer">
                 <div class="keyMetricsTitleContainer">
-                    <div class="keyMetricsHeader">
-                        <h2>Key Metrics</h2>
-                    </div>
+                    <h2>Fundamentals</h2>
                     <div class="keyMetricsOptions">
                         <button class="keyMetricsOption" (click)="renderAnnualData()">Annual</button>
                         <button class="keyMetricsOption" (click)="renderQuarterlyData()">Quarterly</button>
                     </div>
                 </div>
+
                 <div class="keyMetricsTableContainer">
                     <app-stock-key-metrics
                     [stockName]="stock.name"
