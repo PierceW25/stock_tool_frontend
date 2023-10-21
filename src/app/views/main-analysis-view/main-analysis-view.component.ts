@@ -98,8 +98,6 @@ export class MainAnalysisViewComponent {
   formattedFiscalYears: string[] = []
 
   incomeStatementFiscalYears: string[] = []
-  balanceSheetFiscalYears: string[] = []
-  cashFlowFiscalYears: string[] = []
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

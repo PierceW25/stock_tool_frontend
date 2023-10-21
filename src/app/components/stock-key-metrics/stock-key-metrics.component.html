@@ -1,23 +1,6 @@
 
 <div class="allContentContainer">
     <div class="stockTitleAndTableContainer">
-        <div class="stockName">
-            <p>{{stockName}}</p>
-            <div class="stockConditionTags">
-                <div class="stockConditionTag positiveTag" [hidden]="!profitable">
-                    Profitable
-                </div>
-                <div class="stockConditionTag negativeTag" [hidden]="profitable">
-                    Unprofitable
-                </div>
-                <div class="stockConditionTag positiveTag" [hidden]="!growingRevenue">
-                    Growing
-                </div>
-                <div class="stockConditionTag negativeTag" [hidden]="growingRevenue">
-                    Shrinking
-                </div>
-            </div>
-        </div>
         <div class="keyMetricsTableContainer">
             <table class="keyMetricsTable">
                 <tr>
