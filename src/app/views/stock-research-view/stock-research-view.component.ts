@@ -229,7 +229,9 @@ export class StockResearchViewComponent implements OnInit {
     let numericTotalRevenueRecords: any[] = []
     let numericNetIncomeRecords: any[] = []
 
-    /* Quarterly Records */
+    /* Quarterly Records Variables */
+    let fiscalYearEndMonth = new Date(this.stock.fiscalYearEnd + ' 1, 2023').getMonth() + 1
+
 
     this.stockApi.getIncomeStatement(ticker).subscribe((incomeResponse: any) => {
       let incomeStatementResponse: any = incomeResponse
@@ -265,19 +267,15 @@ export class StockResearchViewComponent implements OnInit {
             cashFlowAnnualReports.pop()
           }
 
-          if (lengthQuarterlyReports > lengthOfQuarterlyReports) {
+          while (incomeStatementQuarterlyReports.length > lengthOfQuarterlyReports) {
             incomeStatementQuarterlyReports.pop()
           }
-          if (lengthBalanceSheetQuarterlyReports > lengthOfQuarterlyReports) {
+          while (balanceSheetQuarterlyReports.length > lengthOfQuarterlyReports) {
             balanceSheetQuarterlyReports.pop()
           }
-          if (lengthCashFlowQuarterlyReports > lengthOfQuarterlyReports) {
+          while (cashFlowQuarterlyReports.length > lengthOfQuarterlyReports) {
             cashFlowQuarterlyReports.pop()
           }
-
-          console.log(incomeStatementQuarterlyReports)
-          console.log(balanceSheetQuarterlyReports)
-          console.log(cashFlowQuarterlyReports)
 
 
           for (let i = 0; i < lengthOfReports; i++) {
@@ -381,6 +379,91 @@ export class StockResearchViewComponent implements OnInit {
 
 
           this.formattedKeyMetrics = localAllMetrics
+
+
+          /*
+          let privateFormattedEarnings: EarningsDataPoint[] = [];
+    
+    for (let i = 0; i < quarterlyEarnings.length; i++) {
+      
+      let date = new Date(quarterlyEarnings[i].fiscalDateEnding);
+
+      if (date.getMonth() + 1 === FYEndMonth && 
+                      quarterlyEarnings[i+1] && 
+                      quarterlyEarnings[i+2] && 
+                      quarterlyEarnings[i+3]) {
+        let fiscalYear = quarterlyEarnings[i].fiscalDateEnding.slice(2, 4)
+
+        //Doing hackey stuff to get the quarter end dates to displaye with the correct fiscal year
+        //the reverse counter is used to get the correct quarter end dates for the first 3 quarters of the year
+        let reverseCounter = i;
+        for (let x = 0; x < i && i < 3; x++) {
+          let oneOfFirstQuarterlyEarnings: EarningsDataPoint = {
+            fiscalDateEnding: quarterlyEarnings[x].fiscalDateEnding,
+            fiscalQuarter: 'Q' + reverseCounter + ' FY' + Number(Number(fiscalYear) + 1),
+            reportedEPS: quarterlyEarnings[x].reportedEPS,
+            estimatedEPS: quarterlyEarnings[x].estimatedEPS,
+            surprise: quarterlyEarnings[x].surprise,
+            surprisePercentage: quarterlyEarnings[x].surprisePercentage
+          }
+          privateFormattedEarnings.push(oneOfFirstQuarterlyEarnings);
+          reverseCounter--;
+        }
+        //create the earnings data points from the quearterlyEarnings[i] and the next 3 earnings data points
+
+        let thisFYQ4: EarningsDataPoint = {
+          fiscalDateEnding: quarterlyEarnings[i].fiscalDateEnding,
+          fiscalQuarter: 'Q4 FY' + fiscalYear,
+          reportedEPS: quarterlyEarnings[i].reportedEPS,
+          estimatedEPS: quarterlyEarnings[i].estimatedEPS,
+          surprise: quarterlyEarnings[i].surprise,
+          surprisePercentage: quarterlyEarnings[i].surprisePercentage
+        }
+        privateFormattedEarnings.push(thisFYQ4);
+
+        let thisFYQ3: EarningsDataPoint = {
+          fiscalDateEnding: quarterlyEarnings[i+1].fiscalDateEnding,
+          fiscalQuarter: 'Q3 FY' + fiscalYear,
+          reportedEPS: quarterlyEarnings[i+1].reportedEPS,
+          estimatedEPS: quarterlyEarnings[i+1].estimatedEPS,
+          surprise: quarterlyEarnings[i+1].surprise,
+          surprisePercentage: quarterlyEarnings[i+1].surprisePercentage
+        }
+        privateFormattedEarnings.push(thisFYQ3);
+
+        let thisFYQ2: EarningsDataPoint = {
+          fiscalDateEnding: quarterlyEarnings[i+2].fiscalDateEnding,
+          fiscalQuarter: 'Q2 FY' + fiscalYear,
+          reportedEPS: quarterlyEarnings[i+2].reportedEPS,
+          estimatedEPS: quarterlyEarnings[i+2].estimatedEPS,
+          surprise: quarterlyEarnings[i+2].surprise,
+          surprisePercentage: quarterlyEarnings[i+2].surprisePercentage
+        }
+        privateFormattedEarnings.push(thisFYQ2);
+
+        let thisFYQ1: EarningsDataPoint = {
+          fiscalDateEnding: quarterlyEarnings[i+3].fiscalDateEnding,
+          fiscalQuarter: 'Q1 FY' + fiscalYear,
+          reportedEPS: quarterlyEarnings[i+3].reportedEPS,
+          estimatedEPS: quarterlyEarnings[i+3].estimatedEPS,
+          surprise: quarterlyEarnings[i+3].surprise,
+          surprisePercentage: quarterlyEarnings[i+3].surprisePercentage
+        }
+        privateFormattedEarnings.push(thisFYQ1);
+      }
+
+      if (i == 7) {
+        privateFormattedEarnings.length = 8;
+        break;
+      }
+    }
+    return privateFormattedEarnings;
+          */
+
+
+          for (let i = 0; i < lengthOfQuarterlyReports; i++) {
+
+          }
         })
       })
     })

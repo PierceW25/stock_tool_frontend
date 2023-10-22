@@ -58,7 +58,7 @@ export class EarningsChartComponent {
         let fiscalYear = quarterlyEarnings[i].fiscalDateEnding.slice(2, 4)
 
         //Doing hackey stuff to get the quarter end dates to displaye with the correct fiscal year
-        //the reverse counter is used to ge the correct quarter end dates for the first 3 quarters of the year
+        //the reverse counter is used to get the correct quarter end dates for the first 3 quarters of the year
         let reverseCounter = i;
         for (let x = 0; x < i && i < 3; x++) {
           let oneOfFirstQuarterlyEarnings: EarningsDataPoint = {
