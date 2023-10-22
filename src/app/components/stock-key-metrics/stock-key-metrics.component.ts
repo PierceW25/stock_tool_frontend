@@ -11,7 +11,10 @@ export class StockKeyMetricsComponent {
 
   @Input() stockName: string = ''
   @Input() fiscalYears: string[] = []
+  @Input() quartersOfReports: string[] = []
   @Input() allMetrics: any[][] = []
+  @Input() quarterlyMetrics: any[][] = []
+  @Input() displayedMetrics: string = ''
   @Input() profitable: boolean = false
   @Input() growingRevenue: boolean = false
 

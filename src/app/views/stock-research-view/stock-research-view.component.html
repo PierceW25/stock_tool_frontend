@@ -113,9 +113,12 @@
                     <app-stock-key-metrics
                     [stockName]="stock.name"
                     [fiscalYears]="incomeStatementFiscalYears"
+                    [quartersOfReports]="quartersOfReports"
                     [profitable]="profitable"
                     [growingRevenue]="revenueGrowing"
-                    [allMetrics]="formattedKeyMetrics"></app-stock-key-metrics>
+                    [allMetrics]="formattedKeyMetrics"
+                    [quarterlyMetrics]="formattedQuarterlyMetrics"
+                    [displayedMetrics]="displayedReports"></app-stock-key-metrics>
                 </div>
             </div>
         </div>
