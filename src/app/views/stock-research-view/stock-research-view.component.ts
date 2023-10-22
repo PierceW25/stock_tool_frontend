@@ -225,18 +225,6 @@ export class StockResearchViewComponent implements OnInit {
   }
 
   getFinancialStatementsData(ticker: string) {
-    /* Annual records variables */
-    let localAllMetrics: any[][] = []
-    let localTotalRevenueRecords: any[] = []
-    let localNetIncomeRecords: any[] = []
-    let localOperatingCashflowRecords: any[] = []
-    let localFreeCashflowRecords: any[] = []
-    let localCapitalExpenditureRecords: any[] = []
-    let localTotalDebtRecords: any[] = []
-    let localTotalAssetsRecords: any[] = []
-    let localTotalLiabilitiesRecords: any[] = []
-    let localTotalShareholderEquityRecords: any[] = []
-    let localFiscalYears: string[] = []
 
     /* Quarterly Records Variables */
     let quartersOfReports: string[] = []
@@ -308,107 +296,11 @@ export class StockResearchViewComponent implements OnInit {
           }
 
 
-          for (let i = 0; i < lengthOfReports; i++) {
-            let fiscalYear = 'FY' + incomeStatementAnnualReports[i]['fiscalDateEnding'].slice(2, 4)
-            let totalRevenue = Number(incomeStatementAnnualReports[i]['totalRevenue']) || 'N/A'
-            let netIncome = Number(incomeStatementAnnualReports[i]['netIncome']) || 'N/A'
-            let totalDebt = Number(balanceSheetAnnualReports[i]['shortLongTermDebtTotal']) || 'N/A'
-            let totalAssets = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalAssets']) || 'N/A')
-            let totalLiabilities = this.formatFinancialData(Number(balanceSheetAnnualReports[i]['totalLiabilities']) || 'N/A')
-            let totalShareholderEquity = Number(balanceSheetAnnualReports[i]['totalShareholderEquity']) || 'N/A'
-            let operatingCashflow = Number(cashFlowAnnualReports[i]['operatingCashflow']) || 'N/A'
-            let capitalExpenditures = Number(cashFlowAnnualReports[i]['capitalExpenditures']) || 'N/A'
-            let freeCashflow: any
-
-
-            if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
-              freeCashflow = 'N/A'
-            } else {
-              freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
-            }
-
-            numericNetIncomeRecords.push(netIncome)
-            numericTotalRevenueRecords.push(totalRevenue)
-
-
-            localFiscalYears.push(fiscalYear)
-            localTotalRevenueRecords.push(this.formatFinancialData(totalRevenue))
-            localNetIncomeRecords.push(this.formatFinancialData(netIncome))
-            localOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
-            localCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
-            localFreeCashflowRecords.push(freeCashflow)
-            localTotalDebtRecords.push(this.formatFinancialData(totalDebt))
-            localTotalAssetsRecords.push(totalAssets)
-            localTotalLiabilitiesRecords.push(totalLiabilities)
-            localTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
-          }
-
-
-          //Formatting and checking net income and total revenue numeric records for profitability and revenue growth tags
-          for (let record of numericNetIncomeRecords) {
-            if (record == 'N/A') {
-              numericNetIncomeRecords.slice(numericNetIncomeRecords.indexOf(record), 1)
-            } else {
-              continue
-            }
-          }
-          for (let record of numericTotalRevenueRecords) {
-            if (record == 'N/A') {
-              numericTotalRevenueRecords.slice(numericTotalRevenueRecords.indexOf(record), 1)
-            } else {
-              continue
-            }
-          }
-          if (Number(numericNetIncomeRecords[0]) > 0) {
-            this.profitable = true
-          } else {
-            this.profitable = false
-          }
-          if (Number(numericTotalRevenueRecords[1]) < 
-          Number(numericTotalRevenueRecords[0])) {
-            this.revenueGrowing = true
-          } else {
-            this.revenueGrowing = false
-          }
-
-
-          //Formatting all local records with their respective titles
-          localTotalRevenueRecords.push('Total Revenue')
-          localNetIncomeRecords.push('Net Income')
-          localTotalDebtRecords.push('Total Debt')
-          localTotalAssetsRecords.push('Total Assets')
-          localTotalLiabilitiesRecords.push('Total Liabilities')
-          localTotalShareholderEquityRecords.push('Total Shareholder Equity')
-          localOperatingCashflowRecords.push('Operating Cashflow')
-          localCapitalExpenditureRecords.push('Capital Expenditures')
-          localFreeCashflowRecords.push('Free Cashflow')
-
-
-          //Reversing all local records for display and adding them to localAllMetrics
-          this.formattedFiscalYears = localFiscalYears.reverse()
-          this.rawTotalRevenue = localTotalRevenueRecords.reverse()
-          this.rawNetIncome = localNetIncomeRecords.reverse()
-          this.rawTotalDebt = localTotalDebtRecords.reverse()
-          this.rawTotalAssets = localTotalAssetsRecords.reverse()
-          this.rawTotalLiabilities = localTotalLiabilitiesRecords.reverse()
-          this.rawTotalShareholderEquity = localTotalShareholderEquityRecords.reverse()
-          this.rawOperatingCashflow = localOperatingCashflowRecords.reverse()
-          this.rawCapitalExpenditures = localCapitalExpenditureRecords.reverse()
-          this.rawFreeCashflow = localFreeCashflowRecords.reverse()
-
-          localAllMetrics.push(this.rawTotalRevenue)
-          localAllMetrics.push(this.rawTotalAssets)
-          localAllMetrics.push(this.rawTotalLiabilities)
-          localAllMetrics.push(this.rawNetIncome)
-          localAllMetrics.push(this.rawTotalShareholderEquity)
-          localAllMetrics.push(this.rawOperatingCashflow)
-          localAllMetrics.push(this.rawFreeCashflow)
-          localAllMetrics.push(this.rawCapitalExpenditures)
-          localAllMetrics.push(this.rawTotalDebt)
-          localAllMetrics.push(this.rawLongTermDebt)
-
-
-          this.formattedKeyMetrics = localAllMetrics
+          this.formattedKeyMetrics = this.createAnnualReportsRecords(
+            lengthOfReports, 
+            incomeStatementAnnualReports, 
+            balanceSheetAnnualReports, 
+            cashFlowAnnualReports)
 
 
           let variableDate = new Date(this.stock.fiscalYearEnd + ' 1, 2023')
@@ -534,6 +426,125 @@ export class StockResearchViewComponent implements OnInit {
         })
       })
     })
+  }
+
+  createAnnualReportsRecords(
+    lengthOfReports: number, 
+    incomeStatementReports: any[],
+    balanceSheetReports: any[],
+    cashFlowReports: any[]) {
+    let localAllMetrics: any[][] = []
+    let localTotalRevenueRecords: any[] = []
+    let localNetIncomeRecords: any[] = []
+    let localOperatingCashflowRecords: any[] = []
+    let localFreeCashflowRecords: any[] = []
+    let localCapitalExpenditureRecords: any[] = []
+    let localTotalDebtRecords: any[] = []
+    let localTotalAssetsRecords: any[] = []
+    let localTotalLiabilitiesRecords: any[] = []
+    let localTotalShareholderEquityRecords: any[] = []
+
+    let localNumericNetIncomeRecords: any[] = []
+    let localNumericTotalRevenueRecords: any[] = []
+
+    let localFiscalYears: string[] = []
+
+    for (let i = 0; i < lengthOfReports; i++) {
+      let fiscalYear = 'FY' + incomeStatementReports[i]['fiscalDateEnding'].slice(2, 4)
+      let totalRevenue = Number(incomeStatementReports[i]['totalRevenue']) || 'N/A'
+      let netIncome = Number(incomeStatementReports[i]['netIncome']) || 'N/A'
+      let totalDebt = Number(balanceSheetReports[i]['shortLongTermDebtTotal']) || 'N/A'
+      let totalAssets = this.formatFinancialData(Number(balanceSheetReports[i]['totalAssets']) || 'N/A')
+      let totalLiabilities = this.formatFinancialData(Number(balanceSheetReports[i]['totalLiabilities']) || 'N/A')
+      let totalShareholderEquity = Number(balanceSheetReports[i]['totalShareholderEquity']) || 'N/A'
+      let operatingCashflow = Number(cashFlowReports[i]['operatingCashflow']) || 'N/A'
+      let capitalExpenditures = Number(cashFlowReports[i]['capitalExpenditures']) || 'N/A'
+      let freeCashflow: any
+
+      if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
+        freeCashflow = 'N/A'
+      } else {
+        freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
+      }
+
+      localNumericNetIncomeRecords.push(netIncome)
+      localNumericTotalRevenueRecords.push(totalRevenue)
+
+      localFiscalYears.push(fiscalYear)
+      localTotalRevenueRecords.push(this.formatFinancialData(totalRevenue))
+      localNetIncomeRecords.push(this.formatFinancialData(netIncome))
+      localOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
+      localCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
+      localFreeCashflowRecords.push(freeCashflow)
+      localTotalDebtRecords.push(this.formatFinancialData(totalDebt))
+      localTotalAssetsRecords.push(totalAssets)
+      localTotalLiabilitiesRecords.push(totalLiabilities)
+      localTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
+    }
+
+    //Formatting and checking net income and total revenue numeric records for profitability and revenue growth tags
+    for (let record of localNumericNetIncomeRecords) {
+      if (record == 'N/A') {
+        localNumericNetIncomeRecords.slice(localNumericNetIncomeRecords.indexOf(record), 1)
+      } else {
+        continue
+      }
+    }
+    for (let record of localNumericTotalRevenueRecords) {
+      if (record == 'N/A') {
+        localNumericTotalRevenueRecords.slice(localNumericTotalRevenueRecords.indexOf(record), 1)
+      } else {
+        continue
+      }
+    }
+
+    if (Number(localNumericNetIncomeRecords[0]) > 0) {
+      this.profitable = true
+    } else {
+      this.profitable = false
+    }
+    if (Number(localNumericTotalRevenueRecords[1]) < Number(localNumericTotalRevenueRecords[0])) {
+      this.revenueGrowing = true
+    } else {
+      this.revenueGrowing = false
+    }
+
+    //Formatting all local records with their respective titles
+    localTotalRevenueRecords.push('Total Revenue')
+    localNetIncomeRecords.push('Net Income')
+    localTotalDebtRecords.push('Total Debt')
+    localTotalAssetsRecords.push('Total Assets')
+    localTotalLiabilitiesRecords.push('Total Liabilities')
+    localTotalShareholderEquityRecords.push('Total Shareholder Equity')
+    localOperatingCashflowRecords.push('Operating Cashflow')
+    localCapitalExpenditureRecords.push('Capital Expenditures')
+    localFreeCashflowRecords.push('Free Cashflow')
+
+    //Reversing all local records for display and adding them to localAllMetrics
+    localFiscalYears.reverse()
+    localTotalRevenueRecords.reverse()
+    localNetIncomeRecords.reverse()
+    localOperatingCashflowRecords.reverse()
+    localCapitalExpenditureRecords.reverse()
+    localFreeCashflowRecords.reverse()
+    localTotalDebtRecords.reverse()
+    localTotalAssetsRecords.reverse()
+    localTotalLiabilitiesRecords.reverse()
+    localTotalShareholderEquityRecords.reverse()
+
+    localAllMetrics.push(localTotalRevenueRecords)
+    localAllMetrics.push(localTotalAssetsRecords)
+    localAllMetrics.push(localTotalLiabilitiesRecords)
+    localAllMetrics.push(localNetIncomeRecords)
+    localAllMetrics.push(localTotalShareholderEquityRecords)
+    localAllMetrics.push(localOperatingCashflowRecords)
+    localAllMetrics.push(localFreeCashflowRecords)
+    localAllMetrics.push(localCapitalExpenditureRecords)
+    localAllMetrics.push(localTotalDebtRecords)
+
+    this.formattedFiscalYears = localFiscalYears
+
+    return localAllMetrics
   }
 
   formatFinancialData(data: any): string {
