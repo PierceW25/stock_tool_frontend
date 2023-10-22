@@ -94,14 +94,6 @@ export class StockResearchViewComponent implements OnInit {
   revenueGrowing: boolean = false
   displayedReports: string = 'annual'
 
-  incomeStatementFiscalYears: string[] = []
-
-
-  q4EndMonth: any
-  q3EndMonth: any
-  q2EndMonth: any
-  q1EndMonth: any
-
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {
@@ -226,49 +218,30 @@ export class StockResearchViewComponent implements OnInit {
 
   getFinancialStatementsData(ticker: string) {
 
-    /* Quarterly Records Variables */
-    let quartersOfReports: string[] = []
-    let q4EndMonth: number
-    let q3EndMonth: number
-    let q2EndMonth: number
-    let q1EndMonth: number 
-
-    let quarterlyRevenueRecords: any[] = []
-    let quarterlyNetIncomeRecords: any[] = []
-    let quarterlyOperatingCashflowRecords: any[] = []
-    let quarterlyFreeCashflowRecords: any[] = []
-    let quarterlyCapitalExpenditureRecords: any[] = []
-    let quarterlyTotalDebtRecords: any[] = []
-    let quarterlyTotalAssetsRecords: any[] = []
-    let quarterlyTotalLiabilitiesRecords: any[] = []
-    let quarterlyTotalShareholderEquityRecords: any[] = []
-
-    let allQuarterlyRecords: any[][] = []
-
-
-    /* Stock Tags Variables */
-    let numericTotalRevenueRecords: any[] = []
-    let numericNetIncomeRecords: any[] = []
-
-
     this.stockApi.getIncomeStatement(ticker).subscribe((incomeResponse: any) => {
       let incomeStatementResponse: any = incomeResponse
+      
       let incomeStatementAnnualReports = incomeStatementResponse['annualReports']
       let incomeStatementQuarterlyReports = incomeStatementResponse['quarterlyReports']
+      
       let lengthAnnualReports = incomeStatementAnnualReports.length
       let lengthQuarterlyReports = incomeStatementQuarterlyReports.length
 
       this.stockApi.getBalanceSheet(ticker).subscribe((balanceResponse: any) => {
         let balanceSheetResponse: any = balanceResponse
+        
         let balanceSheetAnnualReports = balanceSheetResponse['annualReports']
         let balanceSheetQuarterlyReports = balanceSheetResponse['quarterlyReports']
+        
         let lengthBalanceSheetReports = balanceSheetAnnualReports.length
         let lengthBalanceSheetQuarterlyReports = balanceSheetQuarterlyReports.length
 
         this.stockApi.getCashFlow(ticker).subscribe((cashResponse: any) => {
           let cashFlowResponse: any = cashResponse
+          
           let cashFlowAnnualReports = cashFlowResponse['annualReports']
           let cashFlowQuarterlyReports = cashFlowResponse['quarterlyReports']
+          
           let lengthCashFlowReports = cashFlowAnnualReports.length
           let lengthCashFlowQuarterlyReports = cashFlowQuarterlyReports.length
 
@@ -303,126 +276,11 @@ export class StockResearchViewComponent implements OnInit {
             cashFlowAnnualReports)
 
 
-          let variableDate = new Date(this.stock.fiscalYearEnd + ' 1, 2023')
-          //crete new date variable three months before the fiscal year end
-
-          q4EndMonth = variableDate.getMonth() + 1
-          variableDate.setMonth(variableDate.getMonth() - 3)
-
-          q3EndMonth = variableDate.getMonth() + 1
-          variableDate.setMonth(variableDate.getMonth() - 3)
-
-          q2EndMonth = variableDate.getMonth() + 1
-          variableDate.setMonth(variableDate.getMonth() - 3)
-
-          q1EndMonth = variableDate.getMonth() + 1
-
-
-          for (let i = 0; i < lengthOfQuarterlyReports; i++) {
-            let monthOfReport = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding']).getMonth() + 1
-            let fiscalYear = 'FY'
-            let fiscalQuarter = 'Q'
-            let reportLabel = ''
-
-            if (q4EndMonth == monthOfReport) {
-              fiscalQuarter += '4'
-              fiscalYear += incomeStatementQuarterlyReports[i]['fiscalDateEnding'].slice(2, 4)
-              reportLabel = fiscalQuarter + ' ' + fiscalYear
-              quartersOfReports.push(reportLabel)
-            } else if (q3EndMonth == monthOfReport) {
-              fiscalQuarter += '3'
-              let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
-              quartersEndDate.setMonth(quartersEndDate.getMonth() + 3)
-              fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
-              reportLabel = fiscalQuarter + ' ' + fiscalYear
-              quartersOfReports.push(reportLabel)
-            } else if (q2EndMonth == monthOfReport) {
-              fiscalQuarter += '2'
-              let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
-              quartersEndDate.setMonth(quartersEndDate.getMonth() + 6)
-              fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
-              reportLabel = fiscalQuarter + ' ' + fiscalYear
-              quartersOfReports.push(reportLabel)
-            } else if (q1EndMonth == monthOfReport) {
-              fiscalQuarter += '1'
-              let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
-              quartersEndDate.setMonth(quartersEndDate.getMonth() + 9)
-              fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
-              reportLabel = fiscalQuarter + ' ' + fiscalYear
-              quartersOfReports.push(reportLabel)
-            } else {
-              console.log('error formatting quarterly reports labels')
-            }
-
-            let totalRevenue = Number(incomeStatementQuarterlyReports[i]['totalRevenue']) || 'N/A'
-            let netIncome = Number(incomeStatementQuarterlyReports[i]['netIncome']) || 'N/A'
-            let totalDebt = Number(balanceSheetQuarterlyReports[i]['shortLongTermDebtTotal']) || 'N/A'
-            let totalAssets = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalAssets']) || 'N/A')
-            let totalLiabilities = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalLiabilities']) || 'N/A')
-            let totalShareholderEquity = Number(balanceSheetQuarterlyReports[i]['totalShareholderEquity']) || 'N/A'
-            let operatingCashflow = Number(cashFlowQuarterlyReports[i]['operatingCashflow']) || 'N/A'
-            let capitalExpenditures = Number(cashFlowQuarterlyReports[i]['capitalExpenditures']) || 'N/A'
-
-            let freeCashflow: any
-
-            if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
-              freeCashflow = 'N/A'
-            } else {
-              freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
-            }
-
-            quarterlyRevenueRecords.push(this.formatFinancialData(totalRevenue))
-            quarterlyNetIncomeRecords.push(this.formatFinancialData(netIncome))
-            quarterlyTotalDebtRecords.push(this.formatFinancialData(totalDebt))
-            quarterlyTotalAssetsRecords.push(totalAssets)
-            quarterlyTotalLiabilitiesRecords.push(totalLiabilities)
-            quarterlyTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
-            quarterlyOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
-            quarterlyCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
-            quarterlyFreeCashflowRecords.push(freeCashflow)
-
-            if (quartersOfReports.length > 7) {
-              break
-            }
-          }
-
-          //Formatting all quarterly records with their respective titles
-          quarterlyRevenueRecords.push('Total Revenue')
-          quarterlyNetIncomeRecords.push('Net Income')
-          quarterlyTotalDebtRecords.push('Total Debt')
-          quarterlyTotalAssetsRecords.push('Total Assets')
-          quarterlyTotalLiabilitiesRecords.push('Total Liabilities')
-          quarterlyTotalShareholderEquityRecords.push('Total Shareholder Equity')
-          quarterlyOperatingCashflowRecords.push('Operating Cashflow')
-          quarterlyCapitalExpenditureRecords.push('Capital Expenditures')
-          quarterlyFreeCashflowRecords.push('Free Cashflow')
-
-
-          //Reversing all quarterly records for display and adding them to localAllMetrics
-
-          this.rawTotalRevenue = quarterlyRevenueRecords.reverse()
-          this.rawNetIncome = quarterlyNetIncomeRecords.reverse()
-          this.rawTotalDebt = quarterlyTotalDebtRecords.reverse()
-          this.rawTotalAssets = quarterlyTotalAssetsRecords.reverse()
-          this.rawTotalLiabilities = quarterlyTotalLiabilitiesRecords.reverse()
-          this.rawTotalShareholderEquity = quarterlyTotalShareholderEquityRecords.reverse()
-          this.rawOperatingCashflow = quarterlyOperatingCashflowRecords.reverse()
-          this.rawCapitalExpenditures = quarterlyCapitalExpenditureRecords.reverse()
-          this.rawFreeCashflow = quarterlyFreeCashflowRecords.reverse()
-
-
-          allQuarterlyRecords.push(this.rawTotalRevenue)
-          allQuarterlyRecords.push(this.rawTotalAssets)
-          allQuarterlyRecords.push(this.rawTotalLiabilities)
-          allQuarterlyRecords.push(this.rawNetIncome)
-          allQuarterlyRecords.push(this.rawTotalShareholderEquity)
-          allQuarterlyRecords.push(this.rawOperatingCashflow)
-          allQuarterlyRecords.push(this.rawFreeCashflow)
-          allQuarterlyRecords.push(this.rawCapitalExpenditures)
-          allQuarterlyRecords.push(this.rawTotalDebt)
-
-          this.quartersOfReports = quartersOfReports.reverse()
-          this.formattedQuarterlyMetrics = allQuarterlyRecords
+          this.formattedQuarterlyMetrics = this.createQuarterlyReportsRecords(
+            lengthOfQuarterlyReports,
+            incomeStatementQuarterlyReports,
+            balanceSheetQuarterlyReports,
+            cashFlowQuarterlyReports)
         })
       })
     })
@@ -545,6 +403,146 @@ export class StockResearchViewComponent implements OnInit {
     this.formattedFiscalYears = localFiscalYears
 
     return localAllMetrics
+  }
+
+  createQuarterlyReportsRecords(lengthOfQuarterlyReports: number, incomeStatementQuarterlyReports: any[], balanceSheetQuarterlyReports: any[], cashFlowQuarterlyReports: any[]) {
+    /* Quarterly Records Variables */
+    let quartersOfReports: string[] = []
+    let q4EndMonth: number
+    let q3EndMonth: number
+    let q2EndMonth: number
+    let q1EndMonth: number 
+
+    let quarterlyRevenueRecords: any[] = []
+    let quarterlyNetIncomeRecords: any[] = []
+    let quarterlyOperatingCashflowRecords: any[] = []
+    let quarterlyFreeCashflowRecords: any[] = []
+    let quarterlyCapitalExpenditureRecords: any[] = []
+    let quarterlyTotalDebtRecords: any[] = []
+    let quarterlyTotalAssetsRecords: any[] = []
+    let quarterlyTotalLiabilitiesRecords: any[] = []
+    let quarterlyTotalShareholderEquityRecords: any[] = []
+
+    let allQuarterlyRecords: any[][] = []
+
+    let variableDate = new Date(this.stock.fiscalYearEnd + ' 1, 2023')
+          //crete new date variable three months before the fiscal year end
+
+    q4EndMonth = variableDate.getMonth() + 1
+    variableDate.setMonth(variableDate.getMonth() - 3)
+
+    q3EndMonth = variableDate.getMonth() + 1
+    variableDate.setMonth(variableDate.getMonth() - 3)
+
+    q2EndMonth = variableDate.getMonth() + 1
+    variableDate.setMonth(variableDate.getMonth() - 3)
+
+    q1EndMonth = variableDate.getMonth() + 1
+
+
+    for (let i = 0; i < lengthOfQuarterlyReports; i++) {
+      let monthOfReport = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding']).getMonth() + 1
+      let fiscalYear = 'FY'
+      let fiscalQuarter = 'Q'
+      let reportLabel = ''
+
+      if (q4EndMonth == monthOfReport) {
+        fiscalQuarter += '4'
+        fiscalYear += incomeStatementQuarterlyReports[i]['fiscalDateEnding'].slice(2, 4)
+        reportLabel = fiscalQuarter + ' ' + fiscalYear
+        quartersOfReports.push(reportLabel)
+      } else if (q3EndMonth == monthOfReport) {
+        fiscalQuarter += '3'
+        let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
+        quartersEndDate.setMonth(quartersEndDate.getMonth() + 3)
+        fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
+        reportLabel = fiscalQuarter + ' ' + fiscalYear
+        quartersOfReports.push(reportLabel)
+      } else if (q2EndMonth == monthOfReport) {
+        fiscalQuarter += '2'
+        let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
+        quartersEndDate.setMonth(quartersEndDate.getMonth() + 6)
+        fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
+        reportLabel = fiscalQuarter + ' ' + fiscalYear
+        quartersOfReports.push(reportLabel)
+      } else if (q1EndMonth == monthOfReport) {
+        fiscalQuarter += '1'
+        let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
+        quartersEndDate.setMonth(quartersEndDate.getMonth() + 9)
+        fiscalYear += quartersEndDate.getFullYear().toString().slice(2, 4)
+        reportLabel = fiscalQuarter + ' ' + fiscalYear
+        quartersOfReports.push(reportLabel)
+      } else {
+        console.log('error formatting quarterly reports labels')
+      }
+
+      let totalRevenue = Number(incomeStatementQuarterlyReports[i]['totalRevenue']) || 'N/A'
+      let netIncome = Number(incomeStatementQuarterlyReports[i]['netIncome']) || 'N/A'
+      let totalDebt = Number(balanceSheetQuarterlyReports[i]['shortLongTermDebtTotal']) || 'N/A'
+      let totalAssets = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalAssets']) || 'N/A')
+      let totalLiabilities = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalLiabilities']) || 'N/A')
+      let totalShareholderEquity = Number(balanceSheetQuarterlyReports[i]['totalShareholderEquity']) || 'N/A'
+      let operatingCashflow = Number(cashFlowQuarterlyReports[i]['operatingCashflow']) || 'N/A'
+      let capitalExpenditures = Number(cashFlowQuarterlyReports[i]['capitalExpenditures']) || 'N/A'
+
+      let freeCashflow: any
+
+      if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
+        freeCashflow = 'N/A'
+      } else {
+        freeCashflow = this.formatFinancialData(Number(operatingCashflow) - Number(capitalExpenditures))
+      }
+
+      quarterlyRevenueRecords.push(this.formatFinancialData(totalRevenue))
+      quarterlyNetIncomeRecords.push(this.formatFinancialData(netIncome))
+      quarterlyTotalDebtRecords.push(this.formatFinancialData(totalDebt))
+      quarterlyTotalAssetsRecords.push(totalAssets)
+      quarterlyTotalLiabilitiesRecords.push(totalLiabilities)
+      quarterlyTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
+      quarterlyOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
+      quarterlyCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
+      quarterlyFreeCashflowRecords.push(freeCashflow)
+
+      if (quartersOfReports.length > 7) {
+        break
+      }
+    }
+
+    //Formatting all quarterly records with their respective titles
+    quarterlyRevenueRecords.push('Total Revenue')
+    quarterlyNetIncomeRecords.push('Net Income')
+    quarterlyTotalDebtRecords.push('Total Debt')
+    quarterlyTotalAssetsRecords.push('Total Assets')
+    quarterlyTotalLiabilitiesRecords.push('Total Liabilities')
+    quarterlyTotalShareholderEquityRecords.push('Total Shareholder Equity')
+    quarterlyOperatingCashflowRecords.push('Operating Cashflow')
+    quarterlyCapitalExpenditureRecords.push('Capital Expenditures')
+    quarterlyFreeCashflowRecords.push('Free Cashflow')
+
+    quartersOfReports.reverse()
+    quarterlyRevenueRecords.reverse()
+    quarterlyNetIncomeRecords.reverse()
+    quarterlyOperatingCashflowRecords.reverse()
+    quarterlyCapitalExpenditureRecords.reverse()
+    quarterlyFreeCashflowRecords.reverse()
+    quarterlyTotalDebtRecords.reverse()
+    quarterlyTotalAssetsRecords.reverse()
+    quarterlyTotalLiabilitiesRecords.reverse()
+    quarterlyTotalShareholderEquityRecords.reverse()
+
+    allQuarterlyRecords.push(quarterlyRevenueRecords)
+    allQuarterlyRecords.push(quarterlyTotalAssetsRecords)
+    allQuarterlyRecords.push(quarterlyTotalLiabilitiesRecords)
+    allQuarterlyRecords.push(quarterlyNetIncomeRecords)
+    allQuarterlyRecords.push(quarterlyTotalShareholderEquityRecords)
+    allQuarterlyRecords.push(quarterlyOperatingCashflowRecords)
+    allQuarterlyRecords.push(quarterlyFreeCashflowRecords)
+    allQuarterlyRecords.push(quarterlyCapitalExpenditureRecords)
+    allQuarterlyRecords.push(quarterlyTotalDebtRecords)
+    
+    this.quartersOfReports = quartersOfReports
+    return allQuarterlyRecords
+
   }
 
   formatFinancialData(data: any): string {
