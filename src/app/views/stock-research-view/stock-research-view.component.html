@@ -109,16 +109,15 @@
                     </div>
                 </div>
 
-                <div class="keyMetricsTableContainer">
+                <div class="keyMetricsTableContainer" [hidden]="displayedReports == 'quarterly'">
                     <app-stock-key-metrics
-                    [stockName]="stock.name"
-                    [fiscalYears]="incomeStatementFiscalYears"
-                    [quartersOfReports]="quartersOfReports"
-                    [profitable]="profitable"
-                    [growingRevenue]="revenueGrowing"
                     [allMetrics]="formattedKeyMetrics"
-                    [quarterlyMetrics]="formattedQuarterlyMetrics"
-                    [displayedMetrics]="displayedReports"></app-stock-key-metrics>
+                    [reportTerms]="formattedFiscalYears"></app-stock-key-metrics>
+                </div>
+                <div class="keyMetricsTableContainer" [hidden]="displayedReports == 'annual'">
+                    <app-stock-key-metrics
+                    [allMetrics]="formattedQuarterlyMetrics"
+                    [reportTerms]="quartersOfReports"></app-stock-key-metrics>
                 </div>
             </div>
         </div>

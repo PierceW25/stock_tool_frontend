@@ -140,16 +140,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="keyMetricsContainer anAnalysisContainer financialStatement" 
-                [hidden]="!keyMetricsSelected"
-                *ngIf="analysisReady">
-                    <app-stock-key-metrics
-                    [stockName]="analysisStock.name"
-                    [fiscalYears]="incomeStatementFiscalYears"
-                    [profitable]="profitable"
-                    [growingRevenue]="revenueGrowing"
-                    [allMetrics]="formattedKeyMetrics"></app-stock-key-metrics>
-                </div>
                 <div class="healthAndStability anAnalysisContainer financialStatement" 
                 [hidden]="!healthAndStabilitySelected">
                     <app-stock-health-metrics 

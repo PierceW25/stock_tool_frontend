@@ -385,7 +385,7 @@ export class StockResearchViewComponent implements OnInit {
 
 
           //Reversing all local records for display and adding them to localAllMetrics
-          this.incomeStatementFiscalYears = localFiscalYears.reverse()
+          this.formattedFiscalYears = localFiscalYears.reverse()
           this.rawTotalRevenue = localTotalRevenueRecords.reverse()
           this.rawNetIncome = localNetIncomeRecords.reverse()
           this.rawTotalDebt = localTotalDebtRecords.reverse()
@@ -488,6 +488,10 @@ export class StockResearchViewComponent implements OnInit {
             quarterlyOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
             quarterlyCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
             quarterlyFreeCashflowRecords.push(freeCashflow)
+
+            if (quartersOfReports.length > 7) {
+              break
+            }
           }
 
           //Formatting all quarterly records with their respective titles

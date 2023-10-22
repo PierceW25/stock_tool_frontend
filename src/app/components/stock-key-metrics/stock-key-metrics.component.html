@@ -1,28 +1,15 @@
 
 <div class="allContentContainer">
     <div class="stockTitleAndTableContainer">
-        <div class="keyMetricsTableContainer" [hidden]="displayedMetrics == 'quarterly'">
-            <table class="keyMetricsTable">
-                <tr>
-                    <th>Metric</th>
-                    <th *ngFor="let year of fiscalYears">{{year}}</th>
-                </tr>
-                <tr *ngFor="let metric of allMetrics" (click)="renderDefinition(metric[0])" class="dataRow">
-                    <td *ngFor="let value of metric">{{value}}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="keyMetricsTableContainer" [hidden]="displayedMetrics == 'annual'">
-            <table class="keyMetricsTable">
-                <tr>
-                    <th>Metric</th>
-                    <th *ngFor="let quarter of quartersOfReports">{{quarter}}</th>
-                </tr>
-                <tr *ngFor="let metric of quarterlyMetrics" (click)="renderDefinition(metric[0])" class="dataRow">
-                    <td *ngFor="let value of metric">{{value}}</td>
-                </tr>
-            </table>
-        </div>
+        <table class="keyMetricsTable">
+            <tr>
+                <th>Metric</th>
+                <th *ngFor="let term of reportTerms">{{term}}</th>
+            </tr>
+            <tr *ngFor="let metric of allMetrics" (click)="renderDefinition(metric[0])" class="dataRow">
+                <td *ngFor="let value of metric">{{value}}</td>
+            </tr>
+        </table>
     </div>
     <div class="metricDefinitionsContainer">
         <div class="metricDefinition">
