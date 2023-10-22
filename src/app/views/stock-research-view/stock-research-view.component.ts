@@ -89,6 +89,12 @@ export class StockResearchViewComponent implements OnInit {
 
   incomeStatementFiscalYears: string[] = []
 
+
+  q4EndMonth: any
+  q3EndMonth: any
+  q2EndMonth: any
+  q1EndMonth: any
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {
@@ -104,7 +110,6 @@ export class StockResearchViewComponent implements OnInit {
           this.stock.days_change = '$' + this.stock.days_change
         }
       }
-
       this.getFinancialStatementsData(this.stock.ticker)
     })
 
@@ -459,10 +464,44 @@ export class StockResearchViewComponent implements OnInit {
     }
     return privateFormattedEarnings;
           */
+          let variableDate = new Date(this.stock.fiscalYearEnd + ' 1, 2023')
+          //crete new date variable three months before the fiscal year end
+
+
+          this.q4EndMonth = variableDate.getMonth() + 1
+          variableDate.setMonth(variableDate.getMonth() - 3)
+
+          this.q3EndMonth = variableDate.getMonth()
+          variableDate.setMonth(variableDate.getMonth() - 3)
+
+          this.q2EndMonth = variableDate.getMonth()
+          variableDate.setMonth(variableDate.getMonth() - 3)
+
+          this.q1EndMonth = variableDate.getMonth()
+
+          console.log(this.q4EndMonth)
+          console.log(this.q3EndMonth)
+          console.log(this.q2EndMonth)
+          console.log(this.q1EndMonth)
 
 
           for (let i = 0; i < lengthOfQuarterlyReports; i++) {
+            let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding']).getMonth() + 1
+            let fiscalYear = 'FY'
+            let fiscalQuarter = 'Q'
 
+            if (quartersEndDate == fiscalYearEndMonth) {
+              fiscalQuarter += '4'
+              fiscalYear += incomeStatementQuarterlyReports[i]['fiscalDateEnding'].slice(2, 4)
+            } else if (quartersEndDate == fiscalYearEndMonth - 3) {
+              fiscalQuarter += '3'
+              let quartersEndDate = new Date(incomeStatementQuarterlyReports[i]['fiscalDateEnding'])
+              //subtract three months from quartersEndDate so that the date is now three months earlier than it is
+              quartersEndDate.setMonth(quartersEndDate.getMonth() - 3)
+
+
+
+            }
           }
         })
       })
