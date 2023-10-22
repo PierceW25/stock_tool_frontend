@@ -14,7 +14,6 @@ import { StockResearchViewComponent } from './views/stock-research-view/stock-re
 import { AddStockModalComponent } from './modals/add-stock-modal/add-stock-modal.component';
 import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
 import { MarketViewComponent } from './views/market-view/market-view.component';
-import { AnalysisViewComponent } from './views/analysis-view/analysis-view.component';
 import { DiscoveryViewComponent } from './views/discovery-view/discovery-view.component';
 import { CustomNewsViewComponent } from './views/custom-news-view/custom-news-view.component';
 import { HomePageViewComponent } from './views/home-page-view/home-page-view.component';
@@ -31,9 +30,6 @@ import { IncomeStatementAnalysisComponent } from './components/income-statement-
 import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analysis/balance-sheet-analysis.component';
 import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
 import { StockKeyMetricsComponent } from './components/stock-key-metrics/stock-key-metrics.component';
-import { StockHealthMetricsComponent } from './components/stock-health-metrics/stock-health-metrics.component';
-import { StockGrowthMetricsComponent } from './components/stock-growth-metrics/stock-growth-metrics.component';
-import { MainAnalysisViewComponent } from './views/main-analysis-view/main-analysis-view.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +39,6 @@ import { MainAnalysisViewComponent } from './views/main-analysis-view/main-analy
     AddStockModalComponent,
     MainNavBarComponent,
     MarketViewComponent,
-    AnalysisViewComponent,
     DiscoveryViewComponent,
     CustomNewsViewComponent,
     HomePageViewComponent,
@@ -59,10 +54,7 @@ import { MainAnalysisViewComponent } from './views/main-analysis-view/main-analy
     IncomeStatementAnalysisComponent,
     BalanceSheetAnalysisComponent,
     CashFlowAnalysisComponent,
-    StockKeyMetricsComponent,
-    StockHealthMetricsComponent,
-    StockGrowthMetricsComponent,
-    MainAnalysisViewComponent
+    StockKeyMetricsComponent
   ],
   imports: [
     BrowserModule,

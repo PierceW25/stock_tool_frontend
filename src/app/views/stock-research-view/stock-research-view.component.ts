@@ -281,6 +281,12 @@ export class StockResearchViewComponent implements OnInit {
             incomeStatementQuarterlyReports,
             balanceSheetQuarterlyReports,
             cashFlowQuarterlyReports)
+
+          if (this.formattedFiscalYears.length > 3) {
+            this.displayedReports = 'annual'
+          } else {
+            this.displayedReports = 'quarterly'
+          }
         })
       })
     })
