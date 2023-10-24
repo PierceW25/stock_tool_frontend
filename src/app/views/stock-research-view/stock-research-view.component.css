@@ -156,6 +156,13 @@ body {
   cursor: pointer;
 }
 
+.stockAddedSuccessMessage {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #00C805;
+}
+
 .keyMetricsContainer {
   width: 80%;
   margin-top: 20px;

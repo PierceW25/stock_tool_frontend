@@ -112,6 +112,9 @@
                                 <div class="addStockBtnContainer">
                                     <button class="addStockBtn" (click)="onAddToWatchlist()">+</button>
                                 </div>
+                                <div [@myInsertRemoveTrigger] *ngIf="stockAddedToWatchlist" class="stockAddedSuccessMessage">
+                                    <p>Added</p>
+                                </div>
                             </div>  
                         </div>
                     </div>
