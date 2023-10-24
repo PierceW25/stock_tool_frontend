@@ -304,9 +304,12 @@ export class StockResearchViewComponent implements OnInit {
     let localFreeCashflowRecords: any[] = []
     let localCapitalExpenditureRecords: any[] = []
     let localTotalDebtRecords: any[] = []
+    let localLongTermDebtRecords: any[] = []
     let localTotalAssetsRecords: any[] = []
     let localTotalLiabilitiesRecords: any[] = []
     let localTotalShareholderEquityRecords: any[] = []
+    let localGrossProfitMarginRecords: any[] = []
+    let localOperatingIncomeMarginRecords: any[] = []
 
     let localNumericNetIncomeRecords: any[] = []
     let localNumericTotalRevenueRecords: any[] = []
@@ -318,12 +321,18 @@ export class StockResearchViewComponent implements OnInit {
       let totalRevenue = Number(incomeStatementReports[i]['totalRevenue']) || 'N/A'
       let netIncome = Number(incomeStatementReports[i]['netIncome']) || 'N/A'
       let totalDebt = Number(balanceSheetReports[i]['shortLongTermDebtTotal']) || 'N/A'
+      let longTermDebt = Number(balanceSheetReports[i]['longTermDebtNoncurrent']) || 'N/A'
       let totalAssets = this.formatFinancialData(Number(balanceSheetReports[i]['totalAssets']) || 'N/A')
       let totalLiabilities = this.formatFinancialData(Number(balanceSheetReports[i]['totalLiabilities']) || 'N/A')
       let totalShareholderEquity = Number(balanceSheetReports[i]['totalShareholderEquity']) || 'N/A'
       let operatingCashflow = Number(cashFlowReports[i]['operatingCashflow']) || 'N/A'
       let capitalExpenditures = Number(cashFlowReports[i]['capitalExpenditures']) || 'N/A'
+      let grossProfit = Number(incomeStatementReports[i]['grossProfit']) || 'N/A'
+      let operatingIncome = Number(incomeStatementReports[i]['operatingIncome']) || 'N/A'
       let freeCashflow: any
+
+      let grossProfitMargin = Number(((Number(grossProfit) / Number(totalRevenue)) * 100)).toFixed(2).toString() + '%'
+      let operatingIncomeMargin = Number(((Number(operatingIncome) / Number(totalRevenue)) * 100)).toFixed(2).toString() + '%'
 
       if (operatingCashflow == 'N/A' || capitalExpenditures == 'N/A') {
         freeCashflow = 'N/A'
@@ -341,9 +350,12 @@ export class StockResearchViewComponent implements OnInit {
       localCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
       localFreeCashflowRecords.push(freeCashflow)
       localTotalDebtRecords.push(this.formatFinancialData(totalDebt))
+      localLongTermDebtRecords.push(this.formatFinancialData(longTermDebt))
       localTotalAssetsRecords.push(totalAssets)
       localTotalLiabilitiesRecords.push(totalLiabilities)
       localTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
+      localGrossProfitMarginRecords.push(grossProfitMargin)
+      localOperatingIncomeMarginRecords.push(operatingIncomeMargin)
     }
 
     //Formatting and checking net income and total revenue numeric records for profitability and revenue growth tags
@@ -377,12 +389,15 @@ export class StockResearchViewComponent implements OnInit {
     localTotalRevenueRecords.push('Total Revenue')
     localNetIncomeRecords.push('Net Income')
     localTotalDebtRecords.push('Total Debt')
+    localLongTermDebtRecords.push('Long Term Debt')
     localTotalAssetsRecords.push('Total Assets')
     localTotalLiabilitiesRecords.push('Total Liabilities')
     localTotalShareholderEquityRecords.push('Total Shareholder Equity')
     localOperatingCashflowRecords.push('Operating Cashflow')
     localCapitalExpenditureRecords.push('Capital Expenditures')
     localFreeCashflowRecords.push('Free Cashflow')
+    localGrossProfitMarginRecords.push('Gross Profit Margin')
+    localOperatingIncomeMarginRecords.push('Operating Income Margin')
 
     //Reversing all local records for display and adding them to localAllMetrics
     localFiscalYears.reverse()
@@ -392,9 +407,12 @@ export class StockResearchViewComponent implements OnInit {
     localCapitalExpenditureRecords.reverse()
     localFreeCashflowRecords.reverse()
     localTotalDebtRecords.reverse()
+    localLongTermDebtRecords.reverse()
     localTotalAssetsRecords.reverse()
     localTotalLiabilitiesRecords.reverse()
     localTotalShareholderEquityRecords.reverse()
+    localGrossProfitMarginRecords.reverse()
+    localOperatingIncomeMarginRecords.reverse()
 
     localAllMetrics.push(localTotalRevenueRecords)
     localAllMetrics.push(localTotalAssetsRecords)
@@ -405,6 +423,9 @@ export class StockResearchViewComponent implements OnInit {
     localAllMetrics.push(localFreeCashflowRecords)
     localAllMetrics.push(localCapitalExpenditureRecords)
     localAllMetrics.push(localTotalDebtRecords)
+    localAllMetrics.push(localLongTermDebtRecords)
+    localAllMetrics.push(localGrossProfitMarginRecords)
+    localAllMetrics.push(localOperatingIncomeMarginRecords)
 
     this.formattedFiscalYears = localFiscalYears
 
@@ -425,9 +446,12 @@ export class StockResearchViewComponent implements OnInit {
     let quarterlyFreeCashflowRecords: any[] = []
     let quarterlyCapitalExpenditureRecords: any[] = []
     let quarterlyTotalDebtRecords: any[] = []
+    let quarterlyLongTermDebtRecords: any[] = []
     let quarterlyTotalAssetsRecords: any[] = []
     let quarterlyTotalLiabilitiesRecords: any[] = []
     let quarterlyTotalShareholderEquityRecords: any[] = []
+    let quarterlyGrossProfitMarginRecords: any[] = []
+    let quarterlyOperatingIncomeMarginRecords: any[] = []
 
     let allQuarterlyRecords: any[][] = []
 
@@ -485,11 +509,17 @@ export class StockResearchViewComponent implements OnInit {
       let totalRevenue = Number(incomeStatementQuarterlyReports[i]['totalRevenue']) || 'N/A'
       let netIncome = Number(incomeStatementQuarterlyReports[i]['netIncome']) || 'N/A'
       let totalDebt = Number(balanceSheetQuarterlyReports[i]['shortLongTermDebtTotal']) || 'N/A'
+      let longTermDebt = Number(balanceSheetQuarterlyReports[i]['longTermDebtNoncurrent']) || 'N/A'
       let totalAssets = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalAssets']) || 'N/A')
       let totalLiabilities = this.formatFinancialData(Number(balanceSheetQuarterlyReports[i]['totalLiabilities']) || 'N/A')
       let totalShareholderEquity = Number(balanceSheetQuarterlyReports[i]['totalShareholderEquity']) || 'N/A'
       let operatingCashflow = Number(cashFlowQuarterlyReports[i]['operatingCashflow']) || 'N/A'
       let capitalExpenditures = Number(cashFlowQuarterlyReports[i]['capitalExpenditures']) || 'N/A'
+      let grossProfit = Number(incomeStatementQuarterlyReports[i]['grossProfit']) || 'N/A'
+      let operatingIncome = Number(incomeStatementQuarterlyReports[i]['operatingIncome']) || 'N/A'
+
+      let grossProfitMargin = Number(((Number(grossProfit) / Number(totalRevenue)) * 100)).toFixed(2).toString() + '%'
+      let operatingIncomeMargin = Number(((Number(operatingIncome) / Number(totalRevenue)) * 100)).toFixed(2).toString() + '%'
 
       let freeCashflow: any
 
@@ -502,12 +532,15 @@ export class StockResearchViewComponent implements OnInit {
       quarterlyRevenueRecords.push(this.formatFinancialData(totalRevenue))
       quarterlyNetIncomeRecords.push(this.formatFinancialData(netIncome))
       quarterlyTotalDebtRecords.push(this.formatFinancialData(totalDebt))
+      quarterlyLongTermDebtRecords.push(this.formatFinancialData(longTermDebt))
       quarterlyTotalAssetsRecords.push(totalAssets)
       quarterlyTotalLiabilitiesRecords.push(totalLiabilities)
       quarterlyTotalShareholderEquityRecords.push(this.formatFinancialData(totalShareholderEquity))
       quarterlyOperatingCashflowRecords.push(this.formatFinancialData(operatingCashflow))
       quarterlyCapitalExpenditureRecords.push(this.formatFinancialData(capitalExpenditures))
       quarterlyFreeCashflowRecords.push(freeCashflow)
+      quarterlyGrossProfitMarginRecords.push(grossProfitMargin)
+      quarterlyOperatingIncomeMarginRecords.push(operatingIncomeMargin)
 
       if (quartersOfReports.length > 7) {
         break
@@ -518,12 +551,15 @@ export class StockResearchViewComponent implements OnInit {
     quarterlyRevenueRecords.push('Total Revenue')
     quarterlyNetIncomeRecords.push('Net Income')
     quarterlyTotalDebtRecords.push('Total Debt')
+    quarterlyLongTermDebtRecords.push('Long Term Debt')
     quarterlyTotalAssetsRecords.push('Total Assets')
     quarterlyTotalLiabilitiesRecords.push('Total Liabilities')
     quarterlyTotalShareholderEquityRecords.push('Total Shareholder Equity')
     quarterlyOperatingCashflowRecords.push('Operating Cashflow')
     quarterlyCapitalExpenditureRecords.push('Capital Expenditures')
     quarterlyFreeCashflowRecords.push('Free Cashflow')
+    quarterlyGrossProfitMarginRecords.push('Gross Profit Margin')
+    quarterlyOperatingIncomeMarginRecords.push('Operating Income Margin')
 
     quartersOfReports.reverse()
     quarterlyRevenueRecords.reverse()
@@ -532,9 +568,12 @@ export class StockResearchViewComponent implements OnInit {
     quarterlyCapitalExpenditureRecords.reverse()
     quarterlyFreeCashflowRecords.reverse()
     quarterlyTotalDebtRecords.reverse()
+    quarterlyLongTermDebtRecords.reverse()
     quarterlyTotalAssetsRecords.reverse()
     quarterlyTotalLiabilitiesRecords.reverse()
     quarterlyTotalShareholderEquityRecords.reverse()
+    quarterlyGrossProfitMarginRecords.reverse()
+    quarterlyOperatingIncomeMarginRecords.reverse()
 
     allQuarterlyRecords.push(quarterlyRevenueRecords)
     allQuarterlyRecords.push(quarterlyTotalAssetsRecords)
@@ -545,10 +584,12 @@ export class StockResearchViewComponent implements OnInit {
     allQuarterlyRecords.push(quarterlyFreeCashflowRecords)
     allQuarterlyRecords.push(quarterlyCapitalExpenditureRecords)
     allQuarterlyRecords.push(quarterlyTotalDebtRecords)
+    allQuarterlyRecords.push(quarterlyLongTermDebtRecords)
+    allQuarterlyRecords.push(quarterlyGrossProfitMarginRecords)
+    allQuarterlyRecords.push(quarterlyOperatingIncomeMarginRecords)
     
     this.quartersOfReports = quartersOfReports
     return allQuarterlyRecords
-
   }
 
   formatFinancialData(data: any): string {

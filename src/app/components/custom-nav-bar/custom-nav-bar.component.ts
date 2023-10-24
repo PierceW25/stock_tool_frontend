@@ -98,10 +98,6 @@ export class CustomNavBarComponent {
     })
   }
 
-  goToAnalysisView() {
-    this.getDataForNewStock('AAPL', 'analysis')
-  }
-
   login() {
     this.route.navigate(['login'])
   }
