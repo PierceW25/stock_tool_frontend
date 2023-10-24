@@ -38,6 +38,7 @@ export class StockResearchViewComponent implements OnInit {
   /* Watchlist functionality variables */
   watchlistToAddTo: string = 'primary'
   stockAddedToWatchlist: boolean = false
+  stockAlreadyInWatchlist: boolean = false
 
 
   /* Stock Variables */
@@ -116,6 +117,8 @@ export class StockResearchViewComponent implements OnInit {
       this.watchlist.getAllWatchlists(this.userEmail).subscribe(
         (response: any) => {
           this.usersWatchlists = response
+
+          this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(this.stock.ticker.toUpperCase())
         })
       }
   }
@@ -176,6 +179,20 @@ export class StockResearchViewComponent implements OnInit {
 
   onChangeSelectedWatchlist(event: any) {
     this.watchlistToAddTo = event.target.value
+    switch (this.watchlistToAddTo) {
+      case 'primary':
+        this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(this.stock.ticker.toUpperCase())
+        break;
+      case 'secondary':
+        this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_two.includes(this.stock.ticker.toUpperCase())
+        break;
+      case 'tertiary':
+        this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_three.includes(this.stock.ticker.toUpperCase())
+        break;
+      default:
+        console.log('error changing watchlist')
+        break;
+    }
   }
 
   onAddToWatchlist() {

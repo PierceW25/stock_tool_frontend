@@ -156,11 +156,25 @@ body {
   cursor: pointer;
 }
 
+.addStockContainer button:disabled {
+  background-color: #232323;
+  color: rgb(121, 119, 119);
+  border: 0.5px solid rgb(121, 119, 119);
+  cursor: not-allowed;
+}
+
 .stockAddedSuccessMessage {
   margin-left: 8px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   color: #00C805;
+}
+
+.stockAlreadyInWatchlistMessage {
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ce7676;
 }
 
 .keyMetricsContainer {
