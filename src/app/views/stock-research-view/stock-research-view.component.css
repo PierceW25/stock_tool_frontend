@@ -81,7 +81,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .stockDetailsHeader h2 {
@@ -109,6 +108,52 @@ body {
 
 .earningsContainer {
   width: 90%;
+}
+
+.addStockContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.watchlistSelectionAndAdditionContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.addStockContainer select {
+  background-color: #232323;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.addStockContainer select:hover {
+  cursor: pointer;
+}
+
+.addStockContainer select:focus {
+  outline: none;
+}
+
+.addStockContainer button {
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #232323;
+  color: white;
+  border: 0.5px solid rgb(121, 119, 119);
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.addStockContainer button:hover {
+  background-color: #6c6969;
+  cursor: pointer;
 }
 
 .keyMetricsContainer {
