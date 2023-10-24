@@ -135,9 +135,14 @@ input[data-autocompleted] {
     cursor: pointer;
 }
 
+.registerUserButtonContainer button:disabled {
+    background-color: rgb(40, 114, 40);
+    cursor: not-allowed;
+}
+
 .halfPageStylishContainer .researchPic {
     width: 100%;
-    height: 60%;
+    height: 65%;
 }
 
 .halfPageStylishContainer .watchlistPic {

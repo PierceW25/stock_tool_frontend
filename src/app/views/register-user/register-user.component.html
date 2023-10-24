@@ -26,7 +26,7 @@
                         </div>
                         <div class="formInputContainer" formGroupName="emailGroup">
                             <div class="inputAndErrorContainer">
-                                <input type="email" id="email" name="email" formControlName="email" placeholder="Email" required>
+                                <input type="email" id="email" name="email" formControlName="email" placeholder="Email: wbuffet@berkshire.hedge" required>
                                 <div *ngIf="registerForm && 
                                 (registerForm.get('emailGroup.email')?.dirty || 
                                 registerForm.get('emailGroup.email')?.touched)" 
@@ -39,7 +39,7 @@
                         </div>
                         <div class="formInputContainer" formGroupName="passwordGroup">
                             <div class="inputAndErrorContainer">
-                                <input type="password" id="password" name="password" formControlName="password" placeholder="Password" required>
+                                <input type="password" id="password" name="password" formControlName="password" placeholder="Password: Password2023!" required>
                                 <div class="passwordErrorContainer" *ngIf="registerForm && 
                                 (registerForm.get('passwordGroup.password')?.dirty || 
                                 registerForm.get('passwordGroup.password')?.touched)">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="formInputContainer" formGroupName="passwordGroup">
                             <div class="inputAndErrorContainer">
-                                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
+                                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password: Password2023!" required>
                                 <div *ngIf="registerForm && 
                                 (registerForm.get('passwordGroup.confirmPassword')?.dirty || 
                                 registerForm.get('passwordGroup.confirmPassword')?.touched)" 

@@ -36,9 +36,11 @@ export class LoginUserComponent implements OnInit {
 
           if (response === 'Email does not exist') {
             this.emailDoesNotExist = true
+            this.passwordIncorrect = false
             return
           } else if (response === 'Incorrect password') {
             this.passwordIncorrect = true
+            this.emailDoesNotExist = false
             return
           }
           sessionStorage.setItem('email', userEmail)
