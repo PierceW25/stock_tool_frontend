@@ -195,9 +195,11 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   onDeleteStock(stock: any): void {
+    console.log(stock)
     this.renderedWatchlist.splice(this.renderedWatchlist.indexOf(stock), 1)
     this.table?.renderRows()
-    this.dbWatchlist.splice(this.dbWatchlist.indexOf(stock.symbol), 1)
+    this.dbWatchlist.splice(this.dbWatchlist.indexOf(stock.ticker), 1)
+    console.log(this.dbWatchlist)
     this.updateFullWatchlistObject()
   }
 
