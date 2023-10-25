@@ -195,12 +195,15 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   onDeleteStock(stock: any): void {
-    console.log(stock)
     this.renderedWatchlist.splice(this.renderedWatchlist.indexOf(stock), 1)
     this.table?.renderRows()
     this.dbWatchlist.splice(this.dbWatchlist.indexOf(stock.ticker), 1)
-    console.log(this.dbWatchlist)
     this.updateFullWatchlistObject()
+
+    for (stock in this.renderedWatchlist) {
+      this.renderedWatchlist[stock].id = Number(stock)
+      console.log(this.renderedWatchlist[stock].id)
+    }
   }
 
   getDataForNewStock(ticker: string): watchlistItem {
@@ -321,7 +324,7 @@ export class WatchlistCustomComponent implements OnInit {
   clickout(event: any) {
     let click = document.getElementsByClassName('stockOptionsDropdownContent')
 
-    if (click && this.renderedWatchlist.length > 0) {
+    if (click[this.idOfStockMenuOpen] && this.renderedWatchlist.length > 0) {
       let stockToClose = click[this.idOfStockMenuOpen] as HTMLElement
       if (!event.target.className.includes('menuBtn')) {
         stockToClose.style.display = 'none'
