@@ -265,11 +265,18 @@ export class WatchlistCustomComponent implements OnInit {
         default:
           console.log("logical error occured in storing watchlist")
       }
-      console.log(this.dbWatchlist[this.dbWatchlist.length - 1])
 
       this.watchlist.editSelectedWatchlist(this.userEmail, this.currentWatchlist, this.dbWatchlist).subscribe(
         (response: any) => {
-          this.articles.updateCustomArticles(this.userEmail || "")
+          this.articles.updateCustomerArticles(this.dbWatchlist[this.dbWatchlist.length - 1]).subscribe({
+            next: (response: any) => {
+              console.log(response)
+            },
+            error: (error: any) => {
+              console.log(error)
+            }
+          })
+          console.log(response)
         })
     }
 
