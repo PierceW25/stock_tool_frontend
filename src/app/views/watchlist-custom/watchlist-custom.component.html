@@ -17,7 +17,7 @@
                 <div class="addStockBtn">
                     <button (click)="testOpenModal()">Add Stock</button>
                 </div>
-                <div class="stockAlreadyInWatchlist" [@myInsertRemoveTrigger] [hidden]="!cannotAddStock">
+                <div class="stockAlreadyInWatchlist" [@myInsertRemoveTrigger] *ngIf="cannotAddStock">
                     <p>Stock already in watchlist</p>
                 </div>
             </div>   

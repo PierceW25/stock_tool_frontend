@@ -368,7 +368,7 @@ export class WatchlistCustomComponent implements OnInit {
       this.cannotAddStock = true
       setTimeout(() => {
         this.cannotAddStock = false
-      }, 3000)
+      }, 2500)
       return
     } else {
       this.renderedWatchlist.push(this.getDataForNewStock(ticker))

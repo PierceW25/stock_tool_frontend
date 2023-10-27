@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
@@ -15,7 +15,7 @@ import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger'
     myInsertRemoveTrigger
   ]
 })
-export class StockResearchViewComponent implements OnInit {
+export class StockResearchViewComponent implements OnInit, OnChanges {
   constructor( 
     private route: ActivatedRoute,
     private stockApi: StockApiService,
@@ -111,16 +111,22 @@ export class StockResearchViewComponent implements OnInit {
         }
       }
       this.getFinancialStatementsData(this.stock.ticker)
+      if (this.userEmail) {
+        this.watchlist.getAllWatchlists(this.userEmail).subscribe(
+          (response: any) => {
+            this.usersWatchlists = response
+  
+            this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(this.stock.ticker.toUpperCase())
+          })
+        }
     })
+  }
 
-    if (this.userEmail) {
-      this.watchlist.getAllWatchlists(this.userEmail).subscribe(
-        (response: any) => {
-          this.usersWatchlists = response
-
-          this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(this.stock.ticker.toUpperCase())
-        })
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ran')
+    if (changes['ticker'].previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
+      this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(changes['ticker']?.currentValue.toUpperCase())
+    } 
   }
 
   getDataForNewStock(ticker: string) {
@@ -219,14 +225,13 @@ export class StockResearchViewComponent implements OnInit {
     if (this.userEmail) {
       this.watchlist.editSelectedWatchlist(this.userEmail, this.watchlistToAddTo, dbWatchlist).subscribe(
         (response: any) => {
-          console.log(response)
           if ('Watchlist updated' == response) {
             this.stockAddedToWatchlist = true
             setTimeout(() => {
               this.stockAddedToWatchlist = false
             }, 3000);
           }
-          this.articles.updateCustomArticles(this.userEmail || "").subscribe(
+          this.articles.updateCustomerArticles(this.stock.ticker.toUpperCase()).subscribe(
             (response: any) => {
             })
         })
