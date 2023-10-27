@@ -98,6 +98,10 @@ export class CustomNavBarComponent {
     })
   }
 
+  goToAccount() {
+    this.route.navigate(['account'])
+  }
+
   login() {
     this.route.navigate(['login'])
   }

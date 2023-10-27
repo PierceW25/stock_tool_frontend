@@ -6,11 +6,13 @@ import { DiscoveryViewComponent } from './views/discovery-view/discovery-view.co
 import { HomePageViewComponent } from './views/home-page-view/home-page-view.component';
 import { LoginUserComponent } from './views/login-user/login-user.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
+import { AccountViewComponent } from './views/account-view/account-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
   { path: 'register', component: RegisterUserComponent },
   { path: 'login', component: LoginUserComponent },
+  { path: 'account', component: AccountViewComponent },
   { path: 'research/:ticker', component: StockResearchViewComponent },
   { path: 'news', component: CustomMarketViewComponent },
   { path: 'discovery', component: DiscoveryViewComponent },

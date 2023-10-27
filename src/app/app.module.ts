@@ -30,6 +30,7 @@ import { IncomeStatementAnalysisComponent } from './components/income-statement-
 import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analysis/balance-sheet-analysis.component';
 import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
 import { StockKeyMetricsComponent } from './components/stock-key-metrics/stock-key-metrics.component';
+import { AccountViewComponent } from './views/account-view/account-view.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { StockKeyMetricsComponent } from './components/stock-key-metrics/stock-k
     IncomeStatementAnalysisComponent,
     BalanceSheetAnalysisComponent,
     CashFlowAnalysisComponent,
-    StockKeyMetricsComponent
+    StockKeyMetricsComponent,
+    AccountViewComponent
   ],
   imports: [
     BrowserModule,
