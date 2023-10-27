@@ -17,6 +17,9 @@
                 <div class="addStockBtn">
                     <button (click)="testOpenModal()">Add Stock</button>
                 </div>
+                <div class="stockAlreadyInWatchlist" [@myInsertRemoveTrigger] [hidden]="!cannotAddStock">
+                    <p>Stock already in watchlist</p>
+                </div>
             </div>   
         </div>
         <div class="watchlistRightOptionsContainer">

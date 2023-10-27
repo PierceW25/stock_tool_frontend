@@ -224,7 +224,7 @@ export class StockResearchViewComponent implements OnInit {
             this.stockAddedToWatchlist = true
             setTimeout(() => {
               this.stockAddedToWatchlist = false
-            }, 2000);
+            }, 3000);
           }
           this.articles.updateCustomArticles(this.userEmail || "").subscribe(
             (response: any) => {

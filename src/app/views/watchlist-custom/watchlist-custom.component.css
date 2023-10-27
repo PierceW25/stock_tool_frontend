@@ -221,3 +221,14 @@ input {
     display: none;
 }
 
+.stockAlreadyInWatchlist {
+    margin-left: 5px;
+}
+
+.stockAlreadyInWatchlist p {
+    font-size: 14px;
+    color: lightcoral;
+    margin: 0;
+    padding: 0;
+}
+

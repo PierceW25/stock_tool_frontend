@@ -8,11 +8,15 @@ import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistItem } from 'src/app/interfaces/watchlistItem';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
+import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 
 @Component({
   selector: 'app-watchlist-custom',
   templateUrl: './watchlist-custom.component.html',
-  styleUrls: ['./watchlist-custom.component.css']
+  styleUrls: ['./watchlist-custom.component.css'],
+  animations: [
+    myInsertRemoveTrigger
+  ]
 })
 export class WatchlistCustomComponent implements OnInit {
 
@@ -72,6 +76,7 @@ export class WatchlistCustomComponent implements OnInit {
 
   searchStock = ''
   autofillOptions: string[] = []
+  cannotAddStock: boolean = false
 
   ngOnInit(): void {
     this.chooseRenderedWatchlist()
@@ -270,13 +275,10 @@ export class WatchlistCustomComponent implements OnInit {
         (response: any) => {
           this.articles.updateCustomerArticles(this.dbWatchlist[this.dbWatchlist.length - 1]).subscribe({
             next: (response: any) => {
-              console.log(response)
             },
             error: (error: any) => {
-              console.log(error)
             }
           })
-          console.log(response)
         })
     }
 
@@ -362,9 +364,17 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   addStockToWatchlist(ticker: any): void {
-    this.renderedWatchlist.push(this.getDataForNewStock(ticker))
-    this.dbWatchlist.push(ticker)
-    this.table?.renderRows()
-    this.updateFullWatchlistObject()
+    if (this.dbWatchlist.includes(ticker)) {
+      this.cannotAddStock = true
+      setTimeout(() => {
+        this.cannotAddStock = false
+      }, 3000)
+      return
+    } else {
+      this.renderedWatchlist.push(this.getDataForNewStock(ticker))
+      this.dbWatchlist.push(ticker)
+      this.table?.renderRows()
+      this.updateFullWatchlistObject()
+    }
   }
 }
