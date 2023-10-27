@@ -115,7 +115,7 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
         this.watchlist.getAllWatchlists(this.userEmail).subscribe(
           (response: any) => {
             this.usersWatchlists = response
-  
+            this.watchlistToAddTo = 'primary'
             this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(this.stock.ticker.toUpperCase())
           })
         }
