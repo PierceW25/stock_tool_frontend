@@ -5,3 +5,131 @@ body {
     height: 100vh;
     color: white;
 }
+
+.accountInfoContainer {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 100px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.accountInfo {
+    margin-top: -20px;
+}
+
+.accountInfoHeader h1 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.accountInfoItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.accountInfoItem h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.accountInfoItem input {
+    background-color: #232323;
+    width: 180px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.passwordContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.passwordContainer h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.passwordContainer button {
+    background-color: #232323;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.passwordContainer button:hover {
+    cursor: pointer;
+    background-color: #4d5e6d;
+}
+
+.watchlistsHeader h2 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.watchlistsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.watchlist input {
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 10px;
+    text-align: center;
+    background-color: #232323;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.watchlistValues {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+}
+  
+.watchlistValues::-webkit-scrollbar {
+    width: 7px;
+}
+
+.watchlistValues::-webkit-scrollbar-track {
+    background: #121212;
+    border-radius: 10px;
+}
+
+.watchlistValues::-webkit-scrollbar-thumb {
+    background: #232B32;
+    border-radius: 10px;
+}
+
+.watchlistValues p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: -5px;
+}
+
+.positionedWatchlist {
+    margin-left: 35px;
+}
