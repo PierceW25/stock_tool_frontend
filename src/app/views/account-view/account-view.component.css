@@ -61,7 +61,7 @@ body {
     margin-right: 10px;
 }
 
-.passwordContainer button {
+.secureChangeButton {
     background-color: #232323;
     color: white;
     border: none;
@@ -71,7 +71,7 @@ body {
     margin-left: 10px;
 }
 
-.passwordContainer button:hover {
+.secureChangeButton:hover {
     cursor: pointer;
     background-color: #4d5e6d;
 }
@@ -132,4 +132,22 @@ body {
 
 .positionedWatchlist {
     margin-left: 35px;
+}
+
+.editButton {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.editButton img {
+    width: 18px;
+    height: 18px;
+    border-radius: 40%;
+}
+
+.editButton:hover {
+    cursor: pointer;
+    background-color: #4d5e6d;
 }
