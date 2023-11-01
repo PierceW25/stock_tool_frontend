@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-view.component.css']
 })
 export class AccountViewComponent {
+  constructor() {}
+
+  nameInputEnabled = false;
+  emailInputEnabled = false;
+  passwordInputEnabled = false;
+  watchlist1InputEnabled = false;
+  watchlist2InputEnabled = false;
+  watchlist3InputEnabled = false;
 
 }
