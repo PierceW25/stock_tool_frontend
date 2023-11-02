@@ -163,3 +163,51 @@ body {
     cursor: pointer;
     background-color: #4d5e6d;
 }
+
+.accountInfoFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.accountInfoFooter .deleteAccountButton, .logoutButton {
+    background-color: #232323;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+.accountInfoFooter .deleteAccountButton:hover, .logoutButton:hover {
+    cursor: pointer;
+    background-color: #4d5e6d;
+}
+
+.saveChangesButton:disabled {
+    background-color: #222e39;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+.saveChangesButton {
+    background-color: #1a8c26;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+.saveChangesButton:hover:enabled {
+    cursor: pointer;
+    background-color: #20b131;
+}

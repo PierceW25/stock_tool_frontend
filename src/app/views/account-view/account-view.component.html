@@ -16,7 +16,9 @@
             </div>
             <div class="accountInfoItem">
                 <h3>Name:</h3>
-                <input [value]="username" [disabled]="!nameInputEnabled">
+                <input [(ngModel)]="username" 
+                [disabled]="!nameInputEnabled" 
+                (change)="changesMade()">
                 <button class="editButton">
                     <img src="assets/white_edit_button_icon.png" alt="edit button" (click)="nameInputEnabled = !nameInputEnabled">
                 </button> 
@@ -28,7 +30,10 @@
                 <div class="watchlistAndEditBtnContainer">
                     <div class="watchlist">
                         <div class="watchlistTitle">
-                            <input [value]="usersWatchlists.watchlist_one_title" [disabled]="!watchlist1InputEnabled">
+                            <input 
+                            [(ngModel)]="usersWatchlists.watchlist_one_title" 
+                            [disabled]="!watchlist1InputEnabled"
+                            (change)="changesMade()">
                         </div>
                         <div class="watchlistValues">
                             <p *ngFor="let ticker of usersWatchlists.watchlist_one">{{ticker}}</p>
@@ -41,7 +46,10 @@
                 <div class="watchlistAndEditBtnContainer">
                     <div class="watchlist">
                         <div class="watchlistTitle">
-                            <input [value]="usersWatchlists.watchlist_two_title" [disabled]="!watchlist2InputEnabled">
+                            <input 
+                            [(ngModel)]="usersWatchlists.watchlist_two_title" 
+                            [disabled]="!watchlist2InputEnabled"
+                            (change)="changesMade()">
                         </div>
                         <div class="watchlistValues">
                             <p *ngFor="let ticker of usersWatchlists.watchlist_two">{{ticker}}</p>
@@ -54,7 +62,10 @@
                 <div class="watchlistAndEditBtnContainer">
                     <div class="watchlist">
                         <div class="watchlistTitle">
-                            <input [value]="usersWatchlists.watchlist_three_title" [disabled]="!watchlist3InputEnabled">
+                            <input 
+                            [(ngModel)]="usersWatchlists.watchlist_three_title" 
+                            [disabled]="!watchlist3InputEnabled"
+                            (change)="changesMade()">
                         </div>
                         <div class="watchlistValues">
                             <p *ngFor="let ticker of usersWatchlists.watchlist_three">{{ticker}}</p>
@@ -65,6 +76,14 @@
                     </button> 
                 </div>
             </div>
+        </div>
+        <div class="accountInfoFooter">
+            <button class="deleteAccountButton">Delete Account</button>
+            <button class="logoutButton">Logout</button>
+            <button class="saveChangesButton" 
+            (click)="saveChanges()" 
+            [disabled]="saveChangesDisabled"
+            >Save Changes</button>
         </div>
     </div>
 </body>

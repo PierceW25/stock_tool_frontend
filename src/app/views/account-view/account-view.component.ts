@@ -32,6 +32,8 @@ export class AccountViewComponent implements OnInit {
   watchlist2InputEnabled = false;
   watchlist3InputEnabled = false;
 
+  saveChangesDisabled = true;
+
   ngOnInit(): void {
     if (this.userEmail != '' && this.userEmail != null) {
       this.userDataService.getUsername(this.userEmail).subscribe((data: any) => {
@@ -55,6 +57,17 @@ export class AccountViewComponent implements OnInit {
         }
       });
     }
+  }
+
+  changesMade() {
+    console.log(this.username)
+    console.log(this.usersWatchlists)
+    this.saveChangesDisabled = false;
+  }
+
+  saveChanges() {
+    console.log(this.username)
+    console.log(this.usersWatchlists)
   }
 
 }
