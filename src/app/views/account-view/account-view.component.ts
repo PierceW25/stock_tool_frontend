@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
+import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
 import { UserDataService } from 'src/app/services/user-data.service';
 
 @Component({
@@ -9,10 +11,21 @@ import { UserDataService } from 'src/app/services/user-data.service';
 export class AccountViewComponent implements OnInit {
   constructor(
     private userDataService: UserDataService,
+    private watchlistDataService: UpdateWatchlistsService
   ) {}
 
   userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
   username: string = ''
+
+  usersWatchlists: watchlistsContainer = {
+    "watchlist_one": [],
+    "watchlist_two": [],
+    "watchlist_three": [],
+    "watchlist_one_title": "",
+    "watchlist_two_title": "",
+    "watchlist_three_title": "",
+    "selected_watchlist": ""
+  }
 
   nameInputEnabled = false;
   watchlist1InputEnabled = false;
@@ -24,6 +37,21 @@ export class AccountViewComponent implements OnInit {
       this.userDataService.getUsername(this.userEmail).subscribe((data: any) => {
         if (data != 'Error') {
           this.username = data;
+        }
+      });
+      this.watchlistDataService.getAllWatchlists(this.userEmail).subscribe((data: any) => {
+        if (data != 'Error') {
+          this.usersWatchlists = data;
+
+          if (this.usersWatchlists.watchlist_one.length == 0) {
+            this.usersWatchlists.watchlist_one.push('No stocks in watchlist')
+          }
+          if (this.usersWatchlists.watchlist_two.length == 0) {
+            this.usersWatchlists.watchlist_two.push('No stocks in watchlist')
+          }
+          if (this.usersWatchlists.watchlist_three.length == 0) {
+            this.usersWatchlists.watchlist_three.push('No stocks in watchlist')
+          }
         }
       });
     }

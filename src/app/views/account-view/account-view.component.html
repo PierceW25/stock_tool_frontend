@@ -25,44 +25,44 @@
                 <h2>Your Watchlists</h2>
             </div>
             <div class="watchlistsContainer">
-                <div class="watchlist">
-                    <div class="watchlistTitle">
-                        <input [value]="'Watchlist 1'" [disabled]="!watchlist1InputEnabled">
-                        <button class="editButton">
-                            <img src="assets/white_edit_button_icon.png" alt="edit button" (click)="watchlist1InputEnabled = !watchlist1InputEnabled">
-                        </button> 
+                <div class="watchlistAndEditBtnContainer">
+                    <div class="watchlist">
+                        <div class="watchlistTitle">
+                            <input [value]="usersWatchlists.watchlist_one_title" [disabled]="!watchlist1InputEnabled">
+                        </div>
+                        <div class="watchlistValues">
+                            <p *ngFor="let ticker of usersWatchlists.watchlist_one">{{ticker}}</p>
+                        </div>
                     </div>
-                    <div class="watchlistValues">
-                        <p>stock 1</p>
-                        <p>stock 2</p>
-                        <p>stock 3</p>
-                    </div>
+                    <button class="editButton" (click)="watchlist1InputEnabled = !watchlist1InputEnabled">
+                        <img src="assets/white_edit_button_icon.png" alt="edit button">
+                    </button> 
                 </div>
-                <div class="watchlist positionedWatchlist">
-                    <div class="watchlistTitle">
-                        <input [value]="'Watchlist 2'" [disabled]="!watchlist2InputEnabled">
-                        <button class="editButton">
-                            <img src="assets/white_edit_button_icon.png" alt="edit button" (click)="watchlist2InputEnabled = !watchlist2InputEnabled">
-                        </button> 
+                <div class="watchlistAndEditBtnContainer">
+                    <div class="watchlist">
+                        <div class="watchlistTitle">
+                            <input [value]="usersWatchlists.watchlist_two_title" [disabled]="!watchlist2InputEnabled">
+                        </div>
+                        <div class="watchlistValues">
+                            <p *ngFor="let ticker of usersWatchlists.watchlist_two">{{ticker}}</p>
+                        </div>
                     </div>
-                    <div class="watchlistValues">
-                        <p>stock 1</p>
-                        <p>stock 2</p>
-                        <p>stock 3</p>
-                    </div>
+                    <button class="editButton" (click)="watchlist2InputEnabled = !watchlist2InputEnabled">
+                        <img src="assets/white_edit_button_icon.png" alt="edit button">
+                    </button> 
                 </div>
-                <div class="watchlist positionedWatchlist">
-                    <div class="watchlistTitle">
-                        <input [value]="'Watchlist 3'" [disabled]="!watchlist3InputEnabled">
-                        <button class="editButton">
-                            <img src="assets/white_edit_button_icon.png" alt="edit button" (click)="watchlist3InputEnabled = !watchlist3InputEnabled">
-                        </button> 
+                <div class="watchlistAndEditBtnContainer">
+                    <div class="watchlist">
+                        <div class="watchlistTitle">
+                            <input [value]="usersWatchlists.watchlist_three_title" [disabled]="!watchlist3InputEnabled">
+                        </div>
+                        <div class="watchlistValues">
+                            <p *ngFor="let ticker of usersWatchlists.watchlist_three">{{ticker}}</p>
+                        </div>
                     </div>
-                    <div class="watchlistValues">
-                        <p>stock 1</p>
-                        <p>stock 2</p>
-                        <p>stock 3</p>
-                    </div>
+                    <button class="editButton" (click)="watchlist3InputEnabled = !watchlist3InputEnabled">
+                        <img src="assets/white_edit_button_icon.png" alt="edit button">
+                    </button> 
                 </div>
             </div>
         </div>

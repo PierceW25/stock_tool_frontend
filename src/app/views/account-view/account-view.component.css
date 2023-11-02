@@ -89,6 +89,17 @@ body {
     margin-top: 10px;
 }
 
+.watchlistAndEditBtnContainer {
+    display: flex;
+}
+
+.watchlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .watchlist input {
     font-size: 18px;
     font-weight: 400;
@@ -108,6 +119,7 @@ body {
     align-items: center;
     width: 100%;
     overflow-y: auto;
+    height: 100px;
 }
   
 .watchlistValues::-webkit-scrollbar {
