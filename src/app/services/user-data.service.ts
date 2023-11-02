@@ -13,4 +13,9 @@ export class UserDataService {
   getUsername(email: string) {
     return this.http.get(this.databaseApiUrl + '/getUserData/' + email, {responseType: 'text'})
   }
+
+  updateUsername(email: string, username: string) {
+    return this.http.post(this.databaseApiUrl + '/updateUsername/' + email, username, {responseType: 'text'})
+  }
+
 }

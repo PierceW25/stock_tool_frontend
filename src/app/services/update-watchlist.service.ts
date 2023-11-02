@@ -23,4 +23,8 @@ export class UpdateWatchlistsService {
   changeSelectedWatchlist(userEmail: string, selectedWatchlist: string) {
     return this.http.post(this.databaseApiUrl + '/userWatchlists/selectedWatchlist/' + userEmail, selectedWatchlist, {responseType: 'text'});
   }
+
+  updateWatchlistNames(userEmail: string, watchlistTitles: string[]) {
+    return this.http.post(this.databaseApiUrl + '/userWatchlists/watchlistTitles/' + userEmail, watchlistTitles, {responseType: 'text'});
+  }
 }

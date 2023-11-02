@@ -60,14 +60,23 @@ export class AccountViewComponent implements OnInit {
   }
 
   changesMade() {
-    console.log(this.username)
-    console.log(this.usersWatchlists)
     this.saveChangesDisabled = false;
   }
 
   saveChanges() {
-    console.log(this.username)
-    console.log(this.usersWatchlists)
+    let watchlistsTitles = [this.usersWatchlists.watchlist_one_title, this.usersWatchlists.watchlist_two_title, this.usersWatchlists.watchlist_three_title]
+    let username = this.username;
+    let userEmail = this.userEmail;
+    if (userEmail != null && userEmail != '') {
+      this.watchlistDataService.updateWatchlistNames(userEmail, watchlistsTitles).subscribe((data: any) => {
+        console.log(data)
+      })
+      this.userDataService.updateUsername(userEmail, username).subscribe((data: any) => {
+        console.log(data)
+      })
+    }
+
+    
   }
 
 }
