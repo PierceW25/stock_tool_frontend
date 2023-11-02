@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
 import { UserDataService } from 'src/app/services/user-data.service';
@@ -6,7 +7,10 @@ import { UserDataService } from 'src/app/services/user-data.service';
 @Component({
   selector: 'app-account-view',
   templateUrl: './account-view.component.html',
-  styleUrls: ['./account-view.component.css']
+  styleUrls: ['./account-view.component.css'],
+  animations: [
+    myInsertRemoveTrigger
+  ]
 })
 export class AccountViewComponent implements OnInit {
   constructor(
@@ -33,6 +37,7 @@ export class AccountViewComponent implements OnInit {
   watchlist3InputEnabled = false;
 
   saveChangesDisabled = true;
+  saveChangesSuccessful = false;
 
   ngOnInit(): void {
     if (this.userEmail != '' && this.userEmail != null) {
@@ -67,12 +72,32 @@ export class AccountViewComponent implements OnInit {
     let watchlistsTitles = [this.usersWatchlists.watchlist_one_title, this.usersWatchlists.watchlist_two_title, this.usersWatchlists.watchlist_three_title]
     let username = this.username;
     let userEmail = this.userEmail;
+    let successfulWatchlistUpdate = false;
+    let successfulUsernameUpdate = false;
     if (userEmail != null && userEmail != '') {
       this.watchlistDataService.updateWatchlistNames(userEmail, watchlistsTitles).subscribe((data: any) => {
-        console.log(data)
-      })
-      this.userDataService.updateUsername(userEmail, username).subscribe((data: any) => {
-        console.log(data)
+        if (data == "Watchlist titles updated") {
+          successfulWatchlistUpdate = true;
+        } else {
+          successfulWatchlistUpdate = false;
+        }
+        if (userEmail != null && userEmail != '') {
+          this.userDataService.updateUsername(userEmail, username).subscribe((data: any) => {
+            if (data == "Username updated") {
+              successfulUsernameUpdate = true;
+            } else {
+              successfulUsernameUpdate = false;
+            }
+          });
+
+          if (successfulUsernameUpdate || successfulWatchlistUpdate) {
+            this.saveChangesSuccessful = true;
+            this.saveChangesDisabled = true;
+            setTimeout(() => {
+              this.saveChangesSuccessful = false;
+            }, 3000);
+          }
+        }
       })
     }
 

@@ -169,7 +169,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .accountInfoFooter .deleteAccountButton, .logoutButton {
@@ -211,3 +211,10 @@ body {
     cursor: pointer;
     background-color: #20b131;
 }
+
+.changesSavedMessage {
+    margin-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #00C805;
+  }
