@@ -213,8 +213,17 @@ body {
 }
 
 .changesSavedMessage {
-    margin-left: 8px;
+    margin-left: 2px;
+    padding: 0;
     font-size: 14px;
     font-weight: 400;
     color: #00C805;
-  }
+}
+
+.changesFailedMessage {
+    margin-left: 2px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #C80000;
+}

@@ -38,6 +38,7 @@ export class AccountViewComponent implements OnInit {
 
   saveChangesDisabled = true;
   saveChangesSuccessful = false;
+  saveChangesFailed = false;
 
   ngOnInit(): void {
     if (this.userEmail != '' && this.userEmail != null) {
@@ -95,6 +96,12 @@ export class AccountViewComponent implements OnInit {
             this.saveChangesDisabled = true;
             setTimeout(() => {
               this.saveChangesSuccessful = false;
+            }, 3000);
+          } else {
+            this.saveChangesFailed = true;
+            this.saveChangesDisabled = true;
+            setTimeout(() => {
+              this.saveChangesFailed = false;
             }, 3000);
           }
         }

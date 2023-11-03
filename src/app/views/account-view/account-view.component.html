@@ -84,9 +84,12 @@
             (click)="saveChanges()" 
             [disabled]="saveChangesDisabled"
             >Save Changes</button>
-            <div [@myInsertRemoveTrigger] *ngIf="saveChangesSuccessful" class="changesSavedMessage">
-                <p>Changes Saved</p>
-            </div>
+        </div>
+        <div [@myInsertRemoveTrigger] *ngIf="saveChangesSuccessful" class="changesSavedMessage">
+            <p>Changes Saved</p>
+        </div>
+        <div [@myInsertRemoveTrigger] *ngIf="saveChangesFailed" class="changesFailedMessage">
+            <p>Try Again Later</p>
         </div>
     </div>
 </body>
