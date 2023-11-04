@@ -31,6 +31,8 @@ import { BalanceSheetAnalysisComponent } from './components/balance-sheet-analys
 import { CashFlowAnalysisComponent } from './components/cash-flow-analysis/cash-flow-analysis.component';
 import { StockKeyMetricsComponent } from './components/stock-key-metrics/stock-key-metrics.component';
 import { AccountViewComponent } from './views/account-view/account-view.component';
+import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
+import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { AccountViewComponent } from './views/account-view/account-view.componen
     BalanceSheetAnalysisComponent,
     CashFlowAnalysisComponent,
     StockKeyMetricsComponent,
-    AccountViewComponent
+    AccountViewComponent,
+    ForgotPasswordViewComponent,
+    ResetPasswordViewComponent
   ],
   imports: [
     BrowserModule,

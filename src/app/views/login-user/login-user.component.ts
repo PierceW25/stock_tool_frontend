@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class LoginUserComponent implements OnInit {
 
-  constructor(private builder: FormBuilder, private loginUserService: LoginUserService, private router: Router) { }
+  constructor(private builder: FormBuilder, 
+    private loginUserService: LoginUserService, 
+    private router: Router) { }
 
   ngOnInit(): void {
   }

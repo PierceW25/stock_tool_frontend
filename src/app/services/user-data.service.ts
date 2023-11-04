@@ -18,4 +18,12 @@ export class UserDataService {
     return this.http.post(this.databaseApiUrl + '/updateUsername/' + email, username, {responseType: 'text'})
   }
 
+  requestToChangePassword(email: string) {
+    return this.http.post(this.databaseApiUrl + '/updatePasswordRequest', email, {responseType: 'text'})
+  }
+
+  validatePasswordRecoveryToken(token: string) {
+    return this.http.post(this.databaseApiUrl + '/validateToken', token, {responseType: 'text'})
+  }
+
 }

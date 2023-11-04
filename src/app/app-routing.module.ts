@@ -7,6 +7,8 @@ import { HomePageViewComponent } from './views/home-page-view/home-page-view.com
 import { LoginUserComponent } from './views/login-user/login-user.component';
 import { CustomMarketViewComponent } from './views/custom-market-view/custom-market-view.component';
 import { AccountViewComponent } from './views/account-view/account-view.component';
+import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
+import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'research/:ticker', component: StockResearchViewComponent },
   { path: 'news', component: CustomMarketViewComponent },
   { path: 'discovery', component: DiscoveryViewComponent },
+  { path: 'forgotPassword', component: ForgotPasswordViewComponent },
+  { path: 'resetPassword/:token', component: ResetPasswordViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
