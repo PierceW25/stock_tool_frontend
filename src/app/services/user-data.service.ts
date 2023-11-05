@@ -26,4 +26,8 @@ export class UserDataService {
     return this.http.post(this.databaseApiUrl + '/validateToken', token, {responseType: 'text'})
   }
 
+  updatePassword(token: string, password: string) {
+    return this.http.post(this.databaseApiUrl + "/changePassword", {token: token, password: password}) 
+  }
+
 }
