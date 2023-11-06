@@ -227,3 +227,10 @@ body {
     font-weight: 400;
     color: #C80000;
 }
+
+.responseMessage {
+    margin-top: -5px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+}

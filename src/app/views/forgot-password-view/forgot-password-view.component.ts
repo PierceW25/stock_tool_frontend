@@ -19,30 +19,24 @@ export class ForgotPasswordViewComponent {
     email: new FormControl('', [Validators.required, Validators.email])
   })
 
-  emailSent: boolean = false;
-  userNotFound: boolean = false;
-  tryLater: boolean = false;
-
   displayResponseMessage = false
   responseMessage = ''
   responseColor = ''
 
   sendEmail() {
-      if (this.forgotPasswordForm.valid) {
-        const userEmail: string = this.forgotPasswordForm.get('email')?.value || '-'
-        
-        this.userDataService.requestToChangePassword(userEmail).subscribe(response => {
-          let fullResponse: string = response.toString()
-          this.responseMessage = fullResponse.split(',')[0]
-          this.responseColor = fullResponse.split(',')[1]
-          this.displayResponseMessage = true
+    if (this.forgotPasswordForm.valid) {
+      const userEmail: string = this.forgotPasswordForm.get('email')?.value || '-'
+      
+      this.userDataService.requestToChangePassword(userEmail).subscribe(response => {
+        let fullResponse: string = response.toString()
+        this.responseMessage = fullResponse.split(',')[0]
+        this.responseColor = fullResponse.split(',')[1]
+        this.displayResponseMessage = true
 
-          setTimeout(() => {
-            this.displayResponseMessage = false
-          }, 2500)
-          
-        
-        })
+        setTimeout(() => {
+          this.displayResponseMessage = false
+        }, 2500)
+      })
     }
   }
 }

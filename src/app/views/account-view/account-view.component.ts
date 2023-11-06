@@ -40,6 +40,10 @@ export class AccountViewComponent implements OnInit {
   saveChangesSuccessful = false;
   saveChangesFailed = false;
 
+  displayResponseMessage = false;
+  responseMessage = ''
+  responseColor = ''
+
   ngOnInit(): void {
     if (this.userEmail != '' && this.userEmail != null) {
       this.userDataService.getUsername(this.userEmail).subscribe((data: any) => {
@@ -106,9 +110,22 @@ export class AccountViewComponent implements OnInit {
           }
         }
       })
-    }
+    } 
+  }
 
-    
+  sendRecoveryEmail() {
+    if (this.userEmail) {
+      this.userDataService.requestToChangePassword(this.userEmail).subscribe(response => {
+        let fullResponse: string = response.toString()
+        this.responseMessage = fullResponse.split(',')[0]
+        this.responseColor = fullResponse.split(',')[1]
+        this.displayResponseMessage = true
+
+        setTimeout(() => {
+          this.displayResponseMessage = false
+        }, 2500)
+      })
+    }
   }
 
 }
