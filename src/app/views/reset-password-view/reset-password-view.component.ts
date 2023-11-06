@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { confirmPasswordValidator } from 'src/app/validators/confirmPasswordValidator';
 import { PasswordValidation } from 'src/app/validators/password-validation';
@@ -8,7 +9,8 @@ import { PasswordValidation } from 'src/app/validators/password-validation';
 @Component({
   selector: 'app-reset-password-view',
   templateUrl: './reset-password-view.component.html',
-  styleUrls: ['./reset-password-view.component.css']
+  styleUrls: ['./reset-password-view.component.css'],
+  animations: [ myInsertRemoveTrigger ]
 })
 export class ResetPasswordViewComponent {
 
@@ -22,6 +24,8 @@ export class ResetPasswordViewComponent {
   tryAgainLater = false
 
   displayResponseMessage = false
+  requestMessage = ''
+  requestMessageColor = ''
   
   constructor(
     private route: ActivatedRoute,
@@ -53,8 +57,23 @@ export class ResetPasswordViewComponent {
   changePassword() {
     this.userDataService.updatePassword(this.token, this.resetPasswordForm.get("password")?.value || '')
     .subscribe(response => {
-      console.log(response)
-      if (response == 'Password updated') {
+      let fullResponse: string = response.toString()
+      this.requestMessage = fullResponse.split(',')[0]
+      this.requestMessageColor = fullResponse.split(',')[1]
+      this.displayResponseMessage = true
+
+      setTimeout(() => {
+        this.displayResponseMessage = false
+      }, 2500)
+      
+    })
+  }
+
+  /*
+  return ResponseEntity.ok("Password updated");
+            } else {
+                return ResponseEntity.ok("Failed to update password");
+                if (response == 'Password updated') {
         this.passwordUpdated = true
         setTimeout(() => {
           this.passwordUpdated = false
@@ -80,12 +99,5 @@ export class ResetPasswordViewComponent {
           this.tryAgainLater = false
         }, 2500)
       }
-    })
-  }
-
-  /*
-  return ResponseEntity.ok("Password updated");
-            } else {
-                return ResponseEntity.ok("Failed to update password");
   */
 }
