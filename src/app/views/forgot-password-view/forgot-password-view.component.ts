@@ -23,28 +23,26 @@ export class ForgotPasswordViewComponent {
   userNotFound: boolean = false;
   tryLater: boolean = false;
 
+  displayResponseMessage = false
+  responseMessage = ''
+  responseColor = ''
+
   sendEmail() {
-    if (this.forgotPasswordForm.valid) {
-      const userEmail: string = this.forgotPasswordForm.get('email')?.value || '-'
-      this.userDataService.requestToChangePassword(userEmail).subscribe(response => {
-        let message = response
-        if (message == "Password recovery email sent") {
-          this.emailSent = true;
+      if (this.forgotPasswordForm.valid) {
+        const userEmail: string = this.forgotPasswordForm.get('email')?.value || '-'
+        
+        this.userDataService.requestToChangePassword(userEmail).subscribe(response => {
+          let fullResponse: string = response.toString()
+          this.responseMessage = fullResponse.split(',')[0]
+          this.responseColor = fullResponse.split(',')[1]
+          this.displayResponseMessage = true
+
           setTimeout(() => {
-            this.emailSent = false
+            this.displayResponseMessage = false
           }, 2500)
-        } else if (message == "User does not exist") {
-          this.userNotFound = true
-          setTimeout(() => {
-            this.userNotFound = false
-          }, 2500)
-        } else {
-          this.tryLater = true
-          setTimeout(() => {
-            this.tryLater = false
-          }, 2500)
-        }
-      })
+          
+        
+        })
     }
   }
 }
