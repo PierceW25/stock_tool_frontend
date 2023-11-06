@@ -14,6 +14,14 @@ export class ResetPasswordViewComponent {
 
   private token: string = this.route.snapshot.paramMap.get('token') || ''
   allowPasswordChange: boolean = false;
+
+  passwordUpdated = false
+  passwordDidntUpdate = false
+  tokenExpired = false
+  tokenNotFound = false
+  tryAgainLater = false
+
+  displayResponseMessage = false
   
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +54,38 @@ export class ResetPasswordViewComponent {
     this.userDataService.updatePassword(this.token, this.resetPasswordForm.get("password")?.value || '')
     .subscribe(response => {
       console.log(response)
+      if (response == 'Password updated') {
+        this.passwordUpdated = true
+        setTimeout(() => {
+          this.passwordUpdated = false
+        }, 2500)
+      } else if (response == 'Failed to update password') {
+        this.passwordDidntUpdate = true
+        setTimeout(() => {
+          this.passwordDidntUpdate = false
+        }, 2500)
+      } else if (response == 'Token is expired') {
+        this.tokenExpired = true
+        setTimeout(() => {
+          this.tokenExpired = false
+        }, 2500)
+      } else if (response = 'Token does not exist') {
+        this.tokenNotFound = true
+        setTimeout(() => {
+          this.tokenNotFound = false
+        }, 2500)
+      } else {
+        this.tryAgainLater = true
+        setTimeout(() => {
+          this.tryAgainLater = false
+        }, 2500)
+      }
     })
   }
 
+  /*
+  return ResponseEntity.ok("Password updated");
+            } else {
+                return ResponseEntity.ok("Failed to update password");
+  */
 }
