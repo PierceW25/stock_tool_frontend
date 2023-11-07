@@ -113,9 +113,24 @@ export class AccountViewComponent implements OnInit {
     } 
   }
 
-  sendRecoveryEmail() {
+  sendPasswordRecoveryEmail() {
     if (this.userEmail) {
       this.userDataService.requestToChangePassword(this.userEmail).subscribe(response => {
+        let fullResponse: string = response.toString()
+        this.responseMessage = fullResponse.split(',')[0]
+        this.responseColor = fullResponse.split(',')[1]
+        this.displayResponseMessage = true
+
+        setTimeout(() => {
+          this.displayResponseMessage = false
+        }, 2500)
+      })
+    }
+  }
+
+  sendEmailRecoveryEmail() {
+    if (this.userEmail && this.userEmail != '') {
+      this.userDataService.requestToChangeEmail(this.userEmail).subscribe(response => {
         let fullResponse: string = response.toString()
         this.responseMessage = fullResponse.split(',')[0]
         this.responseColor = fullResponse.split(',')[1]

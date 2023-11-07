@@ -38,7 +38,7 @@ export class ResetPasswordViewComponent {
 
   ngOnInit() {
     if (this.token != '') {
-      this.userDataService.validatePasswordRecoveryToken(this.token).subscribe(response => {
+      this.userDataService.validateToken(this.token).subscribe(response => {
         if (response = 'Token is valid') {
           this.allowPasswordChange = true
         } else {
