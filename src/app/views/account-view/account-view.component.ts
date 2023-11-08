@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
@@ -15,7 +16,8 @@ import { UserDataService } from 'src/app/services/user-data.service';
 export class AccountViewComponent implements OnInit {
   constructor(
     private userDataService: UserDataService,
-    private watchlistDataService: UpdateWatchlistsService
+    private watchlistDataService: UpdateWatchlistsService,
+    private route: Router
   ) {}
 
   userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
@@ -40,7 +42,8 @@ export class AccountViewComponent implements OnInit {
   saveChangesSuccessful = false;
   saveChangesFailed = false;
 
-  displayResponseMessage = false;
+  displayPasswordResponse = false;
+  displayEmailResponse = false
   responseMessage = ''
   responseColor = ''
 
@@ -119,11 +122,11 @@ export class AccountViewComponent implements OnInit {
         let fullResponse: string = response.toString()
         this.responseMessage = fullResponse.split(',')[0]
         this.responseColor = fullResponse.split(',')[1]
-        this.displayResponseMessage = true
+        this.displayPasswordResponse = true
 
         setTimeout(() => {
-          this.displayResponseMessage = false
-        }, 2500)
+          this.displayPasswordResponse = false
+        }, 3000)
       })
     }
   }
@@ -134,13 +137,24 @@ export class AccountViewComponent implements OnInit {
         let fullResponse: string = response.toString()
         this.responseMessage = fullResponse.split(',')[0]
         this.responseColor = fullResponse.split(',')[1]
-        this.displayResponseMessage = true
+        this.displayEmailResponse = true
 
         setTimeout(() => {
-          this.displayResponseMessage = false
-        }, 2500)
+          this.displayEmailResponse = false
+        }, 3000)
       })
     }
+  }
+
+  logout() {
+    sessionStorage.removeItem('email')
+    this.route.navigate(['home'])
+  }
+
+  deleteAccount() {
+    
+    sessionStorage.removeItem('email')
+    this.route.navigate(['home'])
   }
 
 }
