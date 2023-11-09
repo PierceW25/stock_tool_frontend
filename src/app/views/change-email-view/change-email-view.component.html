@@ -1,0 +1,59 @@
+<body>
+    <div class="fullPageContainer">
+        <app-custom-nav-bar></app-custom-nav-bar>
+        <div class="pageContainer">
+            <div class="forgotEmailFormContainer">
+                <div class="forgotEmailFormBox">
+                    <div class="logoAndTitleContainer">
+                        <div class="logoContainer">
+                            <img src="assets/stockToolLogo.png" alt="logo">
+                        </div>
+                        <div class="titleContainer">
+                            <h1>REsearch</h1>
+                        </div>
+                    </div>
+                    <form [formGroup]="resetEmailForm" (ngSubmit)="changeEmail()">
+                        <div class="formInputContainer">
+                            <div class="inputAndErrorContainer">
+                                <input type="email" id="email" name="email" formControlName="email" placeholder="wBuffet@bHathaway.com" required>
+                                <div class="EmailErrorContainer" *ngIf="resetEmailForm && 
+                                (resetEmailForm.get('email')?.dirty || 
+                                resetEmailForm.get('email')?.touched)">
+                                    <p *ngIf="resetEmailForm.get('email')?.hasError('required')">* Email is required</p>
+                                    <p *ngIf="resetEmailForm.get('email')?.hasError('email')">* Email is invalid</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formInputContainer">
+                            <div class="inputAndErrorContainer">
+                                <input type="Email" id="confirmEmail" name="confirmEmail" formControlName="confirmEmail" placeholder="Confirm Email: Email2023!" required>
+                                <div *ngIf="resetEmailForm && 
+                                (resetEmailForm.get('confirmEmail')?.dirty || 
+                                resetEmailForm.get('confirmEmail')?.touched)" 
+                                class="errorContainer">
+                                    <p *ngIf="resetEmailForm.get('confirmEmail')?.errors?.['required']">* confirm email is required</p>
+                                    <p *ngIf="resetEmailForm?.errors?.['emailMismatch']">* Emails do not match</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="changeEmailButtonContainer">
+                            <button [disabled]="!resetEmailForm.valid" type="submit">Change Email</button>
+                        </div>
+                        <div class="requestResponseContainer">
+                            <div class="responseMessage"
+                            [@myInsertRemoveTrigger]
+                            *ngIf="displayResponseMessage">
+                                <p [ngStyle]="{'color': requestMessageColor}">{{requestMessage}}</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="halfPageStylishContainer">
+                <img class="researchPic" src="assets/TrimmedResearchPicture.jpg" alt="logo">
+                <img class="watchlistPic" src="assets/WatchlistPicture.jpg" alt="logo">
+            </div>
+        </div>
+    </div>
+</body>
+

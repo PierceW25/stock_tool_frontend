@@ -152,7 +152,6 @@ export class AccountViewComponent implements OnInit {
   }
 
   deleteAccount() {
-    
     sessionStorage.removeItem('email')
     this.route.navigate(['home'])
   }

@@ -9,6 +9,7 @@ import { CustomMarketViewComponent } from './views/custom-market-view/custom-mar
 import { AccountViewComponent } from './views/account-view/account-view.component';
 import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
+import { ChangeEmailViewComponent } from './views/change-email-view/change-email-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'discovery', component: DiscoveryViewComponent },
   { path: 'forgotPassword', component: ForgotPasswordViewComponent },
   { path: 'resetPassword/:token', component: ResetPasswordViewComponent },
+  { path: 'changeEmail/:token', component: ChangeEmailViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

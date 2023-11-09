@@ -33,6 +33,7 @@ import { StockKeyMetricsComponent } from './components/stock-key-metrics/stock-k
 import { AccountViewComponent } from './views/account-view/account-view.component';
 import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
+import { ChangeEmailViewComponent } from './views/change-email-view/change-email-view.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ResetPasswordViewComponent } from './views/reset-password-view/reset-pa
     StockKeyMetricsComponent,
     AccountViewComponent,
     ForgotPasswordViewComponent,
-    ResetPasswordViewComponent
+    ResetPasswordViewComponent,
+    ChangeEmailViewComponent
   ],
   imports: [
     BrowserModule,
