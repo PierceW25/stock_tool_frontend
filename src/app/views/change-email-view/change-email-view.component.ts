@@ -45,7 +45,10 @@ export class ChangeEmailViewComponent implements OnInit {
     let newEmail = this.resetEmailForm.get('email')?.value || ''
     if (newEmail && newEmail != '') {
       this.userDataService.updateEmail(this.token, newEmail).subscribe(response => {
-        console.log(response)
+        let fullResponse: string = response.toString()
+        this.requestMessage = fullResponse.split(',')[0]
+        this.requestMessageColor = fullResponse.split(',')[1]
+        this.displayResponseMessage = true
       })
     }
   }
