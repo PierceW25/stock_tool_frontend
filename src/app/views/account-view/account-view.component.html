@@ -103,5 +103,12 @@
                 <p [ngStyle]="{'color': responseColor}">{{responseMessage}}</p>
             </div>
         </div>
+        <div class="requestResponseContainer">
+            <div class="responseMessage" 
+            [@myInsertRemoveTrigger]
+            *ngIf="displayDeleteResponse">
+                <p [ngStyle]="{'color': responseColor}">{{responseMessage}}</p>
+            </div>
+        </div>
     </div>
 </body>

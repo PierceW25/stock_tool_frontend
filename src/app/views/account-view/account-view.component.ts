@@ -44,6 +44,7 @@ export class AccountViewComponent implements OnInit {
 
   displayPasswordResponse = false;
   displayEmailResponse = false
+  displayDeleteResponse = false
   responseMessage = ''
   responseColor = ''
 
@@ -140,7 +141,7 @@ export class AccountViewComponent implements OnInit {
         this.displayEmailResponse = true
 
         setTimeout(() => {
-          this.displayEmailResponse = false
+          this.displayDeleteResponse = false
         }, 3000)
       })
     }
@@ -152,8 +153,18 @@ export class AccountViewComponent implements OnInit {
   }
 
   deleteAccount() {
-    sessionStorage.removeItem('email')
-    this.route.navigate(['home'])
+    if (this.userEmail && this.userEmail != '') {
+      this.userDataService.requestToDeleteAccount(this.userEmail).subscribe(response => {
+        let fullResponse: string = response.toString()
+        this.responseMessage = fullResponse.split(',')[0]
+        this.responseColor = fullResponse.split(',')[1]
+        this.displayDeleteResponse = true
+
+        setTimeout(() => {
+          this.displayDeleteResponse = false
+        }, 3000)
+      })
+    }
   }
 
 }
