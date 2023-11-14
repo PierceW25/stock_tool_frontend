@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
-import {Observable} from 'rxjs';
-import {ModalService} from '../../services/modal.service';
+import { Observable } from 'rxjs';
+import { ModalService } from '../../services/modal.service';
 import { StockApiService } from '../../services/stock-api.service';
 import { EventEmitter } from '@angular/core';
 
