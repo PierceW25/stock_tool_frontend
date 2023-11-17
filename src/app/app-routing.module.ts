@@ -10,6 +10,7 @@ import { AccountViewComponent } from './views/account-view/account-view.componen
 import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
 import { ChangeEmailViewComponent } from './views/change-email-view/change-email-view.component';
+import { DeleteAccountViewComponent } from './views/delete-account-view/delete-account-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageViewComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'forgotPassword', component: ForgotPasswordViewComponent },
   { path: 'resetPassword/:token', component: ResetPasswordViewComponent },
   { path: 'changeEmail/:token', component: ChangeEmailViewComponent },
+  { path: 'deleteAccount/:token', component: DeleteAccountViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

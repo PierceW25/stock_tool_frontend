@@ -1,0 +1,232 @@
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-color: #121212;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.fullPageContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+}
+
+.pageContainer {
+    background-color: #121212;
+    width: 100%;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.deleteAccountFunctionalityContainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteAccountBox {
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    align-items: center;
+}
+
+.reliefBox {
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    align-items: center;
+}
+
+.reliefBox h3 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.reliefBox button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid #424242;
+    width: 90px;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.reliefBox button:hover {
+    background-color: #424242;
+    cursor: pointer;
+}
+
+.deleteAccountTitle h3 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.deleteAccountButtons {
+    display: flex;
+    width: 300px;
+    justify-content: center;
+}
+
+.deleteAccountButtons button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid #424242;
+    width: 90px;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.deleteAccountButtons button:hover {
+    background-color: #424242;
+    cursor: pointer;
+}
+
+.spacedBtn {
+    margin-left: 5px;
+}
+
+.halfPageStylishContainer {
+    width: 50%;
+    height: 100%;
+    background-color: #121212;
+    overflow: hidden;
+}
+
+.logoAndTitleContainer {
+    display: flex;
+    align-items: baseline;
+}
+
+.logoContainer img {
+    width: 150px;
+    height: 150px;
+    margin-left: -20px;
+    margin-right: -15px;
+    margin-bottom: -30px;
+}
+
+.titleContainer h1 {
+    font-size: 44px;
+    font-weight: 400;
+    color: rgb(70, 216, 70);
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    width: 250px;
+    height: 30px;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #232323;
+    border: 2px solid lightgray;
+    border-radius: 15px;
+    color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+.formInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.formInputContainer p {
+    font-size: 14px;
+    color: lightcoral;
+}
+
+.labelContainer {
+    width: 100px;
+}
+
+.inputAndErrorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputAndErrorContainer p {
+    font-size: 14px;
+    color: lightcoral;
+}
+
+.loginUserButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginUserButtonContainer button {
+    width: 220px;
+    height: 35px;
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(67, 190, 67);
+    border-radius: 15px;
+    color: white;
+}
+
+.loginUserButtonContainer button:hover {
+    background-color: rgb(70, 216, 70);
+    cursor: pointer;
+}
+
+.loginUserButtonContainer button:disabled {
+    background-color: rgb(40, 114, 40);
+    cursor: not-allowed;
+}
+
+.loginUserButtonContainer a {
+    font-size: 14px;
+    color: lightgray;
+    text-decoration: none;
+    margin-top: 3px;
+}
+
+.loginUserButtonContainer a:hover {
+    color: rgb(70, 216, 70);
+}
+
+.halfPageStylishContainer .researchPic {
+    width: 100%;
+    height: 65%;
+}
+
+.halfPageStylishContainer .watchlistPic {
+    width: 100%;
+    height: 50%;
+}

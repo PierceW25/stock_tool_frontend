@@ -1,0 +1,26 @@
+<body>
+    <div class="fullPageContainer">
+        <app-custom-nav-bar></app-custom-nav-bar>
+        <div class="pageContainer">
+            <div class="deleteAccountFunctionalityContainer">
+                <div class="deleteAccountBox" *ngIf="showDeleteBox">
+                    <div class="deleteAccountTitle">
+                        <h3>Are you sure you want to delete your account? Once you click "Yes" your account will be deleted</h3>
+                    </div>
+                    <div class="deleteAccountButtons">
+                        <button (click)="didntDeleteAccount()">No</button>
+                        <button class="spacedBtn" (click)="deletedAccount()">Yes</button>
+                    </div>
+                </div>
+                <div class="reliefBox" *ngIf="showReliefBox">
+                    <h3>Whew that was a close one!</h3>
+                    <button (click)="goToHomePage()">Go Home</button>
+                </div>
+            </div>
+            <div class="halfPageStylishContainer">
+                <img class="researchPic" src="assets/TrimmedResearchPicture.jpg" alt="logo">
+                <img class="watchlistPic" src="assets/WatchlistPicture.jpg" alt="logo">
+            </div>
+        </div>
+    </div>
+</body>

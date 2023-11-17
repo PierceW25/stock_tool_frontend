@@ -14,17 +14,17 @@ import { PasswordValidation } from 'src/app/validators/password-validation';
 })
 export class ResetPasswordViewComponent {
 
+  constructor(
+    private route: ActivatedRoute,
+    private userDataService: UserDataService,
+    private builder: FormBuilder) {}
+
   private token: string = this.route.snapshot.paramMap.get('token') || ''
   allowPasswordChange: boolean = false;
 
   displayResponseMessage = false
   requestMessage = ''
   requestMessageColor = ''
-  
-  constructor(
-    private route: ActivatedRoute,
-    private userDataService: UserDataService,
-    private builder: FormBuilder) {}
 
   resetPasswordForm = this.builder.group({
     password: ['', [Validators.required, Validators.minLength(8)],

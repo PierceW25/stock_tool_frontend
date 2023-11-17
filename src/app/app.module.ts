@@ -34,6 +34,7 @@ import { AccountViewComponent } from './views/account-view/account-view.componen
 import { ForgotPasswordViewComponent } from './views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/reset-password-view/reset-password-view.component';
 import { ChangeEmailViewComponent } from './views/change-email-view/change-email-view.component';
+import { DeleteAccountViewComponent } from './views/delete-account-view/delete-account-view.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ChangeEmailViewComponent } from './views/change-email-view/change-email
     AccountViewComponent,
     ForgotPasswordViewComponent,
     ResetPasswordViewComponent,
-    ChangeEmailViewComponent
+    ChangeEmailViewComponent,
+    DeleteAccountViewComponent
   ],
   imports: [
     BrowserModule,
