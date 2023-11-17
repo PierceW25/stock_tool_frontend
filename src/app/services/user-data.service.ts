@@ -42,4 +42,8 @@ export class UserDataService {
     return this.http.post(this.databaseApiUrl + '/changeEmail', {email: newEmail, token: token}, {responseType: 'text'})
   }
 
+  deleteAccount(token: string) {
+    return this.http.post(this.databaseApiUrl + '/deleteAccount', token, {responseType: 'text'})
+  }
+
 }

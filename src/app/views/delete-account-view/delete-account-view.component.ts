@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { validationObject } from 'src/app/interfaces/validationObject';
 import { UserDataService } from 'src/app/services/user-data.service';
+import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 
 @Component({
   selector: 'app-delete-account-view',
   templateUrl: './delete-account-view.component.html',
-  styleUrls: ['./delete-account-view.component.css']
+  styleUrls: ['./delete-account-view.component.css'],
+  animations: [ myInsertRemoveTrigger ]
 })
 export class DeleteAccountViewComponent implements OnInit {
   constructor(private router: Router,
@@ -15,6 +17,7 @@ export class DeleteAccountViewComponent implements OnInit {
 
   showDeleteBox = false
   showReliefBox = false
+  showAccountDeletedBox = false
   tokenValidationComplete = false
 
   userToken = this.route.snapshot.paramMap.get('token') || ''
@@ -22,6 +25,10 @@ export class DeleteAccountViewComponent implements OnInit {
     email: '',
     tokenMessage: ''
   }
+
+  displayResponseMessage = false
+  requestMessageColor = ''
+  requestMessage = ''
 
   ngOnInit() {
     this.userDataService.validateToken(this.userToken).subscribe((response: any) => {
@@ -39,7 +46,25 @@ export class DeleteAccountViewComponent implements OnInit {
     this.showDeleteBox = false
   }
 
-  deletedAccount() {}
+  deletedAccount() {
+    this.userDataService.deleteAccount(this.userToken).subscribe(response => {
+      console.log(response)
+      let fullResponse: string = response.toString()
+      this.requestMessage = fullResponse.split(',')[0]
+      this.requestMessageColor = fullResponse.split(',')[1]
+      this.displayResponseMessage = true
+
+      if (this.requestMessage == 'Your account has been deleted') {
+        sessionStorage.removeItem('email')
+        this.showAccountDeletedBox = true
+        this.showDeleteBox = false
+      } else {
+        setTimeout(() => {
+          this.displayResponseMessage = false
+        }, 2500)
+      }
+    })
+  }
 
   goToHomePage() {
     this.router.navigate(['home'])

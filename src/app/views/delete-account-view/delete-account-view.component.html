@@ -11,9 +11,20 @@
                         <button (click)="didntDeleteAccount()">No</button>
                         <button class="spacedBtn" (click)="deletedAccount()">Yes</button>
                     </div>
+                    <div class="requestResponseContainer">
+                        <div class="responseMessage"
+                        [@myInsertRemoveTrigger]
+                        *ngIf="displayResponseMessage">
+                            <p [ngStyle]="{'color': requestMessageColor}">{{requestMessage}}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="reliefBox" *ngIf="showReliefBox">
+                <div class="reliefBox secondaryBox" *ngIf="showReliefBox">
                     <h3>Whew that was a close one!</h3>
+                    <button (click)="goToHomePage()">Go Home</button>
+                </div>
+                <div class="accountDeletedBox secondaryBox" *ngIf="showAccountDeletedBox">
+                    <h3>Your account has been deleted</h3>
                     <button (click)="goToHomePage()">Go Home</button>
                 </div>
             </div>
