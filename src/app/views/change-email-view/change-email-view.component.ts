@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { confirmEmailValidator } from 'src/app/validators/confirmEmailValidator';
+import { validationObject } from 'src/app/interfaces/validationObject';
 
 @Component({
   selector: 'app-change-email-view',
@@ -18,6 +19,11 @@ export class ChangeEmailViewComponent implements OnInit {
     private builder: FormBuilder) {}
 
   private token: string = this.route.snapshot.paramMap.get('token') || ''
+  userValidation: validationObject = {
+    email: '',
+    tokenMessage: ''
+  }
+  tokenValidationComplete = false
   allowEmailChange: boolean = false
 
   displayResponseMessage = false
@@ -31,12 +37,13 @@ export class ChangeEmailViewComponent implements OnInit {
 
   ngOnInit() {
     if (this.token != '') {
-      this.userDataService.validateToken(this.token).subscribe(response => {
-        if (response = 'Token is valid') {
-          this.allowEmailChange = true
-        } else {
-          console.log('please try again')
-        }
+      this.userDataService.validateToken(this.token).subscribe((response: any) => {
+        console.log(response)
+        this.userValidation.email = response['email']
+        this.userValidation.tokenMessage = response['tokenMessage']
+
+        sessionStorage.setItem('email', this.userValidation.email)
+        this.tokenValidationComplete = true
       })
     }
   }

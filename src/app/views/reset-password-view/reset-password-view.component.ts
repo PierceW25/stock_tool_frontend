@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
+import { validationObject } from 'src/app/interfaces/validationObject';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { confirmPasswordValidator } from 'src/app/validators/confirmPasswordValidator';
 import { PasswordValidation } from 'src/app/validators/password-validation';
@@ -20,7 +21,11 @@ export class ResetPasswordViewComponent {
     private builder: FormBuilder) {}
 
   private token: string = this.route.snapshot.paramMap.get('token') || ''
-  allowPasswordChange: boolean = false;
+  userInfo: validationObject = {
+    email: '',
+    tokenMessage: ''
+  }
+  tokenValidationComplete = false
 
   displayResponseMessage = false
   requestMessage = ''
@@ -38,12 +43,12 @@ export class ResetPasswordViewComponent {
 
   ngOnInit() {
     if (this.token != '') {
-      this.userDataService.validateToken(this.token).subscribe(response => {
-        if (response = 'Token is valid') {
-          this.allowPasswordChange = true
-        } else {
-          console.log('please try again')
-        }
+      this.userDataService.validateToken(this.token).subscribe((response: any) => {
+        this.userInfo.email = response['email']
+        this.userInfo.tokenMessage = response['tokenMessage']
+
+        sessionStorage.setItem('email', this.userInfo.email)
+        this.tokenValidationComplete = true
       })
     }
   }

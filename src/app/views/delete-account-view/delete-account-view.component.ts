@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { validationObject } from 'src/app/interfaces/validationObject';
 import { UserDataService } from 'src/app/services/user-data.service';
 
 @Component({
@@ -14,21 +15,22 @@ export class DeleteAccountViewComponent implements OnInit {
 
   showDeleteBox = false
   showReliefBox = false
+  tokenValidationComplete = false
+
   userToken = this.route.snapshot.paramMap.get('token') || ''
-  userEmail = ''
+  userInfo: validationObject = {
+    email: '',
+    tokenMessage: ''
+  }
 
   ngOnInit() {
-    this.userDataService.validateToken(this.userToken).subscribe(response => {
-      let fullResponse = response
-      let tokenMessage = fullResponse.split(',')[0]
-      this.userEmail = fullResponse.split(',')[1]
+    this.userDataService.validateToken(this.userToken).subscribe((response: any) => {
+      this.userInfo.email = response['email']
+      this.userInfo.tokenMessage = response['tokenMessage']
 
-      if (tokenMessage = 'token is valid') {
-        this.showDeleteBox = true
-        sessionStorage.setItem('email', this.userEmail)
-      } else {
-        this.showDeleteBox = false
-      }
+      sessionStorage.setItem('email', this.userInfo.email)
+      this.tokenValidationComplete = true
+      this.showDeleteBox = true
     })
   }
 
