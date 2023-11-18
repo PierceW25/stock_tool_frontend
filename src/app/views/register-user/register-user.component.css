@@ -110,6 +110,8 @@ input[data-autocompleted] {
 .inputAndErrorContainer p {
     font-size: 14px;
     color: lightcoral;
+    margin-top: 3px;
+    margin-bottom: 0;
 }
 
 .registerUserButtonContainer {
