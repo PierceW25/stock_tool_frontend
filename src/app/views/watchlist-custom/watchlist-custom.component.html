@@ -86,18 +86,3 @@
         </table>
 </div>
 <app-custom-add-stock-modal (onStockPicked)="addStockToWatchlist($event)"></app-custom-add-stock-modal>
-<!--
-<dialog id="addStockDialog">
-    <h3>Search the stock</h3>
-    <div class="searchStockContainer">
-        <input type="text" placeholder="Search Stock" [value]="searchStock" (keyup)="onEditStockInput($event)" list="stockOptions">
-        <datalist id="stockOptions">
-            <option *ngFor="let stock of autofillOptions" [value]="stock"></option>
-        </datalist>
-    </div>
-    <div class="cancelOrSearchStockBtns">
-        <button (click)="closeAddStockDialog()">Cancel</button>
-        <button (click)="addStockToWatchlist()">Add</button>
-    </div>
-</dialog>
--->

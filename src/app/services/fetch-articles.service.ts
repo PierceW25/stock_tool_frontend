@@ -9,6 +9,8 @@ export class FetchArticlesService {
 
   constructor(private http: HttpClient) { }
 
+  apiKey = 'HGP8743EDTZFQ8HO'
+
   getAllArticles() {
     return this.http.get("http://localhost:8080/articles/general");
   }  
@@ -23,5 +25,9 @@ export class FetchArticlesService {
 
   getCustomArticles(email: string) {
     return this.http.get("http://localhost:8080/articles/custom/" + email)
+  }
+
+  getStocksArticles(ticker: string) {
+    return this.http.get("https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=" + ticker + "&sort=RELEVANCE&apikey=" + this.apiKey)
   }
 }

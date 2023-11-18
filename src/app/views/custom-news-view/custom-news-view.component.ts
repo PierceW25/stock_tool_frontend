@@ -10,8 +10,12 @@ import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
 })
 export class CustomNewsViewComponent implements OnInit {
 
+  constructor(private articlesService: FetchArticlesService) {}
+
   email: string = '-'
+  defaultStocks = ["AAPL", "MSFT", "TM", "KO", "NVDA", "TSLA", "F", "MCD", "WMT"]
   articles: Article[] = []
+
   ngOnInit() {
     this.email = sessionStorage.getItem('email') || '-'
 
@@ -19,15 +23,34 @@ export class CustomNewsViewComponent implements OnInit {
       next: (response: any) => {
         let responseObject = response
         this.articles = responseObject.customArticles
+        
+        if (this.articles.length == 0) {
+          
+          for (const ticker of this.defaultStocks) {
+            this.articlesService.getStocksArticles(ticker).subscribe((response: any) => {
+              let fullResponse = response
+
+              let topArticles = fullResponse.feed.slice(0,2)
+              for (const topArticle of topArticles) {
+                let formattedArticle: Article = {
+                  banner_image: topArticle.banner_image,
+                  category: "custom",
+                  source: topArticle.source, 
+                  summary: topArticle.summary,
+                  time_published: topArticle.time_published,
+                  title: topArticle.title,
+                  url: topArticle.url
+                }
+                this.articles.push(formattedArticle)
+              }
+            })
+          }
+        }
       },
       error: (error: any) => {
         console.log(error)
       }
     })
   }
-
-  constructor(
-    private articlesService: FetchArticlesService,
-  ) {}
 
 }

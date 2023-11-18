@@ -32,13 +32,13 @@ export class WatchlistCustomComponent implements OnInit {
   addStockDialogRef: any
 
   usersWatchlists: watchlistsContainer = {
-    "watchlist_one": [],
-    "watchlist_two": [],
-    "watchlist_three": [],
-    "watchlist_one_title": "",
-    "watchlist_two_title": "",
-    "watchlist_three_title": "",
-    "selected_watchlist": ""
+    "watchlist_one": ["AAPL", "MSFT", "NVDA"],
+    "watchlist_two": ["TM", "TSLA", "F"],
+    "watchlist_three": ["KO", "WMT", "MCD"],
+    "watchlist_one_title": "Tech",
+    "watchlist_two_title": "Auto",
+    "watchlist_three_title": "Consumers",
+    "selected_watchlist": "Tech"
   }
 
   userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
@@ -113,6 +113,30 @@ export class WatchlistCustomComponent implements OnInit {
             this.renderedWatchlist = this.generateWatchlist(this.dbWatchlist)
           } 
         })
+    } else {
+        switch (this.usersWatchlists.selected_watchlist) {
+          case this.usersWatchlists.watchlist_one_title:
+            this.dbWatchlist = this.usersWatchlists.watchlist_one
+            this.currentWatchlist = 'primary'
+            break
+          case this.usersWatchlists.watchlist_two_title:
+            this.dbWatchlist = this.usersWatchlists.watchlist_two
+            this.currentWatchlist = 'secondary'
+            break
+          case this.usersWatchlists.watchlist_three_title:
+            this.dbWatchlist = this.usersWatchlists.watchlist_three
+            this.currentWatchlist = 'tertiary'
+            break
+          default:
+            this.dbWatchlist = []
+            this.currentWatchlist = ''
+            console.log("logical error occured in selecting watchlist")
+            break
+        } 
+
+        if (this.dbWatchlist.length > 0) {
+          this.renderedWatchlist = this.generateWatchlist(this.dbWatchlist)
+        } 
     }
   }
 
@@ -172,24 +196,24 @@ export class WatchlistCustomComponent implements OnInit {
 
   onWatchlistChange(event: any): void {
     this.currentWatchlist = event.target.value
+    switch (this.currentWatchlist) {
+      case 'primary':
+        this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_one_title
+        this.dbWatchlist = this.usersWatchlists.watchlist_one
+        break;
+      case 'secondary':
+        this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_two_title
+        this.dbWatchlist = this.usersWatchlists.watchlist_two
+        break;
+      case 'tertiary':
+        this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_three_title
+        this.dbWatchlist = this.usersWatchlists.watchlist_three
+        break;
+      default:
+        this.dbWatchlist = []
+        console.log("logical error occured in changing watchlist")
+    }
     if (this.userEmail) {
-      switch (this.currentWatchlist) {
-        case 'primary':
-          this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_one_title
-          this.dbWatchlist = this.usersWatchlists.watchlist_one
-          break;
-        case 'secondary':
-          this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_two_title
-          this.dbWatchlist = this.usersWatchlists.watchlist_two
-          break;
-        case 'tertiary':
-          this.usersWatchlists.selected_watchlist = this.usersWatchlists.watchlist_three_title
-          this.dbWatchlist = this.usersWatchlists.watchlist_three
-          break;
-        default:
-          this.dbWatchlist = []
-          console.log("logical error occured in changing watchlist")
-      }
       this.watchlist.changeSelectedWatchlist(this.userEmail, this.usersWatchlists.selected_watchlist).subscribe(
         (response: any) => {
         })
@@ -256,7 +280,7 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   updateFullWatchlistObject(): void {
-    if (this.userEmail && this.dbWatchlist.length > 0) {
+    if (this.dbWatchlist.length > 0) {
       switch (this.currentWatchlist) {
         case 'primary':
           this.usersWatchlists.watchlist_one = this.dbWatchlist
@@ -269,8 +293,8 @@ export class WatchlistCustomComponent implements OnInit {
           break;
         default:
           console.log("logical error occured in storing watchlist")
-      }
-
+     }  
+     if (this.userEmail) {
       this.watchlist.editSelectedWatchlist(this.userEmail, this.currentWatchlist, this.dbWatchlist).subscribe(
         (response: any) => {
           this.articles.updateCustomerArticles(this.dbWatchlist[this.dbWatchlist.length - 1]).subscribe({
@@ -280,8 +304,8 @@ export class WatchlistCustomComponent implements OnInit {
             }
           })
         })
+      }
     }
-
   }
 
   onResearchStock(ticker: any): void {

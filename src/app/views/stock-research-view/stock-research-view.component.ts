@@ -29,9 +29,9 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
     "watchlist_one": [],
     "watchlist_two": [],
     "watchlist_three": [],
-    "watchlist_one_title": "",
-    "watchlist_two_title": "",
-    "watchlist_three_title": "",
+    "watchlist_one_title": "Tech",
+    "watchlist_two_title": "Auto",
+    "watchlist_three_title": "Consumers",
     "selected_watchlist": ""
   }
 
