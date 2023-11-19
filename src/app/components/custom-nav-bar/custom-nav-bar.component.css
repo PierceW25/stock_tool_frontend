@@ -9,7 +9,7 @@
 }
 
 .stockSearchContainer p {
-    margin-top: 0;
+    margin-top: 0px;
     margin-bottom: 0;
     font-size: 14px;
     color: coral;
@@ -58,7 +58,7 @@ input {
 .headerLinksContainer a {
     color: white;
     text-decoration: none;
-    margin-top: 4px;
+    margin-top: 6px;
     margin-right: 8px;
     font-size: 16px;
 }
