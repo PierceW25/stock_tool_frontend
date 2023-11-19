@@ -2,13 +2,32 @@
     <section [class.open]="promptSignin === true" (click)="close()">
         <div (click)="$event.stopPropagation()">
             <div class="contentContainer">
-                <div class="titleContainer">
-                    <h3>Sign up!</h3>
+                <div class="headerContainer">
+                    <div class="logoContainer">
+                        <img src="assets/stockToolLogo.png" alt="logo">
+                    </div>
+                    <div class="titleContainer">
+                        <h1>REsearch</h1>
+                    </div>
                 </div>
-                <div class="addOrCancelBtnsContainer">
-                    <button (click)="login()">Cancel</button>
-                    <button (click)="signUp()">Add</button>
+                <div class="descriptionContainer">
+                    <p>Login to access all features!</p>
                 </div>
+                <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                    <div class="formInputContainer">
+                        <input type="email" formControlName="email" placeholder="E-mail" required>
+                        <p *ngIf="emailDoesNotExist">* e-mail does not exist</p>
+                    </div>
+                    <div class="formInputContainer">
+                        <input type="password" formControlName="password" placeholder="Password" required>
+                        <p *ngIf="passwordIncorrect">* incorrect password</p>
+                    </div>
+                    <div class="loginUserButtonContainer">
+                        <button [disabled]="!loginForm.valid" type="submit">Login</button>
+                        <a routerLink="/forgotPassword">Forgot Password?</a>
+                        <a routerLink="/register">Create an account</a>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
