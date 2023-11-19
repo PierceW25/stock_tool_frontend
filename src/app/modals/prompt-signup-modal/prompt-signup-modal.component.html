@@ -1,1 +1,15 @@
-<p>prompt-signup-modal works!</p>
+<ng-container *ngIf="promptSignin$ | async as promptSignin">
+    <section [class.open]="promptSignin === true" (click)="close()">
+        <div (click)="$event.stopPropagation()">
+            <div class="contentContainer">
+                <div class="titleContainer">
+                    <h3>Sign up!</h3>
+                </div>
+                <div class="addOrCancelBtnsContainer">
+                    <button (click)="login()">Cancel</button>
+                    <button (click)="signUp()">Add</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>

@@ -23,10 +23,6 @@ export class CustomAddStockModalComponent implements OnInit {
       this.display$ = this.modalService.watch()
     }
 
-    open() {
-      this.modalService.open()
-    }
-
     close() {
       this.modalService.close()
     }

@@ -9,6 +9,7 @@ import { watchlistItem } from 'src/app/interfaces/watchlistItem';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
 import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
+import { PromtSigninServiceService } from 'src/app/services/promt-signin-service.service';
 
 @Component({
   selector: 'app-watchlist-custom',
@@ -25,7 +26,8 @@ export class WatchlistCustomComponent implements OnInit {
     private watchlist: UpdateWatchlistsService, 
     private articles: FetchArticlesService,
     private router: Router,
-    private modal: ModalService
+    private modal: ModalService,
+    private promptModal: PromtSigninServiceService
     ) {}
 
   @ViewChild(MatTable) table: MatTable<any> | undefined
@@ -364,7 +366,12 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   testOpenModal(): void {
-    this.modal.open()
+    if (this.userEmail) {
+      this.modal.open()
+    } else {
+      this.promptModal.open()
+      console.log("should open")
+    }
   }
 
   onEditStockInput(event: any): void {
