@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StockApiService } from '../../services/stock-api.service';
 import { formatLargeNumber } from 'src/app/utils/valueManipulation';
 import { watchlistsContainer } from 'src/app/interfaces/watchlistsContainer';
 import { UpdateWatchlistsService } from 'src/app/services/update-watchlist.service';
 import { FetchArticlesService } from 'src/app/services/fetch-articles.service';
 import { myInsertRemoveTrigger } from 'src/app/animations/MyInsertRemoveTrigger';
+import { PromtSigninServiceService } from 'src/app/services/promt-signin-service.service';
 
 @Component({
   selector: 'app-stock-research-view',
@@ -20,7 +21,9 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private stockApi: StockApiService,
     private watchlist: UpdateWatchlistsService,
-    private articles: FetchArticlesService
+    private articles: FetchArticlesService,
+    private promptModal: PromtSigninServiceService,
+    private router: Router
     ) {}
   
     /* User variables */
@@ -235,7 +238,15 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
             (response: any) => {
             })
         })
+    } else {
+      this.promptModal.open()
     } 
+  }
+
+  changeUser(event: any): void {
+    console.log(event)
+    this.userEmail = event
+    this.router.navigate(['account'])
   }
 
   getFinancialStatementsData(ticker: string) {

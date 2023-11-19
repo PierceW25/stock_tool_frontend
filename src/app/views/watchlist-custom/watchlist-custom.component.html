@@ -86,4 +86,4 @@
         </table>
 </div>
 <app-custom-add-stock-modal (onStockPicked)="addStockToWatchlist($event)"></app-custom-add-stock-modal>
-<app-prompt-signup-modal></app-prompt-signup-modal>
+<app-prompt-signup-modal (userLoggedIn)="changeUser($event)"></app-prompt-signup-modal>

@@ -370,8 +370,13 @@ export class WatchlistCustomComponent implements OnInit {
       this.modal.open()
     } else {
       this.promptModal.open()
-      console.log("should open")
     }
+  }
+
+  changeUser(event: any): void {
+    console.log(event)
+    this.userEmail = event
+    this.router.navigate(['account'])
   }
 
   onEditStockInput(event: any): void {
