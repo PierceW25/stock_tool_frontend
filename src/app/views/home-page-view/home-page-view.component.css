@@ -21,6 +21,11 @@
     background-color: #121212;
     height: 100vh;
   }
+  .navBar {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
   /*
     5. Improve media defaults
   */
@@ -47,6 +52,7 @@
     isolation: isolate;
   }
 
+
   .allContentContainer {
     width: 100%;
     display: flex;
@@ -57,5 +63,6 @@
   }
 
   .mainContentContainer {
+    margin-top: 50px;
     width: 80%;
   }
