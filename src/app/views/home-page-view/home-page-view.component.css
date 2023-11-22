@@ -66,3 +66,15 @@
     margin-top: 50px;
     width: 80%;
   }
+
+  @media screen and (max-width: 1600px) {
+    .mainContentContainer {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .mainContentContainer {
+      width: 98%;
+    }
+  }

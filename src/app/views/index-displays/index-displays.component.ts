@@ -9,6 +9,8 @@ import { indexDailyData } from '../../interfaces/indexDailyData';
 })
 export class IndexDisplaysComponent implements OnInit {
   indexes: indexDailyData[] = []
+  firstColumnIndexes: indexDailyData[] = []
+  secondColumnIndexes: indexDailyData[] = []
 
   selectedIndex = 0
   displayTicker: string = 'SPY'
@@ -42,6 +44,9 @@ export class IndexDisplaysComponent implements OnInit {
             datetime_added: element.value['datetime_added']
           })
         })
+
+        this.firstColumnIndexes = this.indexes.slice(0,5)
+        this.secondColumnIndexes = this.indexes.slice(5,10)
         this.displayedIndexesPrice = '$' + this.indexes[0].price.toString()
         this.displayedIndexesPercentChange = this.indexes[0].percent_change
         let calculatedPriceChange = this.indexes[0].price * (parseFloat(this.indexes[0].percent_change.slice(0, -1)) / 100)
