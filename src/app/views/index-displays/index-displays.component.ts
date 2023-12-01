@@ -62,8 +62,5 @@ export class IndexDisplaysComponent implements OnInit {
     this.displayedIndexesPercentChange = this.indexes[index].percent_change
     let calculatedPriceChange = this.indexes[index].price * (parseFloat(this.indexes[index].percent_change.slice(0, -1)) / 100)
     this.displayedIndexesPriceChange = calculatedPriceChange.toFixed(2).toString()
-    console.log('index page output')
-    console.log(this.displayedIndexesPercentChange)
-    console.log(this.displayedIndexesPriceChange)
   }
 }

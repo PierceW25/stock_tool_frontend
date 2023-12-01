@@ -12,11 +12,11 @@
 
 .chartContainer {
     color: white;
-    width: 50%;
+    width: 60%;
 }
 
 .indexListContainer {
-    width: 35%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,12 +52,6 @@
     text-align: left;
 }
 
-.priceActionContainer {
-    line-height: 10px;
-    padding: 0px;
-    margin-top: 10px;
-}
-
 .indexDailyDisplay {
     background-color: #121212;
     color: white;
@@ -68,6 +62,7 @@
     align-items: center;
     width: 100%;
     margin-top: 10px;
+    height: 55px;
 }
 
 .indexDailyDisplay:hover {
@@ -79,54 +74,91 @@
     background-color: #232B32;
 }
 
+.price {
+    font-size: 15px;
+}
+
 .positive_change {
     color: lightgreen;
+    font-size: 14px;
 }
 
 .negative_change {
     color: lightcoral;
+    font-size: 14px;
+}
+
+.smallScreenContainer {
+    display: none;
+}
+
+.titleText {
+    font-size: 15px; 
+    font-weight: 700;
+}
+
+.ticker {
+    font-size: 12px; 
+    font-weight: 500;
 }
 
 
 @media screen and (max-width: 1600px) {
     .indexListContainer {
-        width: 40%;
-    }
-
-    .indexColumnContainer {
-        width: 50%;
+        width: 35%;
     }
 }
 
 @media screen and (max-width: 1200px) {
+    .chartContainer {
+        width: 60%;
+    }
+
     .indexListContainer {
-        margin-top: 70px;
-        margin-right: 45px;
-        max-width: 45%;
-        min-width: 35%;
+        margin-top: 120px;
+        width: 35%;
     }
 
-    .titleContainer {
-        display: flex;
+    .indexDailyDisplay {
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .chartContainer {
+        width: 70%;
+    }
+
+    .indexListContainer {
+        width: 25%;
+    }
+
+    .dailyDataButtonsContainer {
+        width: 100%;
+    }
+
+    .indexColumnContainer {
+        padding: 0;
+        width: 100%;
+    }
+
+    .smallScreenContainer {
+        display:flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
+        height: 250px;
+        overflow-y: scroll;
     }
 
-    .priceActionContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
+    .smallScreenContainer .indexDailyDisplay {
+        width: 100%;
     }
 
-    .price {
-        display: none;
+    .smallScreenIndexesList {
+        width: 87%;
+        margin-top: 50px;
     }
 
-    .title {
+    .normalScreenContainer {
         display: none;
     }
 }

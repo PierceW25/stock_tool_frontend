@@ -20,48 +20,72 @@
                     <h1>Market Makers</h1>
                 </div>
                 <div class="dailyDataButtonsContainer">
-                    <div class="indexColumnContainer">
+                    <div class="indexColumnContainer normalScreenContainer">
                         <button class="indexDailyDisplay" (click)="onChangeIndexChart(indexes.indexOf(index))" *ngFor="let index of firstColumnIndexes">
                             <div class="titleContainer">
-                                <p style="font-size: 16px; font-weight: 500;" class="title">{{index.title}}</p>
-                                <p style="font-size: 12px; margin-top: -10px;" class="ticker">{{index.ticker}}</p>
+                                <p><span class="titleText">{{index.title}}</span><br /><span class="tickerText">{{index.ticker}}</span></p>
                             </div>
         
             
                             <div class="priceActionContainer">
-                                <!--
-                                <p>{{index.price}}</p>
-                                <p>{{index.days_change}}</p>
-                                -->
-                                <p class="price">${{index.price}}</p>
-                                <p [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
-                                              'negative_change': index.percent_change.includes('-')}">
-                                {{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}}</p>
+                                <p>
+                                    <span class="price">${{index.price}}</span> <br /> <span [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
+                                    'negative_change': index.percent_change.includes('-')}">{{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}} </span>
+                                </p>
                             </div>
                         </button>
                     </div>
-                    <div class="indexColumnContainer">
+                    <div class="indexColumnContainer normalScreenContainer">
                         <button class="indexDailyDisplay" (click)="onChangeIndexChart(indexes.indexOf(index))" *ngFor="let index of secondColumnIndexes">
                             <div class="titleContainer">
-                                <p style="font-size: 16px; font-weight: 500;" class="title">{{index.title}}</p>
-                                <p style="font-size: 12px; margin-top: -10px;" class="ticker">{{index.ticker}}</p>
+                                <p><span class="titleText">{{index.title}}</span><br /><span class="ticker">{{index.ticker}}</span></p>
                             </div>
         
             
                             <div class="priceActionContainer">
-                                <!--
-                                <p>{{index.price}}</p>
-                                <p>{{index.days_change}}</p>
-                                -->
-                                <p class="price">${{index.price}}</p>
-                                <p [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
-                                              'negative_change': index.percent_change.includes('-')}">
-                                {{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}}</p>
+                                <p>
+                                    <span class="price">${{index.price}}</span> <br /> <span [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
+                                    'negative_change': index.percent_change.includes('-')}">{{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}} </span>
+                                </p>
                             </div>
                         </button>
+                    </div>
+                    <div class="indexColumnContainer smallScreenContainer">
+                        <div class="smallScreenIndexesList">
+                        <button class="indexDailyDisplay" (click)="onChangeIndexChart(indexes.indexOf(index))" *ngFor="let index of indexes">
+                            <div class="titleContainer">
+                                <p><span class="titleText">{{index.title}}</span><br /><span class="ticker">{{index.ticker}}</span></p>
+                            </div>
+        
+            
+                            <div class="priceActionContainer">
+                                <p>
+                                    <span class="price">${{index.price}}</span> <br /> <span [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
+                                    'negative_change': index.percent_change.includes('-')}">{{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}} </span>
+                                </p>
+                            </div>
+                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </body>
 </html>
+
+
+<!--
+    old style of button interior
+    <div class="titleContainer">
+        <p class="title">{{index.title}}</p>
+        <p class="ticker">{{index.ticker}}</p>
+    </div>
+
+
+    <div class="priceActionContainer">
+        <p class="price">${{index.price}}</p>
+        <p [ngClass]=" {'positive_change': !index.percent_change.includes('-'),
+                    'negative_change': index.percent_change.includes('-')}">
+        {{index.percent_change.includes('-') ? '' : '+'}}{{index.percent_change}}</p>
+    </div>
+-->
