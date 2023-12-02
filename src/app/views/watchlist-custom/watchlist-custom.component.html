@@ -34,24 +34,24 @@
                 <tr class="tableHeaders">
                     <th>Ticker</th>
                     <th class="stockNameColumn">Name</th>
-                    <th></th>
+                    <th class="stockEditColumn"></th>
                     <th>Price</th>
                     <th>Change</th>
                     <th>% Change</th>
                     <th>Volume</th>
                     <th>Market Cap</th>
-                    <th>P/E Ratio</th>
-                    <th>52 Week High</th>
-                    <th>52 Week Low</th>
-                    <th>Purchase Amount</th>
-                    <th>% of Purchase</th>
+                    <th class="desktopColumn">P/E Ratio</th>
+                    <th class="desktopColumn">52 Week High</th>
+                    <th class="desktopColumn">52 Week Low</th>
+                    <th>Purchase $</th>
+                    <th>Purchase %</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let stock of renderedWatchlist" class="tableRows">
                     <td>{{stock.ticker}}<br></td>
                     <td class="stockNameColumn">{{stock.name}}</td>
-                    <td>
+                    <td class="stockEditColumn">
                         <div class="stockOptionsDropdown">
                             <button (click)="showStockOptions(stock.id)" class="dropBtn">
                                 <mat-icon class="menuBtn">more_vert</mat-icon>
@@ -74,9 +74,9 @@
                     {{stock.days_change.includes('-') ? '' : '+'}}{{stock.percent_change}}</td>
                     <td>{{stock.volume}}</td>
                     <td>{{stock.market_cap}}</td>
-                    <td>{{stock.pe_ratio}}</td>
-                    <td>${{stock.fifty_two_week_high}}</td>
-                    <td>${{stock.fifty_two_week_low}}</td>
+                    <td class="desktopColumn">{{stock.pe_ratio}}</td>
+                    <td class="desktopColumn">${{stock.fifty_two_week_high}}</td>
+                    <td class="desktopColumn">${{stock.fifty_two_week_low}}</td>
                     <td>${{stock.purchase_amt}}</td>
                     <td class="lastColumn">
                         <input type="text" placeholder="10%" [value]="stock.percent_of_purchase" (keyup)="onEditPercentOfPurchase($event, stock)">

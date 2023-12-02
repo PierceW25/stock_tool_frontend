@@ -102,3 +102,27 @@ input {
     background-color: rgb(70, 216, 70);
     cursor: pointer;
 }
+
+@media screen and (max-width: 1600px) {
+    .headerTitleContainer {
+        margin-left: 50px;
+    }
+
+    .headerLinksContainer {
+        margin-right: 50px;
+    }
+
+    input {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .headerTitleContainer {
+        margin-left: 10px;
+    }
+
+    .headerLinksContainer {
+        margin-right: 10px;
+    }
+}

@@ -2,18 +2,14 @@
     border-collapse: collapse;
     width: 97%;
     text-align: left;
-  }
-  
-  table {
-      display: flex;
-      flex-flow: column;
-      width: 100%;
-      height: 620px;
-      border-bottom: 1px solid darkgray;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 620px;
+    border-bottom: 1px solid darkgray;
   }
   
   thead {
-      padding-right: 6px;
       flex: 0 0 auto;
       width: 100%;
   }
@@ -40,15 +36,15 @@
   }
   
   tr {
-      width: 100%;
-      display: table;
-      table-layout: fixed;
-      border-bottom: 1px solid darkgray;
-      font-size: 14px;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-bottom: 1px solid darkgray;
+    font-size: 14px;
   }
 
 .stockNameColumn {
-    width: 150px;
+    width: 130px;
 }
 
 .positive_change {
@@ -167,10 +163,6 @@ input {
     margin-right: 10px;
 }
 
-.stockTicker {
-    width: 220px;
-}
-
 .stockOptionsDropdown {
     display: block;
     margin-top: 5px;
@@ -217,10 +209,6 @@ input {
     cursor: pointer;
 }
 
-.hide {
-    display: none;
-}
-
 .stockAlreadyInWatchlist {
     margin-left: 5px;
 }
@@ -232,3 +220,10 @@ input {
     padding: 0;
 }
 
+
+@media screen and (max-width: 1024px) {
+    .desktopColumn {
+        display: none;
+    }
+}
+ 
