@@ -85,7 +85,6 @@ export class WatchlistCustomComponent implements OnInit {
   }
 
   chooseRenderedWatchlist(): void {
-
     if (this.userEmail) {
       this.watchlist.getAllWatchlists(this.userEmail).subscribe(
         (response: any) => {
@@ -171,26 +170,32 @@ export class WatchlistCustomComponent implements OnInit {
             newStock.enterprise_value_to_ebitda = response['EVToEBITDA']
             newStock.operating_margin = response['OperatingMarginTTM']
           }
-        })
 
-        this.stockApi.getStockDailyInfo(stock).subscribe(
-          (response: any) => {
-            if (response['Global Quote'] === undefined) {
-              console.log('error making daily info call, display page ' + stock)
-              console.log(response)
-            } else {
-              newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
-              newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
-              newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
-  
-              let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
-              newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
-            }
-        })
-        newStock.id = count
-        count += 1
+          this.stockApi.getStockDailyInfo(stock).subscribe(
+            (response: any) => {
+              if (response['Global Quote'] === undefined) {
+                console.log('error making daily info call, display page ' + stock)
+                console.log(response)
+              } else {
+                newStock.price = '$' + (Math.round(Number(response['Global Quote']['05. price']) * 100) / 100).toFixed(2).toString()
+                newStock.volume = formatLargeNumber(response['Global Quote']['06. volume'])
+                newStock.days_change = String((Math.round(Number(response['Global Quote']['09. change']) * 100) / 100).toFixed(2))
+    
+                let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
+                newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
+              }
 
-        watchlist.push(newStock)
+              newStock.id = count
+              count += 1
+
+              if (newStock.name.length > 22) {
+                newStock.name = newStock.name.substring(0, 24)
+                newStock.name += '...'
+              }
+
+              watchlist.push(newStock)
+          })
+        })
     })
 
     return watchlist

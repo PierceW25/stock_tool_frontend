@@ -69,12 +69,12 @@
 
   @media screen and (max-width: 1600px) {
     .mainContentContainer {
-      width: 90%;
+      width: 97%;
     }
   }
 
   @media screen and (max-width: 1200px) {
     .mainContentContainer {
-      width: 98%;
+      width: 99%;
     }
   }

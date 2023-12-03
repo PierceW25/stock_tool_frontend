@@ -5,8 +5,8 @@
   background-color: #121212;
   color: white;
   text-align: left;
-  height: 800px;
-  margin-bottom: 50px;
+  height: 600px;
+  margin-bottom: 150px;
 }
 
 .personalNewsContainer h1 {
@@ -83,7 +83,14 @@
 }
 
 .article_image img {
-  width: 180px; /* Adjust the desired width */
-  height: 100px; /* Adjust the desired height */
+  width: 180px; /* Adjust the desired width 140 */
+  height: 100px; /* Adjust the desired height 80 */
   object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+  .article_image img {
+    width: 140px; /* Adjust the desired width 140 */
+    height: 80px; /* Adjust the desired height 80 */
+  }
 }

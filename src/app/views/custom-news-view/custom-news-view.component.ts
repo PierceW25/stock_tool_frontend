@@ -41,6 +41,7 @@ export class CustomNewsViewComponent implements OnInit {
                   title: topArticle.title,
                   url: topArticle.url
                 }
+
                   this.articles.push(formattedArticle)
               }
 

@@ -43,8 +43,12 @@
     font-size: 14px;
   }
 
-.stockNameColumn {
-    width: 130px;
+.stockTitle {
+    width: 180px;
+}
+
+.stockEditColumn {
+    width: 80px;
 }
 
 .positive_change {
@@ -106,7 +110,7 @@ input {
 }
 
 .leftOptionsContainer select {
-    width: 90px;
+    width: 110px;
     height: 30px;
     font-size: 14px;
     border: darkgrey 1px solid;
@@ -220,8 +224,13 @@ input {
     padding: 0;
 }
 
+@media screen and (max-width: 1600px) {
+    .stockEditColumn {
+        width: 40px;
+    }
+}
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
     .desktopColumn {
         display: none;
     }

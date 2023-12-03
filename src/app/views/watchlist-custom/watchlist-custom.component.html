@@ -32,15 +32,13 @@
         <table>
             <thead>
                 <tr class="tableHeaders">
-                    <th>Ticker</th>
-                    <th class="stockNameColumn">Name</th>
+                    <th class="stockTitle">Ticker</th>
                     <th class="stockEditColumn"></th>
                     <th>Price</th>
-                    <th>Change</th>
+                    <th>$ Change</th>
                     <th>% Change</th>
                     <th>Volume</th>
                     <th>Market Cap</th>
-                    <th class="desktopColumn">P/E Ratio</th>
                     <th class="desktopColumn">52 Week High</th>
                     <th class="desktopColumn">52 Week Low</th>
                     <th>Purchase $</th>
@@ -49,8 +47,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let stock of renderedWatchlist" class="tableRows">
-                    <td>{{stock.ticker}}<br></td>
-                    <td class="stockNameColumn">{{stock.name}}</td>
+                    <td class="stockTitle">{{stock.ticker}}<br />{{stock.name}}</td>
                     <td class="stockEditColumn">
                         <div class="stockOptionsDropdown">
                             <button (click)="showStockOptions(stock.id)" class="dropBtn">
@@ -74,7 +71,6 @@
                     {{stock.days_change.includes('-') ? '' : '+'}}{{stock.percent_change}}</td>
                     <td>{{stock.volume}}</td>
                     <td>{{stock.market_cap}}</td>
-                    <td class="desktopColumn">{{stock.pe_ratio}}</td>
                     <td class="desktopColumn">${{stock.fifty_two_week_high}}</td>
                     <td class="desktopColumn">${{stock.fifty_two_week_low}}</td>
                     <td>${{stock.purchase_amt}}</td>
