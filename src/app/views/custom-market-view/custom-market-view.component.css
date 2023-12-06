@@ -34,18 +34,17 @@ a {
 }
 
 .marketNewsContainer {
-    width: 65%;
-    margin-right: 10px;
+    width: 60%;
     display: flex;
     flex-direction: column;
 }
 
 .marketIndicatorsContainer {
-    width: 24%;
+    width: 20%;
     height: 450px;
     margin-top: 130px;
     padding: 50px 20px;
-    margin-left: 60%;
+    margin-left: 54%;
     display: flex;
     position: fixed;
     flex-direction: column;
@@ -71,7 +70,7 @@ a {
     width: 90%;
     font-size: 12px;
     margin-top: 5px;
-    padding: 0;
+    line-height: 1;
     font-weight: 400;
     color: lightgray;
 }
@@ -160,12 +159,11 @@ a {
 .tabContainer {
     width: 100%;
     margin: 0 auto;
-    display: hidden;
     flex-direction: column;
 }
 
 .article_display {
-    height: 180px;
+    height: 140px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -195,7 +193,114 @@ a {
 }
 
 .article_display img {
-    width: 210px;
-    height: 120px;
+    width: 170px;
+    height: 100px;
     margin-right: 10px;
+}
+
+@media screen and (max-width: 1600px) {
+    .allContentContainer {
+        width: 92%;
+    }
+
+    .marketIndicatorsContainer {
+        margin-left: 61%;
+        width: 25%;
+        height: 370px;
+    }
+
+    .marketIndicators {
+        margin: 0;
+    }
+
+    .indicator {
+        margin-bottom: 2px;
+        height: 40px;
+    }
+
+    .indicator h3 {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    .article_display img {
+        width: 160px;
+        height: 90px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .allContentContainer {
+        width: 97%;
+    }
+
+    .marketNewsContainer {
+        width: 63%;
+    }
+
+    .marketIndicatorsContainer {
+        width: 28%;
+        margin-left: 66%;
+    }
+
+    .article_display {
+        height: 120px;
+    }
+
+    .article_display h3 {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .article_display img {
+        width: 140px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .allContentContainer {
+        justify-content: center;
+    }
+
+    .marketIndicatorsContainer {
+        display: none;
+    }
+
+    .marketNewsContainer {
+        width: 88%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .marketNewsContainer {
+        width: 97%;
+    }
+
+    .article_display img {
+        width: 130px;
+        height: 80px;
+    }
+
+    .marketTabs button {
+        width: 150px;
+        height: 25px;
+        font-size: 15px;
+        font-weight: 400;
+        margin-right: 7px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .marketNewsContainer {
+        width: 99%;
+    }
+
+    .article_display img {
+        display: none;
+    }
+
+    .article_display h3 {
+        font-size: 16px;
+    }
 }
