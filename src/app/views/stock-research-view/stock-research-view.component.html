@@ -90,12 +90,9 @@
                             </div>
                         </div>
                         <div class="earningsContainer">
-                            <div class="earningsChartContainer">
-                                <app-earnings-chart 
-                                [stockSymbol]="stock.ticker" 
-                                [backgroundColor]="accentColor"
-                                [chartHeight]="earningsChartHeight"></app-earnings-chart>
-                            </div>
+                            <app-earnings-chart 
+                            [stockSymbol]="stock.ticker" 
+                            [backgroundColor]="accentColor"></app-earnings-chart>
                         </div>
                         <div class="addStockContainer">
                             <div class="stockDetailsHeader">

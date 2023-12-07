@@ -1,7 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { StockApiService } from 'src/app/services/stock-api.service';
 import { EarningsDataPoint } from 'src/app/interfaces/earningsDataPoint';
-import { Chart } from 'chart.js';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-earnings-chart',
@@ -13,7 +13,6 @@ export class EarningsChartComponent {
 
   @Input() stockSymbol: string = '';
   @Input() backgroundColor: string = '';
-  @Input() chartHeight: string = '';
 
   formattedEarnings?: EarningsDataPoint[];
   chart: any = [];
@@ -115,8 +114,8 @@ export class EarningsChartComponent {
         privateFormattedEarnings.push(thisFYQ1);
       }
 
-      if (i == 7) {
-        privateFormattedEarnings.length = 8;
+      if (privateFormattedEarnings.length >= 7) {
+        privateFormattedEarnings.length = 7;
         break;
       }
     }
