@@ -218,3 +218,21 @@ body {
 .keyMetricsOptions button:hover {
   border-bottom: 1px solid #6c6969;
 }
+
+@media screen and (max-width: 1650px) {
+  .mainContentContainer {
+    width: 95%;
+  }
+
+  .leftPanelContainer {
+    width: 50%;
+  }
+  
+  .rightPanelContainer {
+    width: 47%;
+  }
+
+  .stockOverviewDetails, .earningsContainer {
+    width: 94%;
+  }
+}
