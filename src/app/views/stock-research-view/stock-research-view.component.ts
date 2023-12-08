@@ -96,9 +96,10 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   quartersOfReports: string[] = []
   profitable: boolean = false
   revenueGrowing: boolean = false
-  displayedReports: string = 'annual'
+  displayedReports: string = 'quarterly'
 
   ngOnInit() {
+    this.renderQuarterlyData()
     this.route.queryParams.subscribe(params => {
       if (JSON.parse(params['stock']).ticker === undefined) {
         // add logic to create stock object based on symbol below, also check if this logic works
@@ -126,7 +127,6 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ran')
     if (changes['ticker'].previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(changes['ticker']?.currentValue.toUpperCase())
     } 

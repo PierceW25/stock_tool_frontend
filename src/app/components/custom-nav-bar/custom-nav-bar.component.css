@@ -105,11 +105,11 @@ input {
 
 @media screen and (max-width: 1600px) {
     .headerTitleContainer {
-        margin-left: 25px;
+        margin-left: 20px;
     }
 
     .headerLinksContainer {
-        margin-right: 25px;
+        margin-right: 20px;
     }
 
     input {
