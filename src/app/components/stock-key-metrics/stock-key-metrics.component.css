@@ -20,7 +20,6 @@
     flex-direction: column;
     background-color: #232323;
     border-radius: 8px;
-    display: none;
 }
 
 .metricDefinitionsContainer h2 {
@@ -99,4 +98,28 @@ tr {
 .dataRow:hover {
     background-color: #232B32;
     cursor: pointer;
+}
+
+td:first-child {
+    min-width: 150px;
+    position: sticky;
+    position: -webkit-sticky;
+}
+
+td:nth-child(2), 
+td:nth-child(3), 
+td:nth-child(4), 
+td:nth-child(5), 
+td:nth-child(6), 
+td:nth-child(7), 
+td:nth-child(8) {
+    min-width: 75px;
+    max-width: 75px;
+}
+ 
+@media screen and (max-width: 1400px) {
+    .stockTitleAndTableContainer {
+        width: 750px;
+        overflow-x: scroll;
+    }
 }
