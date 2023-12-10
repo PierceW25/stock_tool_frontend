@@ -288,6 +288,14 @@ body {
     width: 52%;
   }
 
+  .stockChartContainer {
+    margin-top: -30px;
+  }
+
+  .stockInfoContainer {
+    margin-top: 20px;
+  }
+
   .overviewDetailsContainer {
     grid-template-columns: repeat(3, 1.5fr);
   }
@@ -320,8 +328,10 @@ body {
     padding-top: 8px;
     padding-bottom: 8px;
   }
-  
-  /* .desktopContentContainer {
+}
+
+@media screen and (max-width: 900px) {
+  .desktopContentContainer {
     flex-direction: column;
     align-items: center;
   }
@@ -330,12 +340,17 @@ body {
     width: 80%;
   }
 
+  .stockChartContainer {
+    margin-top: -40px;
+  }
+
   .rightPanelContainer {
-    width: 75%;
+    width: 80%;
   }
 
   .keyMetricsContainer {
     width: 90%;
+    margin-top: 50px;
   }
 
   .keyMetricsTitleContainer {
@@ -344,5 +359,58 @@ body {
 
   .stockOverviewDetails, .earningsContainer, .addStockContainer {
     width: 90%;
-  } */
+  }
+
+  .overviewDetailsContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .leftPanelContainer {
+    width: 98%;
+  }
+
+  .rightPanelContainer {
+    width: 98%;
+  }
+
+  .keyMetricsContainer {
+    width: 98%;
+  }
+
+  .stockOverviewDetails, .earningsContainer, .addStockContainer {
+    width: 98%;
+  }
+
+  .overviewDetailsContainer h3 {
+    font-size: 14px;
+  }
+
+  .stockInfoContainer {
+    margin-top: 50px;
+  }
+
+  .stockDetailsHeader h2 {
+    font-size: 16px;
+  }
+  
+  .stockDetailsItem {
+    font-size: 14px;
+  }
+
+  .keyMetricsTitleContainer {
+    width: 100%;
+  }
+
+  .keyMetricsOptions button {
+    width: 70px;
+    margin-left: 8px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .overviewDetailsContainer {
+    grid-template-columns: repeat(3, 1.5fr);
+  } 
 }

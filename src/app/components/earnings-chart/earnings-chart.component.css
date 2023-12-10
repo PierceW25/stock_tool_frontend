@@ -21,3 +21,9 @@
     height: 180px;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .earningsHeader h2 {
+    font-size: 16px;
+  }
+}

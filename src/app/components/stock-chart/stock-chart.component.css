@@ -56,3 +56,15 @@ canvas#canvas {
   color: lightcoral;
   font-size: 15px;
 }
+
+
+@media screen and (max-width: 700px) {
+  .stockTextInfo {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .positive_change, .negative_change {
+    font-size: 14px;
+  }
+}

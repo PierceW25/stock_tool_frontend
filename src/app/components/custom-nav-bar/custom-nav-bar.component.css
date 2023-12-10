@@ -31,13 +31,13 @@ input {
     display: flex;
     align-items: center;
     margin-left: 120px;
+    margin-top: 5px;
 }
 
 .headerTitleContainer img {
     width: 50px;
     height: 50px;
     margin-right: -3px;
-    margin-bottom: 8px;
 }
 
 .headerTitleContainer a {
@@ -124,5 +124,39 @@ input {
 
     .headerLinksContainer {
         margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .headerBarContainer {
+        height: 55px;
+    }
+
+    .headerTitleContainer img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .headerTitleContainer img:hover {
+        filter: hue-rotate(-10deg);
+        cursor: pointer;
+    }
+    
+    .headerTitle {
+        display: none;
+    }
+    
+    .headerLinksContainer a {
+        font-size: 16px;
+    }
+
+    input {
+        width: 180px;
+    }
+
+    .registerBtn, .loginBtn {
+        width: 70px;
+        height: 25px;
+        margin-top: 5px;
     }
 }
