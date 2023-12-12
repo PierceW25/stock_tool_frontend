@@ -1,3 +1,4 @@
+
 .indexContentContainer {
     display: flex;
     flex-direction: row;
@@ -89,6 +90,10 @@
     font-size: 14px;
 }
 
+.mediumScreenContainer {
+    display: none;
+}
+
 .smallScreenContainer {
     display: none;
 }
@@ -159,18 +164,18 @@
         width: 100%;
     }
 
-    .smallScreenContainer {
+    .mediumScreenContainer {
         display:flex;
         flex-direction: column;
         height: 250px;
         overflow-y: scroll;
     }
 
-    .smallScreenContainer .indexDailyDisplay {
+    .mediumScreenContainer .indexDailyDisplay {
         width: 100%;
     }
 
-    .smallScreenIndexesList {
+    .mediumScreenIndexesList {
         width: 87%;
         margin-top: 50px;
     }
@@ -179,70 +184,62 @@
         display: none;
     }
 }
-/*
-previous state
 
-.indexListContainer {
-    width: 510px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 450px;
-}
+@media screen and (max-width: 700px) {
+    .indexContentContainer {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 1px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid darkgrey;
+        height: 650px;
+    }
+    
+    .chartContainer {
+        color: white;
+        width: 85%;
+    }
+    
+    .indexListContainer {
+        width: 80%;
+        margin-top: 10px;
+        align-items: center;
+    }
+    
+    .indexDailyDisplay {
+        background-color: #121212;
+        color: white;
+        border: 1px solid darkgrey;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 170px;
+        margin-right: 5px;
+        margin-top: 10px;
+        height: 55px;
+    }
 
-.indexListContainer h1 {
-    color: white;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 0;
-}
+    .normalScreenContainer {
+        display: none;
+    }
+    
+    .mediumScreenContainer {
+        display: none;
+    }
 
-.dailyDataButtonsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 92%;
-    height: 450px;
-}
+    .smallScreenIndexesList {
+        width: 100%;
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+    }
 
-.titleContainer {
-    text-align: left;
+    .smallScreenContainer {
+        display: flex;
+        width: 100%;
+    }
 }
-
-.priceActionContainer {
-    line-height: 10px;
-    padding: 0px;
-    margin-top: 10px;
-}
-
-.indexDailyDisplay {
-    background-color: #121212;
-    color: white;
-    border: 1px solid darkgrey;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 230px;
-    margin-top: 10px;
-    height: 70px;
-}
-
-.indexDailyDisplay:hover {
-    background-color: #232B32;
-    cursor: pointer;
-}
-
-.indexDailyDisplay::after {
-    background-color: #232B32;
-}
-
-.positive_change {
-    color: lightgreen;
-}
-
-.negative_change {
-    color: lightcoral;
-}
-*/

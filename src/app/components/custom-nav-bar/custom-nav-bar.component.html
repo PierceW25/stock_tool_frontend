@@ -17,8 +17,8 @@
             </datalist>
         </div>
         <a routerLink="news" (click)="goToBroadMarketView()">Market</a>
-        <button *ngIf="userEmail == ''" class="loginBtn" (click)="login()">Log in</button>
-        <button *ngIf="userEmail == ''" class="registerBtn" (click)="register()">Sign up</button>
-        <a *ngIf="userEmail != ''" routerLink="account" (click)="goToAccount()">Account</a>
+        <button *ngIf="userEmail == ''" class="loginBtn desktopLink" (click)="login()">Log in</button>
+        <button *ngIf="userEmail == ''" class="registerBtn desktopLink" (click)="register()">Sign up</button>
+        <a *ngIf="userEmail != '' || screenWidth <= 700" routerLink="account" (click)="goToAccount()">Account</a>
     </div>
 </div>

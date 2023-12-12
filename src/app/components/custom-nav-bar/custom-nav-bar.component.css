@@ -3,8 +3,10 @@
     justify-content: space-between;
     align-items: center;
     background-color: #121212;
-    z-index: 10;
+    z-index: 1;
     color: white;
+    position: fixed;
+    width: 100%;
     border-bottom: 1px solid darkgray;
     height: 70px;
 }
@@ -31,7 +33,6 @@ input {
     display: flex;
     align-items: center;
     margin-left: 120px;
-    margin-top: 5px;
 }
 
 .headerTitleContainer img {
@@ -44,6 +45,7 @@ input {
     font-size: 23px;
     color: rgb(70, 216, 70);
     text-decoration: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 .headerTitleContainer a:hover {
@@ -59,9 +61,11 @@ input {
 .headerLinksContainer a {
     color: white;
     text-decoration: none;
-    margin-top: 6px;
     margin-right: 8px;
+    margin-top: 8px;
     font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
 }
 
 .headerLinksContainer a:hover {
@@ -79,6 +83,7 @@ input {
     color: white;
     cursor: pointer;
     margin-right: 5px;
+    -webkit-font-smoothing: antialiased;
 }
 
 .loginBtn:hover {
@@ -96,6 +101,7 @@ input {
     font-weight: 500;
     color: white;
     cursor: pointer;
+    -webkit-font-smoothing: antialiased;
 }
 
 .registerBtn:hover {
@@ -128,13 +134,25 @@ input {
 }
 
 @media screen and (max-width: 700px) {
+    .headerTitleContainer {
+        margin-left: 2px;
+    }
+
+    .headerLinksContainer {
+        margin-right: 2px;
+    }
+
+    .headerLinksContainer a {
+        font-size: 14px;
+    }
+
     .headerBarContainer {
         height: 55px;
     }
 
     .headerTitleContainer img {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
     }
 
     .headerTitleContainer img:hover {
@@ -145,18 +163,23 @@ input {
     .headerTitle {
         display: none;
     }
-    
-    .headerLinksContainer a {
-        font-size: 16px;
-    }
 
     input {
         width: 180px;
     }
 
-    .registerBtn, .loginBtn {
-        width: 70px;
-        height: 25px;
-        margin-top: 5px;
+    .desktopLink {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    input {
+        width: 140px;
+        font-size: 14px;
+    }
+
+    .headerLinksContainer {
+        margin-right: 5px;
     }
 }

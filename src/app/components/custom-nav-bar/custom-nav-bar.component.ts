@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StockApiService } from '../../services/stock-api.service';
 import { Router } from '@angular/router';
 import { FetchArticlesService } from '../../services/fetch-articles.service';
@@ -10,7 +10,7 @@ import { MarketIndicatorsService } from 'src/app/services/market-indicators.serv
   templateUrl: './custom-nav-bar.component.html',
   styleUrls: ['./custom-nav-bar.component.css']
 })
-export class CustomNavBarComponent {
+export class CustomNavBarComponent implements OnInit {
   constructor(private stockApi: StockApiService, 
     private route: Router, 
     private fetchArticles: FetchArticlesService,
@@ -21,6 +21,7 @@ export class CustomNavBarComponent {
   errorText: boolean = false
 
   userEmail = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ''
+  screenWidth: number = 0
 
   defaultValues = {
     name: '-',
@@ -44,6 +45,10 @@ export class CustomNavBarComponent {
     operating_margin: '-',
     percent_of_purchase: 10.00,
     purchase_amt: 0
+  }
+
+  ngOnInit(): void {
+      this.screenWidth = window.innerWidth
   }
 
 
