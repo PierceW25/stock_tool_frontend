@@ -41,6 +41,11 @@ export class CustomNewsViewComponent implements OnInit {
                   title: topArticle.title,
                   url: topArticle.url
                 }
+                if (formattedArticle.title.length > 195) {
+                  console.log('done')
+                  formattedArticle.title = formattedArticle.title.substring(0, 190)
+                  formattedArticle.title += '...'
+                }
 
                   this.articles.push(formattedArticle)
               }

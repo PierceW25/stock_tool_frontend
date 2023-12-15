@@ -22,32 +22,26 @@
                 </div>
             </div>   
         </div>
-        <div class="watchlistRightOptionsContainer">
-            <div class="stockPurchaseAmtContainer">
-                <label>Investment</label>
-                <input type="text" placeholder="0" [value]="amountToInvest" (keyup)="onEditAmountToInvest($event)">
-            </div>
-        </div>
     </div>
         <table>
             <thead>
                 <tr class="tableHeaders">
-                    <th class="stockTitle">Ticker</th>
+                    <th class="stockTitle">Stock</th>
                     <th class="stockEditColumn"></th>
                     <th>Price</th>
-                    <th>$ Change</th>
+                    <th class="tabletColumn">$ Change</th>
                     <th>% Change</th>
-                    <th>Volume</th>
+                    <th class="tabletColumn">Volume</th>
                     <th>Market Cap</th>
+                    <th class="laptopColumn">P/E Ratio</th>
+                    <th class="laptopColumn">Dividend Yield</th>
                     <th class="desktopColumn">52 Week High</th>
                     <th class="desktopColumn">52 Week Low</th>
-                    <th>Purchase $</th>
-                    <th>Purchase %</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let stock of renderedWatchlist" class="tableRows">
-                    <td class="stockTitle">{{stock.ticker}}<br />{{stock.name}}</td>
+                    <td class="stockTitle">{{stock.ticker}}<span class="stockFullname"><br />{{stock.name}}</span></td>
                     <td class="stockEditColumn">
                         <div class="stockOptionsDropdown">
                             <button (click)="showStockOptions(stock.id)" class="dropBtn">
@@ -61,7 +55,7 @@
                         </div>
                     </td>
                     <td>{{stock.price}}</td>
-                    <td [ngClass]="{
+                    <td class="tabletColumn" [ngClass]="{
                         'positive_change': !stock.days_change.includes('-'),
                         'negative_change': stock.days_change.includes('-')}">
                         {{stock.days_change.includes('-') ? '-' : '+'}}${{stock.days_change.replace('-', '')}}</td>
@@ -69,14 +63,12 @@
                         'positive_change': !stock.days_change.includes('-'),
                         'negative_change': stock.days_change.includes('-')}">
                     {{stock.days_change.includes('-') ? '' : '+'}}{{stock.percent_change}}</td>
-                    <td>{{stock.volume}}</td>
+                    <td class="tabletColumn">{{stock.volume}}</td>
                     <td>{{stock.market_cap}}</td>
+                    <td class="laptopColumn">{{stock.pe_ratio}}</td>
+                    <td class="laptopColumn">{{stock.dividend_yield}}</td>
                     <td class="desktopColumn">${{stock.fifty_two_week_high}}</td>
                     <td class="desktopColumn">${{stock.fifty_two_week_low}}</td>
-                    <td>${{stock.purchase_amt}}</td>
-                    <td class="lastColumn">
-                        <input type="text" placeholder="10%" [value]="stock.percent_of_purchase" (keyup)="onEditPercentOfPurchase($event, stock)">
-                    </td>
                 </tr>
             </tbody>
         </table>

@@ -228,11 +228,53 @@ input {
     .stockEditColumn {
         width: 40px;
     }
+
+    table {
+        height: 550px;
+    }
 }
 
 @media screen and (max-width: 1200px) {
     .desktopColumn {
         display: none;
+    }
+
+    table {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .stockTitle {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .stockFullname, .laptopColumn {
+        display: none;
+    }
+
+    table {
+        height: 400px;
+    }
+
+    .stockTitle {
+        width: 40px;
+    }
+
+    .stockEditColumn {
+        width: 60px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .tabletColumn {
+        display: none;
+    }
+
+    table {
+        height: 300px;
     }
 }
  

@@ -191,21 +191,28 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin-top: 1px;
-        margin-bottom: 5px;
+        margin-bottom: 0px;
+        padding-bottom: 50px;
         border-bottom: 1px solid darkgrey;
-        height: 650px;
+        height: min-content;
     }
     
     .chartContainer {
         color: white;
-        width: 85%;
+        width: 90%;
+        margin-top: -20px;
     }
     
     .indexListContainer {
-        width: 80%;
+        width: 90%;
         margin-top: 10px;
-        align-items: center;
+        height: min-content;
+        align-items: flex-start;
+    }
+
+    .indexListContainer h1 {
+        font-size: 19px;
+        font-weight: 500;
     }
     
     .indexDailyDisplay {
@@ -216,7 +223,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        min-width: 170px;
+        min-width: 160px;
         margin-right: 5px;
         margin-top: 10px;
         height: 55px;
@@ -241,5 +248,21 @@
     .smallScreenContainer {
         display: flex;
         width: 100%;
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .chartContainer {
+        width: 95%;
+    }
+
+    .indexListContainer {
+        width: 95%;
+    }
+
+    .indexDailyDisplay {
+        min-width: 153px;
+        height: 45px;
     }
 }
