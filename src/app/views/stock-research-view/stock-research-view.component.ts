@@ -98,6 +98,14 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   revenueGrowing: boolean = false
   displayedReports: string = 'quarterly'
 
+  /* Description text variables */
+  shortDesc = ''
+  restOfDesc = ''
+  firstDescTrim = /[^.]*/
+  secondDescTrim = /[^.]*.[^.]*/
+  thirdDescTrim = /[^.]*.[^.]*.[^.]*/
+  showFullDesc = false
+
   ngOnInit() {
     this.renderQuarterlyData()
     this.route.queryParams.subscribe(params => {
@@ -113,6 +121,11 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
         } else {
           this.stock.days_change = '$' + this.stock.days_change
         }
+
+        let tempDesc = this.stock.description.match(this.firstDescTrim) || ''
+        let tempDesc2 = this.stock.description.match(this.secondDescTrim) || ''
+        let tempDesc3 = this.stock.description.match(this.thirdDescTrim) || ''
+        console.log(tempDesc[0])
       }
       this.getFinancialStatementsData(this.stock.ticker)
       if (this.userEmail) {
@@ -176,6 +189,11 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
               newStock.percent_change = Math.round(percent_manip * 100) / 100 + '%'
             }
             this.accentColor = newStock.days_change.includes('-') ? '255, 0, 0' : '0, 255, 0'
+
+            let tempDesc = newStock.description.match(this.firstDescTrim) || ''
+            let tempDesc2 = newStock.description.match(this.secondDescTrim) || ''
+            let tempDesc3 = newStock.description.match(this.thirdDescTrim) || ''
+            console.log(tempDesc[0])
           })
       })
     
@@ -640,5 +658,9 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
 
   renderQuarterlyData() {
     this.displayedReports = 'quarterly'
+  }
+
+  toggleDesc() {
+
   }
 }

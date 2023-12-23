@@ -15,9 +15,23 @@ export class CustomNewsViewComponent implements OnInit {
   email: string = '-'
   defaultStocks = ["AAPL", "MSFT", "TM", "KO", "NVDA", "TSLA", "F", "MCD", "WMT"]
   articles: Article[] = []
+  screenWidth: number = window.innerWidth
+  titleCharactersMax = 147
 
   ngOnInit() {
     this.email = sessionStorage.getItem('email') || '-'
+    
+    switch (true) {
+      case this.screenWidth > 1900:
+        this.titleCharactersMax = 147
+        break
+      case this.screenWidth >= 768:
+        this.titleCharactersMax = 120
+        break
+      default:
+        this.titleCharactersMax = 70
+        break
+    }
 
     this.articlesService.getCustomArticles(this.email).subscribe({
       next: (response: any) => {
@@ -40,11 +54,6 @@ export class CustomNewsViewComponent implements OnInit {
                   time_published: topArticle.time_published,
                   title: topArticle.title,
                   url: topArticle.url
-                }
-                if (formattedArticle.title.length > 195) {
-                  console.log('done')
-                  formattedArticle.title = formattedArticle.title.substring(0, 190)
-                  formattedArticle.title += '...'
                 }
 
                   this.articles.push(formattedArticle)

@@ -13,10 +13,28 @@ export class CustomMarketViewComponent implements OnInit {
 
   articles: articleContainer = { macros: [], fiscals: [], monetaries: [] }
   marketIndicators: MarketIndicator[] = []
+  screenWidth: number = 0
+  titleCharactersMax: number = 147
 
   ngOnInit(): void {
     let newsArticles: string | null = this.route.snapshot.queryParamMap.get('articles')
     let marketIndicators: string | null = this.route.snapshot.queryParamMap.get('indicators')
+    this.screenWidth = window.innerWidth
+
+    switch (true) {
+      case this.screenWidth > 1900:
+        this.titleCharactersMax = 147
+        break
+      case this.screenWidth > 768:
+        this.titleCharactersMax = 120
+        break
+      case this.screenWidth > 500:
+        this.titleCharactersMax = 90
+        break
+      default:
+        this.titleCharactersMax = 70
+        break
+    }
 
     if (newsArticles != null) {
       this.articles.macros = JSON.parse(newsArticles).macros

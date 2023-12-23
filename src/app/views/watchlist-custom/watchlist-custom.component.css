@@ -269,6 +269,14 @@ input {
 }
 
 @media screen and (max-width: 500px) {
+    .topWatchlistContainer {
+        width: 95%;
+    }
+
+    .stockEditColumn {
+        width: 45px;
+    }
+    
     .tabletColumn {
         display: none;
     }
