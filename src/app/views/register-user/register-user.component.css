@@ -50,15 +50,15 @@ body {
 }
 
 .logoContainer img {
-    width: 150px;
-    height: 150px;
-    margin-left: -20px;
+    width: 120px;
+    height: 120px;
+    margin-left: -15px;
     margin-right: -15px;
-    margin-bottom: -30px;
+    margin-bottom: -23px;
 }
 
 .titleContainer h1 {
-    font-size: 44px;
+    font-size: 38px;
     font-weight: 400;
     color: rgb(70, 216, 70);
 }
@@ -145,6 +145,7 @@ input[data-autocompleted] {
 .halfPageStylishContainer .researchPic {
     width: 100%;
     height: 65%;
+    padding-top: 25px;
 }
 
 .halfPageStylishContainer .watchlistPic {
@@ -161,4 +162,36 @@ input[data-autocompleted] {
 
 .registerUserButtonContainer a:hover {
     color: rgb(70, 216, 70);
+}
+
+@media screen and (max-width: 1600px) {
+    .registrationFormContainer {
+        width: 35%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .halfPageStylishContainer {
+        width: 65%;
+        height: 100%;
+        background-color: #121212;
+        overflow: hidden;
+    }
+
+    .researchPic {
+        padding-top: 25px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .registrationFormContainer {
+        width: 100%;
+    }
+
+    .halfPageStylishContainer {
+        display: none;
+    }
 }
