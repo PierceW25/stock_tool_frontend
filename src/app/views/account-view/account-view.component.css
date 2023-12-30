@@ -9,7 +9,7 @@ body {
 .accountInfoContainer {
     width: 85%;
     margin: 0 auto;
-    margin-top: 100px;
+    padding-top: 100px;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -233,4 +233,8 @@ body {
     padding: 0;
     font-size: 14px;
     font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+    
 }
