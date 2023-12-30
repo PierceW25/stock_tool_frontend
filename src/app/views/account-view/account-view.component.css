@@ -3,6 +3,7 @@ body {
     -webkit-font-smoothing: antialiased;
     background-color: #121212;
     height: 100vh;
+    width: 100%;
     color: white;
 }
 
@@ -142,10 +143,6 @@ body {
     margin-bottom: -5px;
 }
 
-.positionedWatchlist {
-    margin-left: 35px;
-}
-
 .editButton {
     background-color: transparent;
     color: white;
@@ -236,5 +233,80 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .accountInfoHeader h1 {
+        font-size: 22px;
+    }
+
+    .accountInfoItem h3, .passwordContainer h3 {
+        font-size: 16px;
+        margin-right: 6px;
+    }
     
+    .watchlistsHeader h2 {
+        font-size: 18px;
+    }
+
+    .watchlistValues p {
+        font-size: 14px;
+    }
+
+    .watchlistTitle input {
+        padding: 2px;
+    }
+
+    .accountInfoContainer {
+        padding-top: 80px;
+        width: 100%;
+    }
+
+    .watchlist input {
+        width: 120px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .watchlistsContainer {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        margin-top: -12px;
+    }
+
+    .watchlist input {
+        width: 100%;
+        font-size: 18px;
+        margin-left: 0;
+        margin-top: 14px;
+    }
+
+    .watchlistValues p {
+        font-size: 16px;
+    }
+
+    .accountInfoFooter {
+        margin-top: 12px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .accountInfoFooter .deleteAccountButton, .logoutButton {
+        background-color: #232323;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 15px;
+        font-size: 17px;
+        margin-left: 0px;
+    }
+
+    .accountInfoFooter button {
+        width: 270px;
+        margin-bottom: 10px;
+        margin-left: 0px;
+    }
 }

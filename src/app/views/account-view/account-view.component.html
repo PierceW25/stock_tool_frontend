@@ -78,12 +78,12 @@
             </div>
         </div>
         <div class="accountInfoFooter">
-            <button class="deleteAccountButton" (click)="deleteAccount()">Delete Account</button>
-            <button class="logoutButton" (click)="logout()">Logout</button>
             <button class="saveChangesButton" 
             (click)="saveChanges()" 
             [disabled]="saveChangesDisabled"
             >Save Changes</button>
+            <button class="logoutButton" (click)="logout()">Logout</button>
+            <button class="deleteAccountButton" (click)="deleteAccount()">Delete Account</button>
         </div>
         <div [@myInsertRemoveTrigger] *ngIf="saveChangesSuccessful" class="changesSavedMessage">
             <p>Changes Saved</p>
