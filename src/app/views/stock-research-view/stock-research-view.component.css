@@ -37,6 +37,19 @@ body {
   width: 100%;
 }
 
+.summaryContainer button {
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0;
+}
+
+.summaryContainer button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .stockDetailsHeader {
   margin-bottom: 8px;
   width: 100%;

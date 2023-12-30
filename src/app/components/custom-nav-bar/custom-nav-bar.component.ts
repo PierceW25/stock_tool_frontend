@@ -31,6 +31,8 @@ export class CustomNavBarComponent implements OnInit {
     days_change: '-',
     percent_change: '-',
     volume: '-',
+    shortDesc: '-',
+    fullDesc: '-',
     description: '-',
     fiscalYearEnd: '-',
     market_cap: '-',
@@ -46,6 +48,9 @@ export class CustomNavBarComponent implements OnInit {
     percent_of_purchase: 10.00,
     purchase_amt: 0
   }
+  firstDescTrim = /[^.]*/
+  secondDescTrim = /[^.]*.[^.]*/
+  thirdDescTrim = /[^.]*.[^.]*.[^.]*/
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth
@@ -153,12 +158,27 @@ export class CustomNavBarComponent implements OnInit {
                 let percent_manip = Number(response['Global Quote']['10. change percent'].split('%').join(''))
                 newStock.percent_change = (Math.round(percent_manip * 100) / 100).toFixed(2) + '%'
               }
-              
-              if (path === 'research') {
-                this.route.navigate(['research', ticker], { queryParams: { stock: JSON.stringify(newStock) }})
-              } else if (path === 'analysis') {
-                this.route.navigate(['analysis'], { queryParams: { stock: JSON.stringify(newStock) }})
+
+              let tempDesc = newStock.description.match(this.firstDescTrim) || ''
+              let tempDesc2 = newStock.description.match(this.secondDescTrim) || ''
+              let tempDesc3 = newStock.description.match(this.thirdDescTrim) || ''
+
+              switch (true) {
+                case tempDesc[0].length > 50:
+                  newStock.shortDesc = tempDesc[0]
+                  newStock.fullDesc = newStock.description.substring(tempDesc[0].length + 1)
+                  break
+                case tempDesc2[0].length > 50:
+                  newStock.shortDesc = tempDesc2[0]
+                  newStock.fullDesc = newStock.description.substring(tempDesc2[0].length + 1)
+                  break
+                default:
+                  newStock.shortDesc = tempDesc3[0]
+                  newStock.fullDesc = newStock.description.substring(tempDesc3[0].length + 1)
+                  break
               }
+
+              this.route.navigate(['research', ticker], { queryParams: { stock: JSON.stringify(newStock) }})
             })
         }
       })

@@ -27,8 +27,18 @@
                             <h2>Summary</h2>
                         </div>
                         <div class="summaryContainer">
-                            <p>{{stock.description}}</p>
-                            <button (click)="toggleDesc()">Show More</button>
+                            <p *ngIf="accentColor != ''">
+                                <span *ngIf="!showDescOption">{{stock.description}}</span>
+                                <span *ngIf="showDescOption">{{stock.shortDesc}}.</span>
+                                <span *ngIf="showFullDesc && showDescOption">{{stock.fullDesc}}</span>
+                                <button
+                                [ngStyle]="{'color': 'rgba(' + accentColor + ')'}"
+                                *ngIf="showDescOption" 
+                                (click)="toggleDesc()">Show 
+                                    <span *ngIf="!showFullDesc">More</span>
+                                    <span *ngIf="showFullDesc">Less</span>
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -49,6 +49,8 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   stock = {
     ticker: '-',
     name: '-',
+    shortDesc: '-',
+    fullDesc: '-',
     description: '-',
     fiscalYearEnd: '-',
     price: '-',
@@ -99,12 +101,13 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   displayedReports: string = 'quarterly'
 
   /* Description text variables */
-  shortDesc = ''
-  restOfDesc = ''
+  shortDesc: any
+  restOfDesc: any
   firstDescTrim = /[^.]*/
   secondDescTrim = /[^.]*.[^.]*/
   thirdDescTrim = /[^.]*.[^.]*.[^.]*/
   showFullDesc = false
+  showDescOption = true
 
   ngOnInit() {
     this.renderQuarterlyData()
@@ -122,10 +125,11 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
           this.stock.days_change = '$' + this.stock.days_change
         }
 
-        let tempDesc = this.stock.description.match(this.firstDescTrim) || ''
-        let tempDesc2 = this.stock.description.match(this.secondDescTrim) || ''
-        let tempDesc3 = this.stock.description.match(this.thirdDescTrim) || ''
-        console.log(tempDesc[0])
+        this.showFullDesc = false
+        this.showDescOption = true
+        if (this.stock.description.length < 100) {
+          this.showDescOption = false
+        }
       }
       this.getFinancialStatementsData(this.stock.ticker)
       if (this.userEmail) {
@@ -140,6 +144,7 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes')
     if (changes['ticker'].previousValue != undefined && changes['ticker']?.currentValue != changes['ticker']?.previousValue) {
       this.stockAlreadyInWatchlist = this.usersWatchlists.watchlist_one.includes(changes['ticker']?.currentValue.toUpperCase())
     } 
@@ -193,7 +198,21 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
             let tempDesc = newStock.description.match(this.firstDescTrim) || ''
             let tempDesc2 = newStock.description.match(this.secondDescTrim) || ''
             let tempDesc3 = newStock.description.match(this.thirdDescTrim) || ''
-            console.log(tempDesc[0])
+
+            switch (true) {
+              case tempDesc[0].length > 15:
+                this.shortDesc = tempDesc[0]
+                this.restOfDesc = this.stock.description.substring(tempDesc[0].length + 1)
+                break
+              case tempDesc2[0].length > 15:
+                this.shortDesc = tempDesc2[0]
+                this.restOfDesc = this.stock.description.substring(tempDesc2[0].length + 1)
+                break
+              default:
+                this.shortDesc = tempDesc3[0]
+                this.restOfDesc = this.stock.description.substring(tempDesc3[0].length + 1)
+                break
+            }
           })
       })
     
@@ -661,6 +680,6 @@ export class StockResearchViewComponent implements OnInit, OnChanges {
   }
 
   toggleDesc() {
-
+    this.showFullDesc = !this.showFullDesc
   }
 }
