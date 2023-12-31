@@ -37,6 +37,14 @@ body {
   width: 100%;
 }
 
+.stockSummaryContainer {
+  width: 100%;
+}
+
+.summaryContainer {
+  margin-top: -10px;
+}
+
 .summaryContainer button {
   background-color: transparent;
   border: none;
