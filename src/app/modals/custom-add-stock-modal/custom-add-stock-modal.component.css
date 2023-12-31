@@ -116,3 +116,12 @@ section {
   background-color: #232323;
   text-align: left;
 }
+
+@media screen and (max-width: 550px) {
+  section {
+    > div {
+      height: 180px;
+      width: 250px;
+    }
+  }
+}
