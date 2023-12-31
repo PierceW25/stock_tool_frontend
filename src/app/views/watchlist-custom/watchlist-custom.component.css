@@ -34,11 +34,10 @@
   }
 
   tbody::-webkit-scrollbar {
-    width: 15px;
-  
+    width: 2px;
   }
   tbody::-webkit-scrollbar-track {
-    background: #121212;
+    background: #434141;
     border-radius: 10px;
   }
   
@@ -219,12 +218,6 @@ input {
 
     table {
         height: 470px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .stockTitle {
-        width: 150px;
     }
 }
 

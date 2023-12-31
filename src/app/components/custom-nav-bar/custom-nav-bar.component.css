@@ -160,8 +160,8 @@ input {
         cursor: pointer;
     }
     
-    .headerTitle {
-        display: none;
+    .headerTitle a {
+        font-size: 18px;
     }
 
     input {
@@ -179,7 +179,11 @@ input {
         font-size: 14px;
     }
 
-    .headerLinksContainer {
+    .headerTitle {
+        display: none;
+    }
+
+    .headerLinksContainer a {
         margin-right: 5px;
     }
 }
